@@ -13,7 +13,7 @@ class MainComponentsRegistry
  public:
   // Adapt it to the package you used for your Java class.
   constexpr static auto kJavaDescriptor =
-      "Lcom/serratec/newarchitecture/components/MainComponentsRegistry;";
+      "Lcom/app_residencia_01/newarchitecture/components/MainComponentsRegistry;";
 
   static void registerNatives();
 
