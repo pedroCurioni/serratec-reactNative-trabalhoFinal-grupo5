@@ -1,6 +1,6 @@
 import React, {useState, useContext} from 'react';
 import {View, StyleSheet, Alert, ActivityIndicator} from 'react-native';
-import {Text, Input, Icon, Button} from 'react-native-elements';
+import {Text, Input, Button, Image} from 'react-native-elements';
 import { AuthContext } from '../../context/AuthContext';
 
 const Login = ({navigation}:any) => {
@@ -28,23 +28,25 @@ const Login = ({navigation}:any) => {
     }
   }
 
+  const handleCadastro = () => {
+    navigation.navigate('CadastroCliente');
+  }
+
+  const handleSenha = () => { 
+    navigation.navigate('RecuperarSenha');
+  }
+
   return (
-    <View style={styles.container}>
-      <Text style={styles.titulo}>{'Você está no'}</Text>
+    <View style={styles.body}>
+      <View style={styles.containerApresentacao}>
+        <Text style={styles.titulo}>{'Você está no'}</Text>
+        <Image source={require('../../assets/logo.png')} style={styles.image}/>
+      </View>
       <Input 
-        placeholder="E-mail"
+        placeholder="Email"
         onChangeText={setEmail}
         inputContainerStyle={styles.inputContainer}
         value={email}
-        leftIcon={
-          <Icon 
-            name="user" 
-            color="#a49595" 
-            type="font-awesome" 
-            size={24}
-            containerStyle={styles.iconContainer2}
-            />
-        }
         placeholderTextColor={'#a49595'}
       />
       <Input
@@ -53,66 +55,106 @@ const Login = ({navigation}:any) => {
         onChangeText={setSenha}
         inputContainerStyle={styles.inputContainer}
         value={senha}
-        leftIcon={
-          <Icon 
-            name="key" 
-            color="#a49595" 
-            type="font-awesome" 
-            size={24}
-            containerStyle={styles.iconContainer}
-            />
-        }
         placeholderTextColor={'#a295a4'}
       />
+      <View style={styles.containerButtons}>
+      {isLoading === false ? <Button 
+        buttonStyle={styles.button2} 
+        title="Cadastrar"
+        titleStyle={styles.buttonTitle2} 
+        onPress={() => {handleCadastro()}} 
+        /> : <ActivityIndicator size="large" color="#fff"/>}
+      
       {isLoading === false ? <Button 
         buttonStyle={styles.button} 
         title="Login"
         titleStyle={styles.buttonTitle} 
         onPress={() => {handleLogin(email,senha); setLoading(true)}} 
         /> : <ActivityIndicator size="large" color="#fff"/>}
+      </View>
+      <Button 
+        buttonStyle={styles.button3} 
+        title="Esqueci minha senha"
+        titleStyle={styles.buttonTitle3} 
+        onPress={() => {handleSenha()}} 
+        />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
+  body: {
     flex: 1,
     backgroundColor:'#fff',
     padding: 16,
     alignItems: 'stretch',
     justifyContent: 'center'
   },
+  containerApresentacao: {
+    alignItems: 'center',
+    margin: 10,
+  },
   titulo: {
     color: '#000',
     textAlign: 'center',
-    fontSize: 40,
+    fontSize: 26,
     fontWeight: 'bold',
-    marginBottom: 70
+  },
+  image: {
+    width: 180,
+    height: 180,
+    marginBottom: 20,
   },
   inputContainer:{
-    backgroundColor:'#fff',
-    padding: 5,
+    padding: 2,
+    backgroundColor: '#fff',
+    borderWidth: 1,
+    borderStyle: 'solid',
+    borderColor: '#cfcfcf',
     borderRadius: 10,
     margin: -8
   },
-  iconContainer:{
-    padding: 10
-    
-  },
-  iconContainer2:{
-    backgroundColor:'#fff',
-    padding: 10,
-    marginRight: 5
+  containerButtons: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '100%'
   },
   button: {
     backgroundColor:'#EE4249',
     borderRadius: 10,
+    padding: 10,
+    width: 180,
+    borderWidth: 3,
+    borderStyle: 'solid',
+    borderColor: '#EE4249',
+  },
+  button2: {
+    backgroundColor:'#fff',
+    borderRadius: 10,
+    padding: 10,
+    width: 180,
+    borderWidth: 3,
+    borderStyle: 'solid',
+    borderColor: '#EE4249',
+  },
+  button3: {
+    backgroundColor:'#fff',
+    borderRadius: 10,
     padding: 18,
-    marginTop: 70
   },
   buttonTitle:{
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: 'bold'
+  },
+  buttonTitle2:{
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#EE4249',
+  },
+  buttonTitle3:{
+    fontSize: 17,
+    color: '#EE4249',
+    textDecorationLine: 'underline'
   }
 });
 

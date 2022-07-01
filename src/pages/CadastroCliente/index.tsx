@@ -6,11 +6,9 @@ import { Text, Input, Icon, Image, Card } from 'react-native-elements';
 const CadastroCliente = ({navigation}) => {
 
   return (   
-      <View>
         <View style={styles.container}>
           <Text >Complete seu cadastro para fazer o pedido</Text>
-        </View>
-      </View>           
+        </View>        
   );
 };
 
