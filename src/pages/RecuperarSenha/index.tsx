@@ -1,6 +1,11 @@
-import React from 'react';
-import { ActivityIndicator, ActivityIndicatorBase, StyleSheet, View } from 'react-native';
-import { Button, Input, Text } from 'react-native-elements';
+import React, {useState} from 'react';
+import {
+  ActivityIndicator,
+  ActivityIndicatorBase,
+  StyleSheet,
+  View,
+} from 'react-native';
+import {Button, Input, Text} from 'react-native-elements';
 
 const RecuperarSenha = () => {
   const [email, setEmail] = useState('');
@@ -10,7 +15,7 @@ const RecuperarSenha = () => {
   return (
     <View style={styles.container}>
       <View style={styles.tituloContainer}>
-        <Text style={styles.titulo}>{'Recupere sua senha'}</Tex>
+        <Text style={styles.titulo}>{'Recupere sua senha'}</Text>
       </View>
       <Input
         placeholder="E-mail"
@@ -70,7 +75,6 @@ const styles = StyleSheet.create({
     borderWidth: 3,
     backgroundColor: '#fff',
     padding: 5,
-    borderRadius: 10,
     margin: -8,
   },
   button: {
@@ -84,3 +88,5 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
 });
+
+export default RecuperarSenha;
