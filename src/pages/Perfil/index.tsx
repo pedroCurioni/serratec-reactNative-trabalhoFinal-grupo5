@@ -4,11 +4,11 @@ import { Text, Input, Icon, Image, Card } from 'react-native-elements';
 import { AxiosInstance } from '../../api/AxiosInstance';
 import { AuthContext } from '../../context/AuthContext'
 
-const Home = ({navigation}) => {
+const Perfil = ({navigation}) => {
 
     return (   
       <View style={styles.container}>
-        <Text style={styles.text}>Home</Text> 
+        <Text style={styles.text}>Perfil</Text> 
       </View>         
     );
 };
@@ -25,4 +25,4 @@ export const styles = StyleSheet.create({
     },
 });
 
-export default Home;
+export default Perfil;
