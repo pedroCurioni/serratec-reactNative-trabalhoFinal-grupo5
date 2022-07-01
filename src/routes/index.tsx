@@ -47,6 +47,10 @@ const Routes = () => {
           name='Login'
           component={Login}
         />
+        <StackNavigation.Screen
+          name='Home'
+          component={Home}
+        />
       </StackNavigation.Navigator>
     </NavigationContainer>
   );
