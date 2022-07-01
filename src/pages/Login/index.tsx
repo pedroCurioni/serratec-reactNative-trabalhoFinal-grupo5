@@ -58,12 +58,12 @@ const Login = ({navigation}:any) => {
         placeholderTextColor={'#a295a4'}
       />
       <View style={styles.containerButtons}>
-      {isLoading === false ? <Button 
+      <Button 
         buttonStyle={styles.button2} 
         title="Cadastrar"
         titleStyle={styles.buttonTitle2} 
         onPress={() => {handleCadastro()}} 
-        /> : <ActivityIndicator size="large" color="#fff"/>}
+        />
       
       {isLoading === false ? <Button 
         buttonStyle={styles.button} 
