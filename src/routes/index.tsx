@@ -11,14 +11,14 @@ import CadastroCliente from '../pages/CadastroCliente';
 import RecuperarSenha from '../pages/RecuperarSenha';
 import Perfil from '../pages/Perfil';
 import Carrinho from '../pages/Carrinho';
-import Pedidos from '../pages/Pedidos';
+import Favoritos from '../pages/Favoritos';
 
 const TabNavigation = createBottomTabNavigator();
 const BottomTabNavigator = () => {
-  return(
+  return (
     <TabNavigation.Navigator screenOptions={{
-      headerShown:false,
-      tabBarStyle:{backgroundColor: '#fff', borderBottomWidth: 0, borderTopWidth: 2, height: 60 },
+      headerShown: false,
+      tabBarStyle: { backgroundColor: '#fff', borderBottomWidth: 0, borderTopWidth: 2, height: 60 },
       tabBarShowLabel: true,
       tabBarLabelStyle: {
         fontSize: 16,
@@ -30,8 +30,8 @@ const BottomTabNavigator = () => {
         component={Home}
         options={{
           tabBarLabel: 'Loja',
-          tabBarIcon: ({focused}) => (
-            <Icon 
+          tabBarIcon: ({ focused }) => (
+            <Icon
               name='store'
               color={focused ? "#e05456" : "#bab8b8"}
               type='material-community'
@@ -46,8 +46,8 @@ const BottomTabNavigator = () => {
         component={Carrinho}
         options={{
           tabBarLabel: 'Carrinho',
-          tabBarIcon: ({focused}) => (
-            <Icon 
+          tabBarIcon: ({ focused }) => (
+            <Icon
               name='cart'
               color={focused ? "#e05456" : "#bab8b8"}
               type='material-community'
@@ -58,13 +58,13 @@ const BottomTabNavigator = () => {
         }}
       />
       <TabNavigation.Screen
-        name='PedidosTabScreen'
-        component={Pedidos}
+        name='FavoritosTabScreen'
+        component={Favoritos}
         options={{
-          tabBarLabel: 'Pedidos',
-          tabBarIcon: ({focused}) => (
-            <Icon 
-              name='clipboard-text'
+          tabBarLabel: 'Favoritos',
+          tabBarIcon: ({ focused }) => (
+            <Icon
+              name='heart'
               color={focused ? "#e05456" : "#bab8b8"}
               type='material-community'
               size={30}
@@ -78,8 +78,8 @@ const BottomTabNavigator = () => {
         component={Perfil}
         options={{
           tabBarLabel: 'Perfil',
-          tabBarIcon: ({focused}) => (
-            <Icon 
+          tabBarIcon: ({ focused }) => (
+            <Icon
               name='account-circle'
               color={focused ? "#e05456" : "#bab8b8"}
               type='material-community'
@@ -99,7 +99,8 @@ const Routes = () => {
   return (
     <NavigationContainer>
       <StackNavigation.Navigator screenOptions={{
-      headerShown:false}}>
+        headerShown: false
+      }}>
         <StackNavigation.Screen
           name='Login'
           component={Login}
