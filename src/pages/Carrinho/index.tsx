@@ -87,7 +87,7 @@ const Carrinho = ({navigation}) => {
           buttonStyle={styles.button}
           title="Continuar Comprando"
           titleStyle={styles.buttonTitle}
-          
+          onPress={() => navigation.navigate('HomeTabScreen')}
         />
         <Button
           buttonStyle={styles.button}

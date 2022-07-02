@@ -30,7 +30,7 @@ const Home = ({ navigation }) => {
           </TouchableOpacity>
         </View>
         <View style={styles.linha}>
-          <TouchableOpacity style={styles.buttonNavigate}>
+          <TouchableOpacity style={styles.buttonNavigate} onPress={(() => { navigation.navigate('Categorias') })}>
             <View style={styles.buttonContainer}>
               <Image source={require('../../assets/categorias.png')} style={styles.imageButton} ></Image>
               <Text style={styles.legenda}>Categorias</Text>
