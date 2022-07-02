@@ -7,11 +7,10 @@ const Home = ({ navigation }) => {
   return (
     <ScrollView style={styles.container}>
       <View style={styles.boxTitulo}>
-        <Text style={styles.titulo}>Five Market</Text>
+        <Text style={styles.titulo}>FiveMarket</Text>
         <TouchableOpacity style={styles.logoff} onPress={() => console.log('Logoff')}>
           <Image source={require('../../assets/logout.png')} style={styles.imageLogoff} />
         </TouchableOpacity>
-
       </View>
       <Text style={styles.description}>Encontre o que você procura...</Text>
       <View>
@@ -61,14 +60,13 @@ export const styles = StyleSheet.create({
   },
   boxTitulo: {
     flexDirection: 'row',
-    width: '100%',
     marginTop: 20,
     justifyContent: 'space-between',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   titulo: {
     color: '#000',
-    fontSize: 20,
+    fontSize: 22,
     paddingTop: 7,
     fontWeight: 'bold',
     marginLeft: 20,
@@ -80,7 +78,8 @@ export const styles = StyleSheet.create({
   imageLogoff: {
     width: 40,
     height: 40,
-    marginRight: 20
+    marginRight: 10,
+    marginTop: -5
   },
   description: {
     color: '#000',
@@ -128,7 +127,7 @@ export const styles = StyleSheet.create({
     backgroundColor: '#000',
     alignContent: 'center',
     justifyContent: 'center'
-  }
+  },
 });
 
 export default Home;

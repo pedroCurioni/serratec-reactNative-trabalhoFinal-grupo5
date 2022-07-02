@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   ActivityIndicator,
   StyleSheet,
@@ -6,10 +6,10 @@ import {
   Image,
   TouchableOpacity
 } from 'react-native';
-import {Button, Input, Text} from 'react-native-elements';
+import { Button, Input, Text } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/AntDesign';
 
-const Perfil = ({navigation}) => {
+const Perfil = ({ navigation }) => {
   const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
   const [imagem, setImagem] = useState('');
@@ -22,16 +22,12 @@ const Perfil = ({navigation}) => {
   return (
     <View style={styles.container}>
       <View style={styles.boxTitulo}>
-        <TouchableOpacity
-          style={styles.touchableContainer}
-          onPress={() => navigation.navigate('HomeTabScreen')}>
-          <Icon name="left" size={25} color="#EE4249" />
+        <TouchableOpacity onPress={() => navigation.navigate('HomeTabScreen')}>
+          <Icon name='left' size={25} color='#EE4249' style={styles.botaoVoltar} />
         </TouchableOpacity>
         <Text style={styles.titulo}>Perfil</Text>
-        <TouchableOpacity
-          style={styles.touchableContainer}
-          onPress={() => navigation.navigate('Login')}>
-          <Icon name="logout" size={25} color="#EE4249" />
+        <TouchableOpacity style={styles.logoff} onPress={() => console.log('Logoff')}>
+          <Image source={require('../../assets/logout.png')} style={styles.imageLogoff} />
         </TouchableOpacity>
       </View>
       <Image
@@ -107,8 +103,9 @@ const styles = StyleSheet.create({
     width: '80%',
     color: '#000',
     textAlign: 'center',
-    fontSize: 26,
+    fontSize: 24,
     fontWeight: 'bold',
+    paddingLeft: 10
   },
   inputContainer: {
     padding: 2,
@@ -136,6 +133,17 @@ const styles = StyleSheet.create({
   buttonTitle: {
     fontSize: 20,
     fontWeight: 'bold',
+  },
+  botaoVoltar: {
+    paddingLeft: 10
+  },
+  logoff: {
+
+  },
+  imageLogoff: {
+    width: 40,
+    height: 40,
+    marginRight: 10
   },
 });
 

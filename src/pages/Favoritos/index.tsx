@@ -74,14 +74,10 @@ export const styles = StyleSheet.create({
     marginTop: 20,
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginHorizontal: 15
   },
   tituloFavorito: {
-    fontSize: 26,
+    fontSize: 24,
     fontWeight: '700',
-  },
-  botaoLogout: {
-    paddingLeft: 160
   },
   botaoVoltar: {
     paddingLeft: 10
