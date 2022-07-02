@@ -1,10 +1,11 @@
 import React from 'react';
 import { View, StyleSheet, FlatList, TouchableOpacity, Image } from 'react-native';
 import { Text } from 'react-native-elements';
+import IconMat from 'react-native-vector-icons/MaterialIcons'
 import CardsFavoritos from '../../components/cardsFavoritos';
 import Icon from 'react-native-vector-icons/AntDesign'
 
-const Favoritos = ({ navigation }) => {
+const Produtos = ({ navigation }) => {
 
   const numColums = 3;
 
@@ -36,6 +37,55 @@ const Favoritos = ({ navigation }) => {
       nome: 'Pizza Mussarela',
       descricao: '1 unidade',
       imagem: 'https://i.imgur.com/LEDrUlQ.png'
+    },
+    {
+      id: '4',
+      preco: 20.99,
+      nome: 'Pizza Mussarela',
+      descricao: '1 unidade',
+      imagem: 'https://i.imgur.com/LEDrUlQ.png'
+    },
+    {
+      id: '3',
+      preco: 20.99,
+      nome: 'Pizza Mussarela',
+      descricao: '1 unidade',
+      imagem: 'https://i.imgur.com/LEDrUlQ.png'
+    },
+    {
+      id: '3',
+      preco: 20.99,
+      nome: 'Pizza Mussarela',
+      descricao: '1 unidade',
+      imagem: 'https://i.imgur.com/LEDrUlQ.png'
+    },
+    {
+      id: '3',
+      preco: 20.99,
+      nome: 'Pizza Mussarela',
+      descricao: '1 unidade',
+      imagem: 'https://i.imgur.com/LEDrUlQ.png'
+    },
+    {
+      id: '3',
+      preco: 20.99,
+      nome: 'Pizza Mussarela',
+      descricao: '1 unidade',
+      imagem: 'https://i.imgur.com/LEDrUlQ.png'
+    },
+    {
+      id: '3',
+      preco: 20.99,
+      nome: 'Pizza Mussarela',
+      descricao: '1 unidade',
+      imagem: 'https://i.imgur.com/LEDrUlQ.png'
+    },
+    {
+      id: '3',
+      preco: 20.99,
+      nome: 'Pizza Mussarela',
+      descricao: '1 unidade',
+      imagem: 'https://i.imgur.com/LEDrUlQ.png'
     }
   ]
 
@@ -44,10 +94,10 @@ const Favoritos = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <View style={styles.boxTitulo}>
-        <TouchableOpacity onPress={() => navigation.navigate('HomeTabScreen')}>
+        <TouchableOpacity onPress={() => navigation.navigate('Home')}>
           <Icon name='left' size={25} color='#EE4249' style={styles.botaoVoltar} />
         </TouchableOpacity>
-        <Text style={styles.tituloFavorito}>Favoritos</Text>
+        <Text style={styles.tituloFavorito}>Produtos</Text>
         <TouchableOpacity style={styles.logoff} onPress={() => console.log('Logoff')}>
           <Image source={require('../../assets/logout.png')} style={styles.imageLogoff} />
         </TouchableOpacity>
@@ -96,4 +146,4 @@ export const styles = StyleSheet.create({
   },
 });
 
-export default Favoritos;
+export default Produtos;

@@ -12,6 +12,7 @@ import RecuperarSenha from '../pages/RecuperarSenha';
 import Perfil from '../pages/Perfil';
 import Carrinho from '../pages/Carrinho';
 import Favoritos from '../pages/Favoritos';
+import Produtos from '../pages/Produtos';
 
 const TabNavigation = createBottomTabNavigator();
 const BottomTabNavigator = () => {
@@ -116,6 +117,10 @@ const Routes = () => {
         <StackNavigation.Screen
           name='RecuperarSenha'
           component={RecuperarSenha}
+        />
+        <StackNavigation.Screen
+          name='Produtos'
+          component={Produtos}
         />
       </StackNavigation.Navigator>
     </NavigationContainer>
