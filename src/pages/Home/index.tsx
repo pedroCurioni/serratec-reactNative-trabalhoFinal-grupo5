@@ -45,9 +45,18 @@ const Home = ({ navigation }) => {
       </View >
       <Text style={styles.description}>Destaques</Text>
       <ScrollView style={styles.promocoesContainer} horizontal={true}>
-        <View style={styles.promocaoContainer}></View>
-        <View style={styles.promocaoContainer}></View>
-        <View style={styles.promocaoContainer}></View>
+        <View style={styles.promocaoContainer}>
+          <Image source={require('../../assets/promo1.png')} style={styles.promocaoImage} />
+        </View>
+        <View style={styles.promocaoContainer}>
+          <Image source={require('../../assets/promo2.png')} style={styles.promocaoImage} />
+        </View>
+        <View style={styles.promocaoContainer}>
+          <Image source={require('../../assets/promo3.png')} style={styles.promocaoImage} />
+        </View>
+        <View style={styles.promocaoContainer}>
+          <Image source={require('../../assets/promo4.png')} style={styles.promocaoImage} />
+        </View>
       </ScrollView>
     </ScrollView >
   );
@@ -120,14 +129,16 @@ export const styles = StyleSheet.create({
     marginLeft: 12,
   },
   promocaoContainer: {
-    width: 340,
-    height: 206,
     margin: 10,
     borderRadius: 10,
-    backgroundColor: '#000',
     alignContent: 'center',
     justifyContent: 'center'
   },
+  promocaoImage: {
+    width: 348,
+    height: 295,
+    borderRadius: 10
+  }
 });
 
 export default Home;
