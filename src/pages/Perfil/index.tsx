@@ -1,12 +1,12 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   ActivityIndicator,
-  ActivityIndicatorBase,
   StyleSheet,
   View,
+  Image,
+  TouchableOpacity
 } from 'react-native';
 import {Button, Input, Text} from 'react-native-elements';
-import {TouchableOpacity} from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/AntDesign';
 
 const Perfil = ({navigation}) => {
@@ -24,26 +24,20 @@ const Perfil = ({navigation}) => {
       <View style={styles.boxTitulo}>
         <TouchableOpacity
           style={styles.touchableContainer}
-          onPress={() => navigation.navigate('Login')}>
-          <Icon
-            name="left"
-            size={25}
-            color="#EE4249"
-            style={styles.botaoVoltar}
-          />
+          onPress={() => navigation.navigate('HomeTabScreen')}>
+          <Icon name="left" size={25} color="#EE4249" />
         </TouchableOpacity>
         <Text style={styles.titulo}>Perfil</Text>
         <TouchableOpacity
           style={styles.touchableContainer}
           onPress={() => navigation.navigate('Login')}>
-          <Icon
-            name="logout"
-            size={25}
-            color="#EE4249"
-            style={styles.botaoVoltar}
-          />
+          <Icon name="logout" size={25} color="#EE4249" />
         </TouchableOpacity>
       </View>
+      <Image
+        source={require('../../assets/imagem_perfil.png')}
+        style={styles.image}
+      />
       <Input
         placeholder="Nome Completo"
         onChangeText={setNome}
@@ -69,7 +63,7 @@ const Perfil = ({navigation}) => {
         {isLoading === false ? (
           <Button
             buttonStyle={styles.button}
-            title="Trocar senha"
+            title="Alterar Dados"
             titleStyle={styles.buttonTitle}
             onPress={() => {
               handleAlterarDados();
@@ -96,7 +90,7 @@ const styles = StyleSheet.create({
 
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: 70,
+    marginBottom: 45,
     marginTop: 20,
     marginHorizontal: 50,
   },
@@ -104,7 +98,11 @@ const styles = StyleSheet.create({
     width: 26,
     height: 26,
   },
-  botaoVoltar: {},
+  image: {
+    width: 170,
+    height: 170,
+    marginBottom: 25,
+  },
   titulo: {
     width: '80%',
     color: '#000',
