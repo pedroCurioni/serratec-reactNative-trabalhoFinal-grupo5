@@ -62,7 +62,7 @@ const Carrinho = ({navigation}) => {
         <Text style={styles.titulo}>Carrinho</Text>
         <TouchableOpacity
           style={styles.logoff}
-          onPress={() => console.log('Logoff')}>
+          onPress={() => navigation.navigate('Login')}>
           <Image
             source={require('../../assets/logout.png')}
             style={styles.imageLogoff}
