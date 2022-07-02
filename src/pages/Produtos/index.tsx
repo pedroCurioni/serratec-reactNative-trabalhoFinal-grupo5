@@ -108,7 +108,9 @@ const Produtos = ({ navigation }) => {
         contentContainerStyle={{ paddingTop: 30, alignItems: 'center' }}
         keyExtractor={item => item.id}
         numColumns={numColums}
-        renderItem={({ item }) => <CardsFavoritos imagem={item.imagem} preco={item.preco} descricao={item.descricao} nome={item.nome} />}
+        renderItem={({ item }) => <TouchableOpacity onPress={() => navigation.navigate('DetalhesProduto', {res: item, pagOrigem: 'Produtos'})}>
+          <CardsFavoritos imagem={item.imagem} preco={item.preco} descricao={item.descricao} nome={item.nome} />
+        </TouchableOpacity>}
       />
       <ButtonVoltarHome navigation={navigation} />
     </View>
