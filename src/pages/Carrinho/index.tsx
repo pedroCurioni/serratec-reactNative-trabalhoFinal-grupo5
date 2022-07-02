@@ -1,10 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import {View, StyleSheet, TouchableOpacity, FlatList} from 'react-native';
-import {Button, Text} from 'react-native-elements';
+import {Button, Divider, Text} from 'react-native-elements';
 import {ScrollView} from 'react-native-gesture-handler';
 import {useEvent} from 'react-native-reanimated';
 import Icon from 'react-native-vector-icons/AntDesign';
 import CardCarrinho from '../../components/CardCarrinho';
+import Separador from '../../components/Separador';
 const Carrinho = ({navigation}) => {
   const [valorTotal, setValorTotal] = useState(0);
 
@@ -70,6 +71,7 @@ const Carrinho = ({navigation}) => {
           renderItem={({item}) => (
             <CardCarrinho navigation={navigation} produto={item} />
           )}
+          ItemSeparatorComponent={Divider}
         />
       </View>
       <Text style={styles.subtitulo}>Resumo dos valores</Text>
@@ -85,9 +87,7 @@ const Carrinho = ({navigation}) => {
           buttonStyle={styles.button}
           title="Continuar Comprando"
           titleStyle={styles.buttonTitle}
-          // onPress={() => {
-          //   handleCadastro();
-          // }}
+          onPress={() => navigation.navigate('HomeTabScreen')}
         />
         <Button
           buttonStyle={styles.button}
@@ -135,13 +135,7 @@ export const styles = StyleSheet.create({
     color: '#000',
   },
   itemsContainer: {
-    width: '100%',
     marginHorizontal: 24,
-  },
-  text: {
-    fontSize: 20,
-    color: '#000',
-    marginLeft: 15,
   },
   valoresContainer: {
     marginHorizontal: 25,

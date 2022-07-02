@@ -36,7 +36,7 @@ const CardCarrinho = (props: any) => {
 export const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    marginBottom: 30,
+    margin: 30,
   },
   imageContainer: {
     justifyContent: 'center',
