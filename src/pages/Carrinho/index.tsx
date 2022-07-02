@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import { View, StyleSheet, TouchableOpacity, FlatList } from 'react-native';
-import { Button, Divider, Image, Text } from 'react-native-elements';
-import { ScrollView } from 'react-native-gesture-handler';
-import { useEvent } from 'react-native-reanimated';
+import React, {useEffect, useState} from 'react';
+import {View, StyleSheet, TouchableOpacity, FlatList} from 'react-native';
+import {Button, Divider, Image, Text} from 'react-native-elements';
+import {ScrollView} from 'react-native-gesture-handler';
+import {useEvent} from 'react-native-reanimated';
 import Icon from 'react-native-vector-icons/AntDesign';
 import CardCarrinho from '../../components/CardCarrinho';
 import Separador from '../../components/Separador';
-const Carrinho = ({ navigation }) => {
+const Carrinho = ({navigation}) => {
   const [valorTotal, setValorTotal] = useState(0);
 
   useEffect(() => {
@@ -52,11 +52,21 @@ const Carrinho = ({ navigation }) => {
     <ScrollView style={styles.container}>
       <View style={styles.boxTitulo}>
         <TouchableOpacity onPress={() => navigation.navigate('HomeTabScreen')}>
-          <Icon name='left' size={25} color='#EE4249' style={styles.botaoVoltar} />
+          <Icon
+            name="left"
+            size={25}
+            color="#EE4249"
+            style={styles.botaoVoltar}
+          />
         </TouchableOpacity>
         <Text style={styles.titulo}>Carrinho</Text>
-        <TouchableOpacity style={styles.logoff} onPress={() => console.log('Logoff')}>
-          <Image source={require('../../assets/logout.png')} style={styles.imageLogoff} />
+        <TouchableOpacity
+          style={styles.logoff}
+          onPress={() => navigation.navigate('Login')}>
+          <Image
+            source={require('../../assets/logout.png')}
+            style={styles.imageLogoff}
+          />
         </TouchableOpacity>
       </View>
       <Text style={styles.subtitulo}>Items</Text>
@@ -64,7 +74,7 @@ const Carrinho = ({ navigation }) => {
       <View style={styles.itemsContainer}>
         <FlatList
           data={produtos}
-          renderItem={({ item }) => (
+          renderItem={({item}) => (
             <CardCarrinho navigation={navigation} produto={item} />
           )}
           ItemSeparatorComponent={Divider}
@@ -83,7 +93,7 @@ const Carrinho = ({ navigation }) => {
           buttonStyle={styles.button}
           title="Continuar Comprando"
           titleStyle={styles.buttonTitle}
-
+          onPress={() => navigation.navigate('HomeTabScreen')}
         />
         <Button
           buttonStyle={styles.button}
@@ -176,15 +186,13 @@ export const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   botaoVoltar: {
-    paddingLeft: 10
+    paddingLeft: 10,
   },
-  logoff: {
-
-  },
+  logoff: {},
   imageLogoff: {
     width: 40,
     height: 40,
-    marginRight: 10
+    marginRight: 10,
   },
 });
 
