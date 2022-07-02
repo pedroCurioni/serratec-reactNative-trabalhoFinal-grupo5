@@ -1,11 +1,11 @@
 import React from 'react';
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import {Divider, Icon} from 'react-native-elements';
-import {FlatList, ScrollView} from 'react-native-gesture-handler';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Divider, Icon } from 'react-native-elements';
+import { FlatList, ScrollView } from 'react-native-gesture-handler';
 import CardCategoria from '../../components/cardCategoria';
 import ButtonVoltarHome from '../../components/buttonVoltarHome';
 
-const Categorias = ({navigation}) => {
+const Categorias = ({ navigation }) => {
   const categorias = [
     {
       idCategoria: 1,
@@ -37,7 +37,7 @@ const Categorias = ({navigation}) => {
           onPress={() => navigation.navigate('HomeTabScreen')}>
           <Icon name="left" type="antdesign" size={25} color="#EE4249" />
         </TouchableOpacity>
-        <Text style={styles.titulo}>Carrinho</Text>
+        <Text style={styles.titulo}>Categorias</Text>
         <TouchableOpacity
           style={styles.touchableContainer}
           onPress={() => navigation.navigate('Login')}>
@@ -50,7 +50,6 @@ const Categorias = ({navigation}) => {
         renderItem={res => (
           <CardCategoria navigation={navigation} categoria={res} />
         )}
-        ItemSeparatorComponent={Divider}
       />
       <ButtonVoltarHome navigation={navigation} />
     </View>
@@ -79,11 +78,11 @@ const styles = StyleSheet.create({
     width: '80%',
     color: '#000',
     textAlign: 'center',
-    fontSize: 26,
+    fontSize: 24,
     fontWeight: 'bold',
   },
   flatListStyle: {
-    margin: 20,
+    padding: 20,
   },
 });
 

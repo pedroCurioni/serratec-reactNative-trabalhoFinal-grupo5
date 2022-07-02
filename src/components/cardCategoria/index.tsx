@@ -1,8 +1,8 @@
 import React from 'react';
-import {StyleSheet, TouchableOpacity} from 'react-native';
-import {Image, Text} from 'react-native-elements';
+import { StyleSheet, TouchableOpacity } from 'react-native';
+import { Image, Text } from 'react-native-elements';
 
-const CardCategoria = ({navigation, categoria}) => {
+const CardCategoria = ({ navigation, categoria }) => {
   return (
     <TouchableOpacity style={styles.container}>
       <Image
@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
     justifyContent: 'center',
-    margin: 10,
+    paddingBottom: 25
   },
   image: {
     borderRadius: 10,
@@ -26,7 +26,8 @@ const styles = StyleSheet.create({
     width: 370,
   },
   text: {
-    marginTop: 10,
+    marginTop: 5,
+    marginBottom: 10,
     fontSize: 18,
     textAlign: 'center',
     fontWeight: 'bold',

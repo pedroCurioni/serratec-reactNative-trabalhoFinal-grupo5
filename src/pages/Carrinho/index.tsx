@@ -1,13 +1,13 @@
-import React, {useEffect, useState} from 'react';
-import {View, StyleSheet, TouchableOpacity, FlatList} from 'react-native';
-import {Button, Divider, Image, Text} from 'react-native-elements';
-import {ScrollView} from 'react-native-gesture-handler';
-import {useEvent} from 'react-native-reanimated';
+import React, { useEffect, useState } from 'react';
+import { View, StyleSheet, TouchableOpacity, FlatList } from 'react-native';
+import { Button, Divider, Image, Text } from 'react-native-elements';
+import { ScrollView } from 'react-native-gesture-handler';
+import { useEvent } from 'react-native-reanimated';
 import Icon from 'react-native-vector-icons/AntDesign';
 import CardCarrinho from '../../components/CardCarrinho';
 import Separador from '../../components/Separador';
 import ValorCarrinho from '../../components/ValorCarrinho';
-const Carrinho = ({navigation}) => {
+const Carrinho = ({ navigation }) => {
   const [valorTotal, setValorTotal] = useState(0);
 
   useEffect(() => {
@@ -77,7 +77,7 @@ const Carrinho = ({navigation}) => {
           <ValorCarrinho navigation={navigation} valorTotal={valorTotal} />
         }
         data={produtos}
-        renderItem={({item}) => (
+        renderItem={({ item }) => (
           <CardCarrinho navigation={navigation} produto={item} />
         )}
         ItemSeparatorComponent={Divider}
@@ -121,7 +121,7 @@ export const styles = StyleSheet.create({
     marginHorizontal: 24,
   },
   flatListStyle: {
-    margin: 20,
+    padding: 20,
   },
   valoresContainer: {
     marginHorizontal: 25,
