@@ -25,15 +25,23 @@ const Login = ({ navigation }: any) => {
       )
     } else {
       navigation.navigate('Home');
+      cleanInput();
     }
   }
 
   const handleCadastro = () => {
     navigation.navigate('CadastroCliente');
+    cleanInput();
   }
 
   const handleSenha = () => {
     navigation.navigate('RecuperarSenha');
+    cleanInput();
+  }
+
+  const cleanInput = () =>{
+    setEmail('');
+    setSenha('');
   }
 
   return (
