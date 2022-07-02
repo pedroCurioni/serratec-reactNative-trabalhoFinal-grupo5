@@ -4,25 +4,25 @@ import { Text, Input, Icon, Image, Card } from 'react-native-elements';
 import { AxiosInstance } from '../../api/AxiosInstance';
 import { AuthContext } from '../../context/AuthContext'
 
-const Pedidos = ({navigation}) => {
+const Favoritos = ({ navigation }) => {
 
-    return (   
-      <View style={styles.container}>
-        <Text style={styles.text}>Pedidos</Text> 
-      </View>         
-    );
+  return (
+    <View style={styles.container}>
+      <Text style={styles.text}>Favoritos</Text>
+    </View>
+  );
 };
 
 export const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: '#fff'
-    },
-    text: {
-        fontSize: 20,
-        color: '#000',
-        marginLeft: 15
-    },
+  container: {
+    flex: 1,
+    backgroundColor: '#fff'
+  },
+  text: {
+    fontSize: 20,
+    color: '#000',
+    marginLeft: 15
+  },
 });
 
-export default Pedidos;
+export default Favoritos;

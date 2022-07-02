@@ -1,29 +1,29 @@
-import React, {useState, useContext} from 'react';
-import {View, StyleSheet, Alert, ActivityIndicator} from 'react-native';
-import {Text, Input, Button, Image} from 'react-native-elements';
+import React, { useState, useContext } from 'react';
+import { View, StyleSheet, Alert, ActivityIndicator } from 'react-native';
+import { Text, Input, Button, Image } from 'react-native-elements';
 import { AuthContext } from '../../context/AuthContext';
 
-const Login = ({navigation}:any) => {
+const Login = ({ navigation }: any) => {
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
   const { login } = useContext(AuthContext);
   const [isLoading, setLoading] = useState(false);
 
-  const handleLogin = async (email:string, senha:string) => {
+  const handleLogin = async (email: string, senha: string) => {
     console.log(`Email: ${email} - Senha: ${senha}`)
-    
+
     const respostaLogin = await login(email, senha);
     setLoading(false);
-    if(!respostaLogin){
+    if (!respostaLogin) {
       Alert.alert(
         "Erro",
         "",
         [
-          { text: "OK"},
-          { text: "Não foi possivel realizar o login."},
+          { text: "OK" },
+          { text: "Não foi possivel realizar o login." },
         ]
       )
-    }else{
+    } else {
       navigation.navigate('Home');
     }
   }
@@ -32,7 +32,7 @@ const Login = ({navigation}:any) => {
     navigation.navigate('CadastroCliente');
   }
 
-  const handleSenha = () => { 
+  const handleSenha = () => {
     navigation.navigate('RecuperarSenha');
   }
 
@@ -40,9 +40,9 @@ const Login = ({navigation}:any) => {
     <View style={styles.body}>
       <View style={styles.containerApresentacao}>
         <Text style={styles.titulo}>{'Você está no'}</Text>
-        <Image source={require('../../assets/logo.png')} style={styles.image}/>
+        <Image source={require('../../assets/logo.png')} style={styles.image} />
       </View>
-      <Input 
+      <Input
         placeholder="Email"
         onChangeText={setEmail}
         inputContainerStyle={styles.inputContainer}
@@ -50,7 +50,7 @@ const Login = ({navigation}:any) => {
         placeholderTextColor={'#a49595'}
       />
       <Input
-        secureTextEntry={true}        
+        secureTextEntry={true}
         placeholder="Senha"
         onChangeText={setSenha}
         inputContainerStyle={styles.inputContainer}
@@ -58,26 +58,26 @@ const Login = ({navigation}:any) => {
         placeholderTextColor={'#a295a4'}
       />
       <View style={styles.containerButtons}>
-      <Button 
-        buttonStyle={styles.button2} 
-        title="Cadastrar"
-        titleStyle={styles.buttonTitle2} 
-        onPress={() => {handleCadastro()}} 
+        <Button
+          buttonStyle={styles.button2}
+          title="Cadastrar"
+          titleStyle={styles.buttonTitle2}
+          onPress={() => { handleCadastro() }}
         />
-      
-      {isLoading === false ? <Button 
-        buttonStyle={styles.button} 
-        title="Login"
-        titleStyle={styles.buttonTitle} 
-        onPress={() => {handleLogin(email,senha); setLoading(true)}} 
-        /> : <ActivityIndicator size="large" color="#fff"/>}
+
+        {isLoading === false ? <Button
+          buttonStyle={styles.button}
+          title="Login"
+          titleStyle={styles.buttonTitle}
+          onPress={() => { handleLogin(email, senha); setLoading(true) }}
+        /> : <ActivityIndicator size="large" color="#EE4249" />}
       </View>
-      <Button 
-        buttonStyle={styles.button3} 
+      <Button
+        buttonStyle={styles.button3}
         title="Esqueci minha senha"
-        titleStyle={styles.buttonTitle3} 
-        onPress={() => {handleSenha()}} 
-        />
+        titleStyle={styles.buttonTitle3}
+        onPress={() => { handleSenha() }}
+      />
     </View>
   );
 };
@@ -85,7 +85,7 @@ const Login = ({navigation}:any) => {
 const styles = StyleSheet.create({
   body: {
     flex: 1,
-    backgroundColor:'#fff',
+    backgroundColor: '#fff',
     padding: 16,
     alignItems: 'stretch',
     justifyContent: 'center'
@@ -105,7 +105,7 @@ const styles = StyleSheet.create({
     height: 180,
     marginBottom: 20,
   },
-  inputContainer:{
+  inputContainer: {
     padding: 2,
     backgroundColor: '#fff',
     borderWidth: 1,
@@ -120,7 +120,7 @@ const styles = StyleSheet.create({
     width: '100%'
   },
   button: {
-    backgroundColor:'#EE4249',
+    backgroundColor: '#EE4249',
     borderRadius: 10,
     padding: 10,
     width: 180,
@@ -129,7 +129,7 @@ const styles = StyleSheet.create({
     borderColor: '#EE4249',
   },
   button2: {
-    backgroundColor:'#fff',
+    backgroundColor: '#fff',
     borderRadius: 10,
     padding: 10,
     width: 180,
@@ -138,20 +138,20 @@ const styles = StyleSheet.create({
     borderColor: '#EE4249',
   },
   button3: {
-    backgroundColor:'#fff',
+    backgroundColor: '#fff',
     borderRadius: 10,
     padding: 18,
   },
-  buttonTitle:{
+  buttonTitle: {
     fontSize: 20,
     fontWeight: 'bold'
   },
-  buttonTitle2:{
+  buttonTitle2: {
     fontSize: 20,
     fontWeight: 'bold',
     color: '#EE4249',
   },
-  buttonTitle3:{
+  buttonTitle3: {
     fontSize: 17,
     color: '#EE4249',
     textDecorationLine: 'underline'
