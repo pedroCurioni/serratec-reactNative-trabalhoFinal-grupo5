@@ -5,7 +5,6 @@ import IconMat from 'react-native-vector-icons/MaterialIcons'
 import CardsFavoritos from '../../components/cardsFavoritos';
 import Icon from 'react-native-vector-icons/AntDesign'
 import ButtonVoltarHome from '../../components/buttonVoltarHome';
-import {coracaoVazio}  from '../../assets/coracaoVazio.png'
 
 const DetalhesProduto = ({ route, navigation }) => {
 
@@ -135,6 +134,7 @@ export const styles = StyleSheet.create({
   },
   precoProduto: {
     fontSize: 21,
+    fontWeight: '700',
     color: '#EE4249'
   }
 });
