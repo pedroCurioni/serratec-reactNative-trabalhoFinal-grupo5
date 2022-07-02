@@ -6,85 +6,150 @@ import {
   View,
 } from 'react-native';
 import {Button, Input, Text} from 'react-native-elements';
+import {TouchableOpacity} from 'react-native-gesture-handler';
+import Icon from 'react-native-vector-icons/AntDesign';
 
 const RecuperarSenha = () => {
+  const [id, setId] = useState('');
+  const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
+  const [confirmaSenha, setConfirmaSenha] = useState('');
   const [isLoading, setLoading] = useState(false);
 
+  const handleAlterarSenha = ({navigation}: any) => {
+    console.log(id);
+    console.log(nome);
+    console.log(senha);
+    console.log(id);
+  };
+
   return (
-    <View style={styles.container}>
-      <View style={styles.tituloContainer}>
-        <Text style={styles.titulo}>{'Recupere sua senha'}</Text>
+    <View style={styles.body}>
+      <View style={styles.boxTitulo}>
+        <TouchableOpacity
+          style={styles.touchableContainer}
+          onPress={() => navigation.navigate('Login')}>
+          <Icon
+            name="left"
+            size={25}
+            color="#EE4249"
+            style={styles.botaoVoltar}
+          />
+        </TouchableOpacity>
+        <Text style={styles.titulo}>Recupere sua senha</Text>
       </View>
+      <Input
+        placeholder="Id"
+        onChangeText={setId}
+        inputContainerStyle={styles.inputContainer}
+        value={id}
+        placeholderTextColor={'#a49595'}
+      />
+      <Input
+        placeholder="Nome"
+        onChangeText={setNome}
+        inputContainerStyle={styles.inputContainer}
+        value={nome}
+        placeholderTextColor={'#a295a4'}
+      />
       <Input
         placeholder="E-mail"
         onChangeText={setEmail}
         inputContainerStyle={styles.inputContainer}
         value={email}
-        placeholderTextColor={'#a49595'}
+        placeholderTextColor={'#a295a4'}
       />
       <Input
         secureTextEntry={true}
-        placeholder="Senha"
+        placeholder="Digite sua nova senha"
         onChangeText={setSenha}
         inputContainerStyle={styles.inputContainer}
         value={senha}
         placeholderTextColor={'#a295a4'}
       />
-      {isLoading === false ? (
-        <Button
-          buttonStyle={styles.button}
-          title="Login"
-          titleStyle={styles.buttonTitle}
-          // onPress={() => {
-          //   handleLogin(email, senha);
-          //   setLoading(true);
-          // }}
-        />
-      ) : (
-        <ActivityIndicator size="large" color="#fff" />
-      )}
+      <Input
+        secureTextEntry={true}
+        placeholder="Confirmar nova senha"
+        onChangeText={setConfirmaSenha}
+        inputContainerStyle={styles.inputContainer}
+        value={confirmaSenha}
+        placeholderTextColor={'#a295a4'}
+      />
+      <View style={styles.containerButtons}>
+        {isLoading === false ? (
+          <Button
+            buttonStyle={styles.button}
+            title="Trocar senha"
+            titleStyle={styles.buttonTitle}
+            onPress={() => {
+              handleAlterarSenha();
+              setLoading(true);
+            }}
+          />
+        ) : (
+          <ActivityIndicator size="large" color="#fff" />
+        )}
+      </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
+  body: {
     flex: 1,
     backgroundColor: '#fff',
-    padding: 16,
-    alignItems: 'stretch',
+    alignItems: 'center',
     justifyContent: 'center',
   },
-  tituloContainer: {
+  boxTitulo: {
+    flexDirection: 'row',
+    width: '100%',
+
     alignItems: 'center',
-    justifyContent: 'flex-start',
+    justifyContent: 'center',
+    marginBottom: 70,
+    marginHorizontal: 66,
+  },
+  touchableContainer: {
+    width: 25,
+    height: 25,
+  },
+  botaoVoltar: {
+    position: 'absolute',
   },
   titulo: {
     color: '#000',
     textAlign: 'center',
-    fontSize: 40,
+    fontSize: 26,
     fontWeight: 'bold',
-    marginBottom: 70,
+    width: '90%',
   },
   inputContainer: {
-    boderColor: '#cfcfcf',
-    borderRadius: 15,
-    borderStyle: 'solid',
-    borderWidth: 3,
+    padding: 2,
     backgroundColor: '#fff',
-    padding: 5,
+    borderWidth: 1,
+    borderStyle: 'solid',
+    borderColor: '#cfcfcf',
+    borderRadius: 10,
     margin: -8,
+    marginHorizontal: 10,
+  },
+  containerButtons: {
+    alignItems: 'center',
   },
   button: {
+    marginTop: 15,
+    width: 300,
     backgroundColor: '#EE4249',
     borderRadius: 10,
-    padding: 18,
-    marginTop: 70,
+    padding: 10,
+    borderWidth: 3,
+    borderStyle: 'solid',
+    borderColor: '#EE4249',
   },
   buttonTitle: {
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: 'bold',
   },
 });
