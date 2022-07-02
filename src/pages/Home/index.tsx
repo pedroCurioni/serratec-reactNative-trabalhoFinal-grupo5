@@ -36,21 +36,21 @@ const Home = ({ navigation }) => {
               <Text style={styles.legenda}>Categorias</Text>
             </View>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.buttonNavigate}>
-            <View style={styles.buttonContainer}>
+          <TouchableOpacity style={styles.buttonNavigate} onPress={(() => { navigation.navigate('Produtos') })}>
+            <View style={styles.buttonContainer} >
               <Image source={require('../../assets/produtos.png')} style={styles.imageButton} ></Image>
               <Text style={styles.legenda}>Produtos</Text>
             </View>
           </TouchableOpacity>
         </View>
-      </View>
+      </View >
       <Text style={styles.description}>Destaques</Text>
       <ScrollView style={styles.promocoesContainer} horizontal={true}>
         <View style={styles.promocaoContainer}></View>
         <View style={styles.promocaoContainer}></View>
         <View style={styles.promocaoContainer}></View>
       </ScrollView>
-    </ScrollView>
+    </ScrollView >
   );
 };
 
@@ -80,7 +80,7 @@ export const styles = StyleSheet.create({
   imageLogoff: {
     width: 40,
     height: 40,
-    marginRight: 10
+    marginRight: 20
   },
   description: {
     color: '#000',
