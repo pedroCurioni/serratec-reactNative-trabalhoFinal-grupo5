@@ -1,9 +1,24 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {Image, StyleSheet, View} from 'react-native';
 import {Icon, Text} from 'react-native-elements';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 
 const CardCarrinho = (props: any) => {
+  const [quantidade, setQuantidade] = useState(1);
+
+  const handleAdicionarQuantidade = () => {
+    let novaQuantidade = quantidade + 1;
+    setQuantidade(novaQuantidade);
+  };
+  const handleDiminuirQuantidade = () => {
+    if (quantidade == 1) {
+      console.log('Remover Item');
+    } else {
+      let novaQuantidade = quantidade - 1;
+      setQuantidade(novaQuantidade);
+    }
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.imageContainer}>
@@ -18,15 +33,36 @@ const CardCarrinho = (props: any) => {
       <View style={styles.textContainer}>
         <Text style={styles.nome}>{props.produto.nome}</Text>
         <Text style={styles.descricao}>{props.produto.descricao}</Text>
-        <Text style={styles.preco}>{props.produto.preco}</Text>
+        <Text style={styles.preco}>R$ {props.produto.preco}</Text>
       </View>
       <View style={styles.quantidadeContainer}>
         <TouchableOpacity>
-          <Icon name="delete" size={22} color="#EE4249" />
+          {quantidade > 1 ? (
+            <Icon
+              name="minus-circle-outline"
+              type="material-community"
+              size={22}
+              color="#EE4249"
+              onPress={() => handleDiminuirQuantidade()}
+            />
+          ) : (
+            <Icon
+              name="delete"
+              size={22}
+              color="#EE4249"
+              onPress={() => handleDiminuirQuantidade()}
+            />
+          )}
         </TouchableOpacity>
-        <Text style={styles.quantidadeText}>2</Text>
+        <Text style={styles.quantidadeText}>{quantidade}</Text>
         <TouchableOpacity>
-          <Icon name="pluscircle" type="antdesign" size={22} color="#EE4249" />
+          <Icon
+            name="plus-circle-outline"
+            type="material-community"
+            size={22}
+            color="#EE4249"
+            onPress={() => handleAdicionarQuantidade()}
+          />
         </TouchableOpacity>
       </View>
     </View>

@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from 'react';
-import { View, StyleSheet, TouchableOpacity, FlatList } from 'react-native';
-import { Button, Divider, Image, Text } from 'react-native-elements';
-import { ScrollView } from 'react-native-gesture-handler';
-import { useEvent } from 'react-native-reanimated';
+import React, {useEffect, useState} from 'react';
+import {View, StyleSheet, TouchableOpacity, FlatList} from 'react-native';
+import {Button, Divider, Image, Text} from 'react-native-elements';
+import {ScrollView} from 'react-native-gesture-handler';
+import {useEvent} from 'react-native-reanimated';
 import Icon from 'react-native-vector-icons/AntDesign';
 import CardCarrinho from '../../components/CardCarrinho';
 import Separador from '../../components/Separador';
-const Carrinho = ({ navigation }) => {
+import ValorCarrinho from '../../components/ValorCarrinho';
+const Carrinho = ({navigation}) => {
   const [valorTotal, setValorTotal] = useState(0);
 
   useEffect(() => {
@@ -49,50 +50,38 @@ const Carrinho = ({ navigation }) => {
   ];
 
   return (
-    <ScrollView style={styles.container}>
+    <View style={styles.container}>
       <View style={styles.boxTitulo}>
         <TouchableOpacity onPress={() => navigation.navigate('HomeTabScreen')}>
-          <Icon name='left' size={25} color='#EE4249' style={styles.botaoVoltar} />
+          <Icon
+            name="left"
+            size={25}
+            color="#EE4249"
+            style={styles.botaoVoltar}
+          />
         </TouchableOpacity>
         <Text style={styles.titulo}>Carrinho</Text>
-        <TouchableOpacity style={styles.logoff} onPress={() => console.log('Logoff')}>
-          <Image source={require('../../assets/logout.png')} style={styles.imageLogoff} />
+        <TouchableOpacity
+          style={styles.logoff}
+          onPress={() => navigation.navigate('Login')}>
+          <Image
+            source={require('../../assets/logout.png')}
+            style={styles.imageLogoff}
+          />
         </TouchableOpacity>
       </View>
-      <Text style={styles.subtitulo}>Items</Text>
-
-      <View style={styles.itemsContainer}>
-        <FlatList
-          data={produtos}
-          renderItem={({ item }) => (
-            <CardCarrinho navigation={navigation} produto={item} />
-          )}
-          ItemSeparatorComponent={Divider}
-        />
-      </View>
-      <Text style={styles.subtitulo}>Resumo dos valores</Text>
-      <View style={styles.valoresContainer}>
-        <View style={styles.totalContainer}>
-          <Text style={styles.totalText}>Total</Text>
-          <Text style={styles.totalValor}>R$ {valorTotal}</Text>
-        </View>
-      </View>
-
-      <View style={styles.containerButtons}>
-        <Button
-          buttonStyle={styles.button}
-          title="Continuar Comprando"
-          titleStyle={styles.buttonTitle}
-
-        />
-        <Button
-          buttonStyle={styles.button}
-          title="Finalizar Pedido"
-          titleStyle={styles.buttonTitle}
-          onPress={() => navigation.navigate('PedidoFinalizado')}
-        />
-      </View>
-    </ScrollView>
+      <FlatList
+        ListHeaderComponent={<Text style={styles.subtitulo}>Items</Text>}
+        ListFooterComponent={
+          <ValorCarrinho navigation={navigation} valorTotal={valorTotal} />
+        }
+        data={produtos}
+        renderItem={({item}) => (
+          <CardCarrinho navigation={navigation} produto={item} />
+        )}
+        ItemSeparatorComponent={Divider}
+      />
+    </View>
   );
 };
 
@@ -121,15 +110,16 @@ export const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   subtitulo: {
-    marginHorizontal: 20,
     textAlign: 'left',
     fontSize: 20,
     fontWeight: 'bold',
     color: '#000',
   },
   itemsContainer: {
+    flex: 1,
     marginHorizontal: 24,
   },
+  flatListStyle: {},
   valoresContainer: {
     marginHorizontal: 25,
     marginBottom: 50,
@@ -176,15 +166,13 @@ export const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   botaoVoltar: {
-    paddingLeft: 10
+    paddingLeft: 10,
   },
-  logoff: {
-
-  },
+  logoff: {},
   imageLogoff: {
     width: 40,
     height: 40,
-    marginRight: 10
+    marginRight: 10,
   },
 });
 
