@@ -87,15 +87,13 @@ const Carrinho = ({navigation}) => {
           buttonStyle={styles.button}
           title="Continuar Comprando"
           titleStyle={styles.buttonTitle}
-          onPress={() => navigation.navigate('HomeTabScreen')}
+          
         />
         <Button
           buttonStyle={styles.button}
           title="Finalizar Pedido"
           titleStyle={styles.buttonTitle}
-          // onPress={() => {
-          //   handleCadastro();
-          // }}
+          onPress={() => navigation.navigate('PedidoFinalizado')}
         />
       </View>
     </ScrollView>
