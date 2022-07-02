@@ -36,7 +36,7 @@ const DetalhesProduto = ({ route, navigation }) => {
           </View>
           <View style={styles.boxInformacao}>
               <View style={styles.boxInfoCima}>
-                <View style={styles.nomeDescicao}>
+                <View style={styles.boxDescicao}>
                   <Text style={styles.nomeProduto}>{res.nome}</Text>
                   <Text style={styles.descricaoProduto}>{res.descricao}</Text>
                 </View>
@@ -106,6 +106,9 @@ export const styles = StyleSheet.create({
   boxInformacao: {
     width: '50%',
     height: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 10
   },
   boxInfoCima: {
     width: '100%',
@@ -120,15 +123,17 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row'
   },
-  nomeDescicao: {
+  boxDescicao: {
     alignItems: 'center',
     justifyContent: 'center'
   },
   nomeProduto: {
+    textAlign: 'center',
     fontSize: 19,
     fontWeight: '700',
   },
   descricaoProduto: {
+    textAlign: 'center',
     color: 'grey',
     fontWeight: '500',
   },
