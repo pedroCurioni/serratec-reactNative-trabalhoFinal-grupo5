@@ -20,7 +20,7 @@ const Perfil = ({navigation}) => {
   };
 
   return (
-    <View style={styles.body}>
+    <View style={styles.container}>
       <View style={styles.boxTitulo}>
         <TouchableOpacity
           style={styles.touchableContainer}
@@ -79,7 +79,7 @@ const Perfil = ({navigation}) => {
 };
 
 const styles = StyleSheet.create({
-  body: {
+  container: {
     flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
