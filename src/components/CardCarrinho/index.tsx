@@ -4,7 +4,7 @@ import {Icon, Text} from 'react-native-elements';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 
 const CardCarrinho = (props: any) => {
-  const [quantidade, setQuantidade] = useState(0);
+  const [quantidade, setQuantidade] = useState(1);
 
   const handleAdicionarQuantidade = () => {
     let novaQuantidade = quantidade + 1;

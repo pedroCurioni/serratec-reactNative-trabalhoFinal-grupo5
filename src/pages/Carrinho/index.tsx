@@ -6,6 +6,7 @@ import {useEvent} from 'react-native-reanimated';
 import Icon from 'react-native-vector-icons/AntDesign';
 import CardCarrinho from '../../components/CardCarrinho';
 import Separador from '../../components/Separador';
+import ValorCarrinho from '../../components/ValorCarrinho';
 const Carrinho = ({navigation}) => {
   const [valorTotal, setValorTotal] = useState(0);
 
@@ -49,7 +50,7 @@ const Carrinho = ({navigation}) => {
   ];
 
   return (
-    <ScrollView style={styles.container}>
+    <View style={styles.container}>
       <View style={styles.boxTitulo}>
         <TouchableOpacity onPress={() => navigation.navigate('HomeTabScreen')}>
           <Icon
@@ -69,40 +70,18 @@ const Carrinho = ({navigation}) => {
           />
         </TouchableOpacity>
       </View>
-      <Text style={styles.subtitulo}>Items</Text>
-
-      <View style={styles.itemsContainer}>
-        <FlatList
-          data={produtos}
-          renderItem={({item}) => (
-            <CardCarrinho navigation={navigation} produto={item} />
-          )}
-          ItemSeparatorComponent={Divider}
-        />
-      </View>
-      <Text style={styles.subtitulo}>Resumo dos valores</Text>
-      <View style={styles.valoresContainer}>
-        <View style={styles.totalContainer}>
-          <Text style={styles.totalText}>Total</Text>
-          <Text style={styles.totalValor}>R$ {valorTotal}</Text>
-        </View>
-      </View>
-
-      <View style={styles.containerButtons}>
-        <Button
-          buttonStyle={styles.button}
-          title="Continuar Comprando"
-          titleStyle={styles.buttonTitle}
-          onPress={() => navigation.navigate('HomeTabScreen')}
-        />
-        <Button
-          buttonStyle={styles.button}
-          title="Finalizar Pedido"
-          titleStyle={styles.buttonTitle}
-          onPress={() => navigation.navigate('PedidoFinalizado')}
-        />
-      </View>
-    </ScrollView>
+      <FlatList
+        ListHeaderComponent={<Text style={styles.subtitulo}>Items</Text>}
+        ListFooterComponent={
+          <ValorCarrinho navigation={navigation} valorTotal={valorTotal} />
+        }
+        data={produtos}
+        renderItem={({item}) => (
+          <CardCarrinho navigation={navigation} produto={item} />
+        )}
+        ItemSeparatorComponent={Divider}
+      />
+    </View>
   );
 };
 
@@ -131,15 +110,16 @@ export const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   subtitulo: {
-    marginHorizontal: 20,
     textAlign: 'left',
     fontSize: 20,
     fontWeight: 'bold',
     color: '#000',
   },
   itemsContainer: {
+    flex: 1,
     marginHorizontal: 24,
   },
+  flatListStyle: {},
   valoresContainer: {
     marginHorizontal: 25,
     marginBottom: 50,
