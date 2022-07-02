@@ -4,9 +4,9 @@ import {
   ActivityIndicatorBase,
   StyleSheet,
   View,
+  TouchableOpacity
 } from 'react-native';
 import {Button, Input, Text} from 'react-native-elements';
-import {TouchableOpacity} from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/AntDesign';
 
 const RecuperarSenha = ({navigation}: any) => {
