@@ -1,16 +1,16 @@
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
+import {StyleSheet, TouchableOpacity} from 'react-native';
 import {Image, Text} from 'react-native-elements';
 
 const CardCategoria = ({navigation, categoria}) => {
   return (
-    <View style={styles.container}>
+    <TouchableOpacity style={styles.container}>
       <Image
-        source={require('../../assets/congelados.png')}
+        source={require('../../assets/img.png')}
         style={styles.image}
       />
       <Text style={styles.text}>nomeCategoria</Text>
-    </View>
+    </TouchableOpacity>
   );
 };
 
@@ -18,13 +18,18 @@ const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
     justifyContent: 'center',
+    margin: 10,
   },
   image: {
+    borderRadius: 10,
     height: 116,
-    width: 350,
+    width: 370,
   },
   text: {
+    marginTop: 10,
+    fontSize: 18,
     textAlign: 'center',
+    fontWeight: 'bold',
   },
 });
 

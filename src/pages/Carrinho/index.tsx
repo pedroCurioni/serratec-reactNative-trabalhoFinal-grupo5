@@ -71,6 +71,7 @@ const Carrinho = ({navigation}) => {
         </TouchableOpacity>
       </View>
       <FlatList
+        style={styles.flatListStyle}
         ListHeaderComponent={<Text style={styles.subtitulo}>Items</Text>}
         ListFooterComponent={
           <ValorCarrinho navigation={navigation} valorTotal={valorTotal} />
@@ -119,7 +120,9 @@ export const styles = StyleSheet.create({
     flex: 1,
     marginHorizontal: 24,
   },
-  flatListStyle: {},
+  flatListStyle: {
+    margin: 20,
+  },
   valoresContainer: {
     marginHorizontal: 25,
     marginBottom: 50,

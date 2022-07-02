@@ -1,8 +1,9 @@
 import React from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import {Icon} from 'react-native-elements';
+import {Divider, Icon} from 'react-native-elements';
 import {FlatList, ScrollView} from 'react-native-gesture-handler';
 import CardCategoria from '../../components/cardCategoria';
+import ButtonVoltarHome from '../../components/buttonVoltarHome';
 
 const Categorias = ({navigation}) => {
   const categorias = [
@@ -44,11 +45,14 @@ const Categorias = ({navigation}) => {
         </TouchableOpacity>
       </View>
       <FlatList
+        style={styles.flatListStyle}
         data={categorias}
         renderItem={res => (
           <CardCategoria navigation={navigation} categoria={res} />
         )}
+        ItemSeparatorComponent={Divider}
       />
+      <ButtonVoltarHome navigation={navigation} />
     </View>
   );
 };
@@ -63,7 +67,7 @@ const styles = StyleSheet.create({
 
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: 45,
+    marginBottom: 20,
     marginTop: 20,
     marginHorizontal: 10,
   },
@@ -77,6 +81,9 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 26,
     fontWeight: 'bold',
+  },
+  flatListStyle: {
+    margin: 20,
   },
 });
 
