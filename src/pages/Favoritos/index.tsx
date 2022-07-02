@@ -1,6 +1,6 @@
 import React from 'react';
 import { View, StyleSheet, FlatList, TouchableOpacity, Image } from 'react-native';
-import { Text } from 'react-native-elements';
+import { Button, Text } from 'react-native-elements';
 import CardsFavoritos from '../../components/cardsFavoritos';
 import Icon from 'react-native-vector-icons/AntDesign'
 
@@ -59,7 +59,12 @@ const Favoritos = ({ navigation }) => {
         numColumns={numColums}
         renderItem={({ item }) => <CardsFavoritos imagem={item.imagem} preco={item.preco} descricao={item.descricao} nome={item.nome} />}
       />
-
+      <Button
+        buttonStyle={styles.button}
+        title="Limpar Favoritos"
+        titleStyle={styles.buttonTitle}
+        onPress={() => console.log('Limpar favoritos')}
+      />
     </View>
   );
 };
@@ -89,6 +94,16 @@ export const styles = StyleSheet.create({
     width: 40,
     height: 40,
     marginRight: 10
+  },
+  button: {
+    backgroundColor: '#EE4249',
+    borderRadius: 10,
+    padding: 18,
+    margin: 15
+  },
+  buttonTitle: {
+    fontSize: 20,
+    fontWeight: 'bold'
   },
 });
 
