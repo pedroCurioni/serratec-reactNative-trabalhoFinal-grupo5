@@ -15,7 +15,7 @@ import Favoritos from '../pages/Favoritos';
 import Produtos from '../pages/Produtos';
 
 const TabNavigation = createBottomTabNavigator();
-const BottomTabNavigator = () => {
+export const BottomTabNavigator = () => {
   return (
     <TabNavigation.Navigator screenOptions={{
       headerShown: false,
@@ -74,6 +74,7 @@ const BottomTabNavigator = () => {
           ),
         }}
       />
+
       <TabNavigation.Screen
         name='PerfilTabScreen'
         component={Perfil}

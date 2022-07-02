@@ -4,6 +4,7 @@ import { Text } from 'react-native-elements';
 import IconMat from 'react-native-vector-icons/MaterialIcons'
 import CardsFavoritos from '../../components/cardsFavoritos';
 import Icon from 'react-native-vector-icons/AntDesign'
+import ButtonVoltarHome from '../../components/buttonVoltarHome';
 
 const Produtos = ({ navigation }) => {
 
@@ -109,7 +110,7 @@ const Produtos = ({ navigation }) => {
         numColumns={numColums}
         renderItem={({ item }) => <CardsFavoritos imagem={item.imagem} preco={item.preco} descricao={item.descricao} nome={item.nome} />}
       />
-
+      <ButtonVoltarHome navigation={navigation} />
     </View>
   );
 };
