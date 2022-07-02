@@ -9,7 +9,7 @@ import {Button, Input, Text} from 'react-native-elements';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/AntDesign';
 
-const RecuperarSenha = () => {
+const RecuperarSenha = ({navigation}: any) => {
   const [id, setId] = useState('');
   const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
@@ -17,7 +17,7 @@ const RecuperarSenha = () => {
   const [confirmaSenha, setConfirmaSenha] = useState('');
   const [isLoading, setLoading] = useState(false);
 
-  const handleAlterarSenha = ({navigation}: any) => {
+  const handleAlterarSenha = () => {
     console.log(id);
     console.log(nome);
     console.log(senha);
@@ -88,7 +88,7 @@ const RecuperarSenha = () => {
             }}
           />
         ) : (
-          <ActivityIndicator size="large" color="#fff" />
+          <ActivityIndicator size="large" color="#EE4249" />
         )}
       </View>
     </View>
