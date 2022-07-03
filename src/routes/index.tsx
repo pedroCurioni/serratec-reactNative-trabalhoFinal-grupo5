@@ -15,6 +15,7 @@ import Favoritos from '../pages/Favoritos';
 import Produtos from '../pages/Produtos';
 import PedidoFinalizado from '../pages/PedidoFinalizado';
 import Categorias from '../pages/Categorias';
+import Categoria from '../pages/Categoria';
 import DetalhesProduto from '../pages/DetalhesProduto';
 import {CarrinhoContext} from '../context/CarrinhoContext';
 
@@ -135,7 +136,14 @@ const Routes = () => {
           name="DetalhesProduto"
           component={DetalhesProduto}
         />
-        <StackNavigation.Screen name="Categorias" component={Categorias} />
+        <StackNavigation.Screen
+          name='Categorias'
+          component={Categorias}
+        />
+        <StackNavigation.Screen
+          name='Categoria'
+          component={Categoria}
+        />
       </StackNavigation.Navigator>
     </NavigationContainer>
   );
