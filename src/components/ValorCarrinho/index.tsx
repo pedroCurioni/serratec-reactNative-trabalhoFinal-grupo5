@@ -1,8 +1,12 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {Button} from 'react-native-elements';
+import {CarrinhoContext} from '../../context/CarrinhoContext';
 
 const ValorCarrinho = ({navigation, valorTotal}) => {
+  const {resetCarrinho, listarProdutos, setProdutos} =
+    useContext(CarrinhoContext);
+
   return (
     <View>
       <Text style={styles.subtitulo}>Resumo dos valores</Text>
@@ -14,7 +18,7 @@ const ValorCarrinho = ({navigation, valorTotal}) => {
         </View>
         <View style={styles.totalContainer}>
           <Text style={styles.totalText}>Total</Text>
-          <Text style={styles.totalValor}>R$ {valorTotal + 9}</Text>
+          <Text style={styles.totalValor}>R$ {valorTotal}</Text>
         </View>
       </View>
 
@@ -29,7 +33,11 @@ const ValorCarrinho = ({navigation, valorTotal}) => {
           buttonStyle={styles.button}
           title="Finalizar Pedido"
           titleStyle={styles.buttonTitle}
-          onPress={() => navigation.navigate('PedidoFinalizado')}
+          onPress={() => {
+            resetCarrinho();
+            navigation.navigate('PedidoFinalizado');
+            setProdutos(listarProdutos);
+          }}
         />
       </View>
     </View>

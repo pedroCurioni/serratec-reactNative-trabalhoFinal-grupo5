@@ -6,12 +6,20 @@ import CardCarrinho from '../../components/CardCarrinho';
 import ValorCarrinho from '../../components/ValorCarrinho';
 import {CarrinhoContext} from '../../context/CarrinhoContext';
 const Carrinho = ({navigation}) => {
-  const [valorTotal, setValorTotal] = useState(0);
+  const [valorTotal, setValorTotal] = useState('');
   const {listarProdutos, produtos, setProdutos} = useContext(CarrinhoContext);
 
   useEffect(() => {
     setProdutos(listarProdutos);
   }, []);
+
+  useEffect(() => {
+    let valor = 0;
+    produtos.forEach(res => {
+      valor += res.preco_produto * res.quantidade;
+    });
+    setValorTotal((valor + 9).toFixed(1));
+  }, [produtos]);
 
   return (
     <View style={styles.container}>
