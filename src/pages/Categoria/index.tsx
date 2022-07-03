@@ -5,7 +5,7 @@ import { AxiosInstance } from '../../api/AxiosInstance';
 import { AuthContext } from '../../context/AuthContext'
 import { CategoriaContext } from '../../context/CategoriaContext';
 import { Button } from 'react-native-elements/dist/buttons/Button';
-import CardsFavoritos from '../../components/cardsFavoritos';
+import CardProduto from '../../components/CardProduto';
 import { Icon, Image } from 'react-native-elements';
 import ButtonVoltarHome from '../../components/buttonVoltarHome';
 
@@ -65,7 +65,7 @@ const Categoria = ({ route, navigation }) => {
           data={listaProdutosCategoria}
           contentContainerStyle={{ paddingTop: 30, alignItems: 'center' }}
           numColumns={numColums}
-          renderItem={({ item }) => <CardsFavoritos imagem={item.imagemProduto} preco={item.precoProduto} descricao={item.descricaoProduto} nome={item.nomeProduto} />}
+          renderItem={({ item }) => <TouchableOpacity onPress={() => navigation.navigate('DetalhesProduto', { res: item, pagOrigem: 'Produtos' })}><CardProduto imagem={item.imagemProduto} preco={item.precoProduto} descricao={item.descricaoProduto} nome={item.nomeProduto} /></TouchableOpacity>}
         />
       }
       <ButtonVoltarHome navigation={navigation} />

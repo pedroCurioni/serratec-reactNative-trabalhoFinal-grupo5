@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import {Text} from 'react-native-elements';
 import IconMat from 'react-native-vector-icons/MaterialIcons';
-import CardsFavoritos from '../../components/cardsFavoritos';
+import CardsFavoritos from '../../components/CardProduto';
 import Icon from 'react-native-vector-icons/AntDesign';
 import ButtonVoltarHome from '../../components/buttonVoltarHome';
 import {CarrinhoContext} from '../../context/CarrinhoContext';

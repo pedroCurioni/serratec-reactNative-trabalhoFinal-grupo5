@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, FlatList, TouchableOpacity, Image } from 'react-native';
 import { Text, Input, Icon, Button } from 'react-native-elements';
-import CardsFavoritos from '../../components/cardsFavoritos';
+import CardProduto from '../../components/CardProduto';
 import Icon2 from 'react-native-vector-icons/AntDesign'
 import ButtonVoltarHome from '../../components/buttonVoltarHome';
 
@@ -108,8 +108,8 @@ const Produtos = ({ navigation }) => {
         contentContainerStyle={{ alignItems: 'center' }}
         keyExtractor={item => item.id}
         numColumns={numColums}
-        renderItem={({ item }) => <TouchableOpacity onPress={() => navigation.navigate('DetalhesProduto', {res: item, pagOrigem: 'Produtos'})}>
-          <CardsFavoritos imagem={item.imagem} preco={item.preco} descricao={item.descricao} nome={item.nome} />
+        renderItem={({ item }) => <TouchableOpacity onPress={() => navigation.navigate('DetalhesProduto', { res: item, pagOrigem: 'Produtos' })}>
+          <CardProduto imagem={item.imagem} preco={item.preco} descricao={item.descricao} nome={item.nome} />
         </TouchableOpacity>}
       />
       <ButtonVoltarHome navigation={navigation} />
