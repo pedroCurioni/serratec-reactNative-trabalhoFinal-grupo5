@@ -4,22 +4,27 @@ import {Icon, Text} from 'react-native-elements';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {CarrinhoContext} from '../../context/CarrinhoContext';
 
-const CardCarrinho = (props: any) => {
-  const [quantidade, setQuantidade] = useState(1);
-  const {removerItemCarrinho, listarProdutos} = useContext(CarrinhoContext);
+const CardCarrinho = ({produto}) => {
+  const {
+    removerItemCarrinho,
+    listarProdutos,
+    aumentarQuantidade,
+    diminuirQuantidade,
+    setProdutos,
+  } = useContext(CarrinhoContext);
 
   const handleAdicionarQuantidade = () => {
-    let novaQuantidade = quantidade + 1;
-    setQuantidade(novaQuantidade);
+    aumentarQuantidade(produto.id_produto);
+    setProdutos(listarProdutos);
   };
+
   const handleDiminuirQuantidade = () => {
-    if (quantidade == 1) {
-      console.log(removerItemCarrinho);
-      removerItemCarrinho(props.produto.id_produto);
-      props.set(listarProdutos);
+    if (produto.quantidade == 1) {
+      removerItemCarrinho(produto.id_produto);
+      setProdutos(listarProdutos);
     } else {
-      let novaQuantidade = quantidade - 1;
-      setQuantidade(novaQuantidade);
+      diminuirQuantidade(produto.id_produto);
+      setProdutos(listarProdutos);
     }
   };
 
@@ -29,19 +34,19 @@ const CardCarrinho = (props: any) => {
         <Image
           style={styles.image}
           source={{
-            uri: props.produto.imagem_produto,
+            uri: produto.imagem_produto,
           }}
         />
       </View>
 
       <View style={styles.textContainer}>
-        <Text style={styles.nome}>{props.produto.nome_produto}</Text>
-        <Text style={styles.descricao}>{props.produto.descricao_produto}</Text>
-        <Text style={styles.preco}>R$ {props.produto.preco_produto}</Text>
+        <Text style={styles.nome}>{produto.nome_produto}</Text>
+        <Text style={styles.descricao}>{produto.descricao_produto}</Text>
+        <Text style={styles.preco}>R$ {produto.preco_produto}</Text>
       </View>
       <View style={styles.quantidadeContainer}>
         <TouchableOpacity>
-          {quantidade > 1 ? (
+          {produto.quantidade > 1 ? (
             <Icon
               name="minus-circle-outline"
               type="material-community"
@@ -58,7 +63,7 @@ const CardCarrinho = (props: any) => {
             />
           )}
         </TouchableOpacity>
-        <Text style={styles.quantidadeText}>{quantidade}</Text>
+        <Text style={styles.quantidadeText}>{produto.quantidade}</Text>
         <TouchableOpacity>
           <Icon
             name="plus-circle-outline"

@@ -13,6 +13,7 @@ ProdutoSchema.schema = {
     descricao_produto: 'string',
     preco_produto: 'double',
     imagem_produto: 'string',
+    quantidade: {type: 'int', default: 1},
   },
 };
 
@@ -52,17 +53,36 @@ export function CarrinhoProvider({children}) {
         descricao_produto: _descricao,
         preco_produto: _preco,
         imagem_produto: _imagem,
+        quantidade: 1,
       });
     });
   };
 
-  const removerItemCarrinho = _id => {
+  const removerItemCarrinho = (_id: number) => {
     realm_carrinho.write(() => {
       realm_carrinho.delete(
         realm_carrinho
           .objects('Produto')
           .filter(produto => produto.id_produto == _id),
       );
+    });
+  };
+
+  const aumentarQuantidade = (_id: number) => {
+    realm_carrinho.write(() => {
+      realm_carrinho
+        .objects('Produto')
+        .filter(produto => produto.id_produto == _id)
+        .forEach(res => (res.quantidade += 1));
+    });
+  };
+
+  const diminuirQuantidade = (_id: number) => {
+    realm_carrinho.write(() => {
+      realm_carrinho
+        .objects('Produto')
+        .filter(produto => produto.id_produto == _id)
+        .forEach(res => (res.quantidade -= 1));
     });
   };
 
@@ -75,6 +95,8 @@ export function CarrinhoProvider({children}) {
         removerItemCarrinho,
         produtos,
         setProdutos,
+        aumentarQuantidade,
+        diminuirQuantidade,
       }}>
       {children}
     </CarrinhoContext.Provider>

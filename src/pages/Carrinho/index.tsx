@@ -7,15 +7,11 @@ import ValorCarrinho from '../../components/ValorCarrinho';
 import {CarrinhoContext} from '../../context/CarrinhoContext';
 const Carrinho = ({navigation}) => {
   const [valorTotal, setValorTotal] = useState(0);
-  const {listarProdutos, produtos} = useContext(CarrinhoContext);
+  const {listarProdutos, produtos, setProdutos} = useContext(CarrinhoContext);
 
   useEffect(() => {
-    let novoValor = 0;
-    produtos.forEach(res => {
-      novoValor += res.preco_produto;
-    });
-    setValorTotal(novoValor);
-  }, [produtos]);
+    setProdutos(listarProdutos);
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -46,10 +42,7 @@ const Carrinho = ({navigation}) => {
         }
         data={produtos}
         renderItem={({item}) => (
-          <CardCarrinho
-            navigation={navigation}
-            produto={item}
-          />
+          <CardCarrinho navigation={navigation} produto={item} />
         )}
         ItemSeparatorComponent={Divider}
         extraData={produtos}
