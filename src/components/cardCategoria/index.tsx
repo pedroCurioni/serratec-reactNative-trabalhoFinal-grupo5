@@ -1,15 +1,24 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import { StyleSheet, TouchableOpacity } from 'react-native';
 import { Image, Text } from 'react-native-elements';
+import { CategoriaContext } from '../../context/CategoriaContext';
 
-const CardCategoria = ({ navigation, categoria }) => {
+const CardCategoria = (props: any) => {
+  const [nomeImagem, setNomeImagem] = useState(props.categoria.nomeImagem)
+  const { handleCategoria } = useContext(CategoriaContext);
+
+  const handlePress = () => {
+    handleCategoria(props.categoria)
+    props.navigation.navigate('Categoria')
+  }
+
   return (
-    <TouchableOpacity style={styles.container}>
+    <TouchableOpacity style={styles.container} onPress={handlePress}>
       <Image
-        source={require('../../assets/img.png')}
+        source={{ uri: nomeImagem }}
         style={styles.image}
       />
-      <Text style={styles.text}>nomeCategoria</Text>
+      <Text style={styles.text}>{props.categoria.nomeCategoria}</Text>
     </TouchableOpacity>
   );
 };
