@@ -78,7 +78,12 @@ const Login = ({ navigation }: any) => {
           title="Login"
           titleStyle={styles.buttonTitle}
           onPress={() => { handleLogin(email, senha); setLoading(true) }}
-        /> : <ActivityIndicator size="large" color="#EE4249" />}
+        /> : <Button
+          loading
+          buttonStyle={styles.button}
+          title="Login"
+          titleStyle={styles.buttonTitle}
+        />}
       </View>
       <Button
         buttonStyle={styles.button3}
