@@ -1,6 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { StyleSheet, FlatList, ActivityIndicator, View, Text, TouchableOpacity } from 'react-native';
-import { CategoriaType } from '../../models/CategoriaType';
 import { ProdutoType } from '../../models/ProdutoType';
 import { AxiosInstance } from '../../api/AxiosInstance';
 import { AuthContext } from '../../context/AuthContext'
@@ -8,6 +7,7 @@ import { CategoriaContext } from '../../context/CategoriaContext';
 import { Button } from 'react-native-elements/dist/buttons/Button';
 import CardsFavoritos from '../../components/cardsFavoritos';
 import { Icon, Image } from 'react-native-elements';
+import ButtonVoltarHome from '../../components/buttonVoltarHome';
 
 const Categoria = ({ route, navigation }) => {
 
@@ -68,11 +68,7 @@ const Categoria = ({ route, navigation }) => {
           renderItem={({ item }) => <CardsFavoritos imagem={item.imagemProduto} preco={item.precoProduto} descricao={item.descricaoProduto} nome={item.nomeProduto} />}
         />
       }
-      <Button
-        buttonStyle={styles.button}
-        title="Voltar"
-        titleStyle={styles.buttonTitle}
-        onPress={() => navigation.navigate('Categorias')} />
+      <ButtonVoltarHome navigation={navigation} />
     </View>
   );
 };
