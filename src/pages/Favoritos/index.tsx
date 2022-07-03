@@ -57,7 +57,7 @@ const Favoritos = ({ navigation }) => {
         contentContainerStyle={{ paddingTop: 30, alignItems: 'center' }}
         keyExtractor={item => item.id}
         numColumns={numColums}
-        renderItem={({ item }) => <CardProduto imagem={item.imagem} preco={item.preco} descricao={item.descricao} nome={item.nome} />}
+        renderItem={({ item }) => <TouchableOpacity onPress={() => navigation.navigate('DetalhesProduto', { res: item, pagOrigem: 'Produtos' })}><CardProduto imagem={item.imagem} preco={item.preco} descricao={item.descricao} nome={item.nome} /></TouchableOpacity>}
       />
       <Button
         buttonStyle={styles.button}
