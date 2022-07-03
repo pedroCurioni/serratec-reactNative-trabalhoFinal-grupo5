@@ -86,6 +86,12 @@ export function CarrinhoProvider({children}) {
     });
   };
 
+  const resetCarrinho = () => {
+    realm_carrinho.write(() => {
+      realm_carrinho.deleteAll();
+    });
+  };
+
   return (
     <CarrinhoContext.Provider
       value={{
@@ -97,6 +103,7 @@ export function CarrinhoProvider({children}) {
         setProdutos,
         aumentarQuantidade,
         diminuirQuantidade,
+        resetCarrinho,
       }}>
       {children}
     </CarrinhoContext.Provider>

@@ -1,9 +1,9 @@
-import React from 'react';
-import { Icon } from 'react-native-elements';
+import React, {useContext} from 'react';
+import {Icon, withBadge} from 'react-native-elements';
 
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
 import Login from '../pages/Login';
 import Home from '../pages/Home';
@@ -16,29 +16,38 @@ import Produtos from '../pages/Produtos';
 import PedidoFinalizado from '../pages/PedidoFinalizado';
 import Categorias from '../pages/Categorias';
 import DetalhesProduto from '../pages/DetalhesProduto';
+import {CarrinhoContext} from '../context/CarrinhoContext';
 
 const TabNavigation = createBottomTabNavigator();
 export const BottomTabNavigator = () => {
+  const {contarQuantidadeProdutos} = useContext(CarrinhoContext);
+  const BadgeIcone = withBadge(contarQuantidadeProdutos())(Icon);
   return (
-    <TabNavigation.Navigator screenOptions={{
-      headerShown: false,
-      tabBarStyle: { backgroundColor: '#fff', borderBottomWidth: 0, borderTopWidth: 2, height: 60 },
-      tabBarShowLabel: true,
-      tabBarLabelStyle: {
-        fontSize: 16,
-        color: '#000',
-      }
-    }}>
+    <TabNavigation.Navigator
+      screenOptions={{
+        headerShown: false,
+        tabBarStyle: {
+          backgroundColor: '#fff',
+          borderBottomWidth: 0,
+          borderTopWidth: 2,
+          height: 60,
+        },
+        tabBarShowLabel: true,
+        tabBarLabelStyle: {
+          fontSize: 16,
+          color: '#000',
+        },
+      }}>
       <TabNavigation.Screen
-        name='HomeTabScreen'
+        name="HomeTabScreen"
         component={Home}
         options={{
           tabBarLabel: 'Loja',
-          tabBarIcon: ({ focused }) => (
+          tabBarIcon: ({focused}) => (
             <Icon
-              name='store'
-              color={focused ? "#e05456" : "#bab8b8"}
-              type='material-community'
+              name="store"
+              color={focused ? '#e05456' : '#bab8b8'}
+              type="material-community"
               size={35}
               tvParallaxProperties={undefined}
             />
@@ -46,15 +55,15 @@ export const BottomTabNavigator = () => {
         }}
       />
       <TabNavigation.Screen
-        name='CarrinhoTabScreen'
+        name="CarrinhoTabScreen"
         component={Carrinho}
         options={{
           tabBarLabel: 'Carrinho',
-          tabBarIcon: ({ focused }) => (
-            <Icon
-              name='cart'
-              color={focused ? "#e05456" : "#bab8b8"}
-              type='material-community'
+          tabBarIcon: ({focused}) => (
+            <BadgeIcone
+              name="cart"
+              color={focused ? '#e05456' : '#bab8b8'}
+              type="material-community"
               size={30}
               tvParallaxProperties={undefined}
             />
@@ -62,15 +71,15 @@ export const BottomTabNavigator = () => {
         }}
       />
       <TabNavigation.Screen
-        name='FavoritosTabScreen'
+        name="FavoritosTabScreen"
         component={Favoritos}
         options={{
           tabBarLabel: 'Favoritos',
-          tabBarIcon: ({ focused }) => (
+          tabBarIcon: ({focused}) => (
             <Icon
-              name='heart'
-              color={focused ? "#e05456" : "#bab8b8"}
-              type='material-community'
+              name="heart"
+              color={focused ? '#e05456' : '#bab8b8'}
+              type="material-community"
               size={30}
               tvParallaxProperties={undefined}
             />
@@ -79,15 +88,15 @@ export const BottomTabNavigator = () => {
       />
 
       <TabNavigation.Screen
-        name='PerfilTabScreen'
+        name="PerfilTabScreen"
         component={Perfil}
         options={{
           tabBarLabel: 'Perfil',
-          tabBarIcon: ({ focused }) => (
+          tabBarIcon: ({focused}) => (
             <Icon
-              name='account-circle'
-              color={focused ? "#e05456" : "#bab8b8"}
-              type='material-community'
+              name="account-circle"
+              color={focused ? '#e05456' : '#bab8b8'}
+              type="material-community"
               size={30}
               tvParallaxProperties={undefined}
             />
@@ -96,51 +105,40 @@ export const BottomTabNavigator = () => {
       />
     </TabNavigation.Navigator>
   );
-}
+};
 
 const StackNavigation = createNativeStackNavigator();
 
 const Routes = () => {
   return (
     <NavigationContainer>
-      <StackNavigation.Navigator screenOptions={{
-        headerShown: false
-      }}>
+      <StackNavigation.Navigator
+        screenOptions={{
+          headerShown: false,
+        }}>
+        <StackNavigation.Screen name="Login" component={Login} />
+        <StackNavigation.Screen name="Home" component={BottomTabNavigator} />
         <StackNavigation.Screen
-          name='Login'
-          component={Login}
-        />
-        <StackNavigation.Screen
-          name='Home'
-          component={BottomTabNavigator}
-        />
-        <StackNavigation.Screen
-          name='CadastroCliente'
+          name="CadastroCliente"
           component={CadastroCliente}
         />
         <StackNavigation.Screen
-          name='RecuperarSenha'
+          name="RecuperarSenha"
           component={RecuperarSenha}
         />
+        <StackNavigation.Screen name="Produtos" component={Produtos} />
         <StackNavigation.Screen
-          name='Produtos'
-          component={Produtos}
-        />
-        <StackNavigation.Screen
-          name='PedidoFinalizado'
+          name="PedidoFinalizado"
           component={PedidoFinalizado}
         />
         <StackNavigation.Screen
-          name='DetalhesProduto'
+          name="DetalhesProduto"
           component={DetalhesProduto}
         />
-        <StackNavigation.Screen
-          name='Categorias'
-          component={Categorias}
-        />
+        <StackNavigation.Screen name="Categorias" component={Categorias} />
       </StackNavigation.Navigator>
     </NavigationContainer>
   );
-}
+};
 
 export default Routes;
