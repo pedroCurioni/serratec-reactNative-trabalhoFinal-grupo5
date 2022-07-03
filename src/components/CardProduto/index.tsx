@@ -2,17 +2,17 @@ import * as React from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign'
 
-const CardsFavoritos = (props:any) => {
-  return(
+const CardProduto = (props: any) => {
+  return (
     <View style={styles.container}>
       <View style={styles.boxImagem}>
         <TouchableOpacity style={styles.botaoAdicionar}>
-          <Icon name='pluscircle' size={25} color='#EE4249'/>
+          <Icon name='pluscircle' size={25} color='#EE4249' />
         </TouchableOpacity>
-        <Image style={{width: '100%', height: '100%'}}
+        <Image style={{ width: '100%', height: '100%' }}
           source={{
-          uri: props.imagem,
-        }}/>
+            uri: props.imagem,
+          }} />
       </View>
       <View style={styles.boxTexto}>
         <View style={styles.boxCima}>
@@ -20,7 +20,7 @@ const CardsFavoritos = (props:any) => {
           <Text style={styles.styleNome}>{props.nome}</Text>
         </View>
         <View style={styles.boxBaixo}>
-        <Text style={styles.styleDescricao}>{props.descricao}</Text>
+          <Text style={styles.styleDescricao}>{props.descricao}</Text>
         </View>
       </View>
     </View>
@@ -50,7 +50,7 @@ export const styles = StyleSheet.create({
     position: 'absolute',
     top: 80,
     left: 88,
-    
+
   },
   boxCima: {
     width: '100%',
@@ -73,4 +73,4 @@ export const styles = StyleSheet.create({
   }
 });
 
-export default CardsFavoritos;
+export default CardProduto;

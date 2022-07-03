@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, StyleSheet, FlatList, TouchableOpacity, Image } from 'react-native';
 import { Button, Text } from 'react-native-elements';
-import CardsFavoritos from '../../components/cardsFavoritos';
+import CardProduto from '../../components/CardProduto';
 import Icon from 'react-native-vector-icons/AntDesign'
 
 const Favoritos = ({ navigation }) => {
@@ -57,7 +57,7 @@ const Favoritos = ({ navigation }) => {
         contentContainerStyle={{ paddingTop: 30, alignItems: 'center' }}
         keyExtractor={item => item.id}
         numColumns={numColums}
-        renderItem={({ item }) => <CardsFavoritos imagem={item.imagem} preco={item.preco} descricao={item.descricao} nome={item.nome} />}
+        renderItem={({ item }) => <CardProduto imagem={item.imagem} preco={item.preco} descricao={item.descricao} nome={item.nome} />}
       />
       <Button
         buttonStyle={styles.button}
