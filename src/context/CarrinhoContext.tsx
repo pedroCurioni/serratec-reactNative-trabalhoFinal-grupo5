@@ -1,4 +1,4 @@
-import React, {createContext} from 'react';
+import React, {createContext, useState} from 'react';
 import Realm from 'realm';
 
 export const CarrinhoContext = createContext({});
@@ -19,6 +19,8 @@ ProdutoSchema.schema = {
 let realm_carrinho = new Realm({schema: [ProdutoSchema], schemaVersion: 1});
 
 export function CarrinhoProvider({children}) {
+  const [produtos, setProdutos] = useState([]);
+
   const listarProdutos = () => {
     return realm_carrinho.objects('Produto');
   };
@@ -71,6 +73,8 @@ export function CarrinhoProvider({children}) {
         contarQuantidadeProdutos,
         adicionarProduto,
         removerItemCarrinho,
+        produtos,
+        setProdutos,
       }}>
       {children}
     </CarrinhoContext.Provider>

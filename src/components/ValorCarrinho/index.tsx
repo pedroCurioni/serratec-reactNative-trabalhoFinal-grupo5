@@ -7,9 +7,14 @@ const ValorCarrinho = ({navigation, valorTotal}) => {
     <View>
       <Text style={styles.subtitulo}>Resumo dos valores</Text>
       <View style={styles.valoresContainer}>
+        <Text></Text>
+        <View style={styles.freteContainer}>
+          <Text style={styles.freteText}>Taxa de entrega</Text>
+          <Text style={styles.freteValor}>R$ 9.00</Text>
+        </View>
         <View style={styles.totalContainer}>
           <Text style={styles.totalText}>Total</Text>
-          <Text style={styles.totalValor}>R$ {valorTotal}</Text>
+          <Text style={styles.totalValor}>R$ {valorTotal + 9}</Text>
         </View>
       </View>
 
@@ -70,11 +75,28 @@ export const styles = StyleSheet.create({
     marginHorizontal: 25,
     marginBottom: 50,
   },
+  freteContainer: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 5,
+  },
+  freteText: {
+    width: '49%',
+    fontSize: 16,
+    color: '#333',
+  },
+  freteValor: {
+    width: '49%',
+    fontSize: 16,
+    textAlign: 'right',
+    color: '#333',
+  },
   totalContainer: {
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 15,
+    marginTop: 5,
     padding: 5,
     borderWidth: 1,
     borderStyle: 'solid',
@@ -85,12 +107,14 @@ export const styles = StyleSheet.create({
     width: '49%',
     fontSize: 20,
     fontWeight: 'bold',
+    color: '#000',
   },
   totalValor: {
     width: '49%',
     fontSize: 20,
     textAlign: 'right',
     fontWeight: 'bold',
+    color: '#000',
   },
   containerButtons: {
     alignItems: 'center',
@@ -101,7 +125,7 @@ export const styles = StyleSheet.create({
     backgroundColor: '#EE4249',
     borderRadius: 10,
     padding: 10,
-    width: 333,
+    width: 300,
     marginBottom: 13,
     borderWidth: 3,
     borderStyle: 'solid',

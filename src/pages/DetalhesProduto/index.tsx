@@ -17,7 +17,7 @@ import Produtos from '../Produtos';
 const DetalhesProduto = ({route, navigation}) => {
   const {res, pagOrigem} = route.params;
   const [isFavorito, setFavorito] = useState(false);
-  const {adicionarProduto} = useContext(CarrinhoContext);
+  const {adicionarProduto, setProdutos, listarProdutos} = useContext(CarrinhoContext);
 
   const navigate = () => {
     navigation.navigate(pagOrigem);
@@ -75,13 +75,16 @@ const DetalhesProduto = ({route, navigation}) => {
                 )}
               </TouchableOpacity>
               <TouchableOpacity
-                onPress={adicionarProduto(
-                  res.sku,
-                  res.nome,
-                  res.descricao,
-                  res.preco,
-                  res.imagem,
-                )}>
+                onPress={() =>{
+                  adicionarProduto(
+                    res.sku,
+                    res.nome,
+                    res.descricao,
+                    res.preco,
+                    res.imagem,
+                  );
+                  setProdutos(listarProdutos);
+                }}>
                 <Image
                   source={require('../../assets/botaoAdicionar.png')}
                   style={styles.imageLogoff}

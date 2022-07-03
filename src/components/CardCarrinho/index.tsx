@@ -1,10 +1,12 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {Image, StyleSheet, View} from 'react-native';
 import {Icon, Text} from 'react-native-elements';
 import {TouchableOpacity} from 'react-native-gesture-handler';
+import {CarrinhoContext} from '../../context/CarrinhoContext';
 
 const CardCarrinho = (props: any) => {
   const [quantidade, setQuantidade] = useState(1);
+  const {removerItemCarrinho, listarProdutos} = useContext(CarrinhoContext);
 
   const handleAdicionarQuantidade = () => {
     let novaQuantidade = quantidade + 1;
@@ -12,7 +14,9 @@ const CardCarrinho = (props: any) => {
   };
   const handleDiminuirQuantidade = () => {
     if (quantidade == 1) {
-      console.log('Remover Item');
+      console.log(removerItemCarrinho);
+      removerItemCarrinho(props.produto.id_produto);
+      props.set(listarProdutos);
     } else {
       let novaQuantidade = quantidade - 1;
       setQuantidade(novaQuantidade);

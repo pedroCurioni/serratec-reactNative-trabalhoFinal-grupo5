@@ -1,19 +1,13 @@
 import React, {useContext, useEffect, useState} from 'react';
 import {View, StyleSheet, TouchableOpacity, FlatList} from 'react-native';
-import {Button, Divider, Image, Text} from 'react-native-elements';
-import {ScrollView} from 'react-native-gesture-handler';
-import {useEvent} from 'react-native-reanimated';
+import {Divider, Image, Text} from 'react-native-elements';
 import Icon from 'react-native-vector-icons/AntDesign';
 import CardCarrinho from '../../components/CardCarrinho';
-import Separador from '../../components/Separador';
 import ValorCarrinho from '../../components/ValorCarrinho';
-import { CarrinhoContext } from '../../context/CarrinhoContext';
+import {CarrinhoContext} from '../../context/CarrinhoContext';
 const Carrinho = ({navigation}) => {
   const [valorTotal, setValorTotal] = useState(0);
-  const { listarProdutos } = useContext(CarrinhoContext);
-  const [produtos, setProdutos] = useState(listarProdutos());
-
-  console.log(produtos);
+  const {listarProdutos, produtos} = useContext(CarrinhoContext);
 
   useEffect(() => {
     let novoValor = 0;
@@ -21,8 +15,7 @@ const Carrinho = ({navigation}) => {
       novoValor += res.preco_produto;
     });
     setValorTotal(novoValor);
-  }, []);
-
+  }, [produtos]);
 
   return (
     <View style={styles.container}>
@@ -53,9 +46,13 @@ const Carrinho = ({navigation}) => {
         }
         data={produtos}
         renderItem={({item}) => (
-          <CardCarrinho navigation={navigation} produto={item} />
+          <CardCarrinho
+            navigation={navigation}
+            produto={item}
+          />
         )}
         ItemSeparatorComponent={Divider}
+        extraData={produtos}
       />
     </View>
   );
