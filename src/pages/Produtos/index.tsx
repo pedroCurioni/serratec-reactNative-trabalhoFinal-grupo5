@@ -17,42 +17,48 @@ const Produtos = ({ navigation }) => {
       preco: 11.99,
       nome: 'Sorvete',
       descricao: 'Unidade 900ml',
-      imagem: 'https://i.imgur.com/mJL5hao.png'
+      imagem: 'https://i.imgur.com/mJL5hao.png',
+      sku: 'test',
     },
     {
       id: '1',
       preco: 25.99,
       nome: 'Energético Monster',
       descricao: 'Unidade 900ml',
-      imagem: 'https://i.imgur.com/SwWp69v.png'
+      imagem: 'https://i.imgur.com/SwWp69v.png',
+      sku: 'test',
     },
     {
       id: '2',
       preco: 20.99,
       nome: 'Skol',
       descricao: 'Unidade 900ml',
-      imagem: 'https://i.imgur.com/Z83tdHE.png'
+      imagem: 'https://i.imgur.com/Z83tdHE.png',
+      sku: 'test',
     },
     {
       id: '3',
       preco: 20.99,
       nome: 'Pizza Mussarela',
       descricao: '1 unidade',
-      imagem: 'https://i.imgur.com/LEDrUlQ.png'
+      imagem: 'https://i.imgur.com/LEDrUlQ.png',
+      sku: 'test',
     },
     {
       id: '4',
       preco: 20.99,
       nome: 'Pizza Mussarela',
       descricao: '1 unidade',
-      imagem: 'https://i.imgur.com/LEDrUlQ.png'
+      imagem: 'https://i.imgur.com/LEDrUlQ.png',
+      sku: 'test',
     },
     {
       id: '5',
       preco: 20.99,
       nome: 'Pizza Mussarela',
       descricao: '1 unidade',
-      imagem: 'https://i.imgur.com/LEDrUlQ.png'
+      imagem: 'https://i.imgur.com/LEDrUlQ.png',
+      sku: 'test',
     },
   ]
 

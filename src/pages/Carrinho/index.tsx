@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {View, StyleSheet, TouchableOpacity, FlatList} from 'react-native';
 import {Button, Divider, Image, Text} from 'react-native-elements';
 import {ScrollView} from 'react-native-gesture-handler';
@@ -7,47 +7,22 @@ import Icon from 'react-native-vector-icons/AntDesign';
 import CardCarrinho from '../../components/CardCarrinho';
 import Separador from '../../components/Separador';
 import ValorCarrinho from '../../components/ValorCarrinho';
+import { CarrinhoContext } from '../../context/CarrinhoContext';
 const Carrinho = ({navigation}) => {
   const [valorTotal, setValorTotal] = useState(0);
+  const { listarProdutos } = useContext(CarrinhoContext);
+  const [produtos, setProdutos] = useState(listarProdutos());
+
+  console.log(produtos);
 
   useEffect(() => {
     let novoValor = 0;
     produtos.forEach(res => {
-      novoValor += res.preco;
+      novoValor += res.preco_produto;
     });
     setValorTotal(novoValor);
   }, []);
 
-  const produtos = [
-    {
-      id: '0',
-      preco: 11.99,
-      nome: 'Sorvete',
-      descricao: 'Unidade 900ml',
-      imagem: 'https://i.imgur.com/mJL5hao.png',
-    },
-    {
-      id: '1',
-      preco: 25.99,
-      nome: 'Energético Monster',
-      descricao: 'Unidade 900ml',
-      imagem: 'https://i.imgur.com/SwWp69v.png',
-    },
-    {
-      id: '2',
-      preco: 20.99,
-      nome: 'Skol',
-      descricao: 'Unidade 900ml',
-      imagem: 'https://i.imgur.com/Z83tdHE.png',
-    },
-    {
-      id: '3',
-      preco: 20.99,
-      nome: 'Pizza Mussarela',
-      descricao: '1 unidade',
-      imagem: 'https://i.imgur.com/LEDrUlQ.png',
-    },
-  ];
 
   return (
     <View style={styles.container}>

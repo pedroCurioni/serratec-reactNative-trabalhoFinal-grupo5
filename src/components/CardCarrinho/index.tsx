@@ -25,15 +25,15 @@ const CardCarrinho = (props: any) => {
         <Image
           style={styles.image}
           source={{
-            uri: props.produto.imagem,
+            uri: props.produto.imagem_produto,
           }}
         />
       </View>
 
       <View style={styles.textContainer}>
-        <Text style={styles.nome}>{props.produto.nome}</Text>
-        <Text style={styles.descricao}>{props.produto.descricao}</Text>
-        <Text style={styles.preco}>R$ {props.produto.preco}</Text>
+        <Text style={styles.nome}>{props.produto.nome_produto}</Text>
+        <Text style={styles.descricao}>{props.produto.descricao_produto}</Text>
+        <Text style={styles.preco}>R$ {props.produto.preco_produto}</Text>
       </View>
       <View style={styles.quantidadeContainer}>
         <TouchableOpacity>
