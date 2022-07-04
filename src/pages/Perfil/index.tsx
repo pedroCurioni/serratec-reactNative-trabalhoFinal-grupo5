@@ -36,7 +36,7 @@ const Perfil = ({ navigation }) => {
         </TouchableOpacity>
       </View>
       <Image
-        source={require('../../assets/imagem_perfil.png')}
+        source={{ uri: `${user.imagem}` }}
         style={styles.image}
       />
       <View style={styles.textContainer}>
@@ -89,6 +89,7 @@ const styles = StyleSheet.create({
     width: 170,
     height: 170,
     marginBottom: 25,
+    borderRadius: 100
   },
   titulo: {
     width: '80%',

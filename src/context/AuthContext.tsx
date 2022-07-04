@@ -4,19 +4,20 @@ import { LoginService } from "../services/LoginService";
 
 export const AuthContext = createContext({})
 
-export const AuthProvider = ({children}) => {
+export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState<UsuarioType>();
 
-  const login = async (email:string, senha:string) =>{
+  const login = async (email: string, senha: string) => {
     const respostaServiceLogin = await LoginService(email, senha);
-    if(!respostaServiceLogin){
+    if (!respostaServiceLogin) {
       return false;
-    }else{
+    } else {
       setUser({
         id: respostaServiceLogin?.id,
         name: respostaServiceLogin?.name,
         email: respostaServiceLogin?.email,
         token: respostaServiceLogin?.token,
+        imagem: respostaServiceLogin?.foto_perfil,
       });
       return true;
     }
