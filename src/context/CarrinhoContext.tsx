@@ -44,7 +44,6 @@ export function CarrinhoProvider({children}) {
       ultimoProdutoCadastrado == null ? 0 : ultimoProdutoCadastrado.id_produto;
     const proximoId =
       ultimoProdutoCadastrado == null ? 1 : ultimoIdCadastrado + 1;
-    console.log(_sku);
     realm_carrinho.write(() => {
       const produto = realm_carrinho.create('Produto', {
         id_produto: proximoId,

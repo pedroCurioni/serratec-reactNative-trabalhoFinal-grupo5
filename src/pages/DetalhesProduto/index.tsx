@@ -78,10 +78,10 @@ const DetalhesProduto = ({ route, navigation }) => {
                 onPress={() => {
                   adicionarProduto(
                     res.sku,
-                    res.nome,
-                    res.descricao,
-                    res.preco,
-                    res.imagem,
+                    res.nomeProduto,
+                    res.descricaoProduto,
+                    res.precoProduto,
+                    res.imagemProduto,
                   );
                   setProdutos(listarProdutos);
                 }}>
