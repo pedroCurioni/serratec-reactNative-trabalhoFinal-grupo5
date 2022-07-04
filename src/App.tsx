@@ -1,17 +1,20 @@
 import 'react-native-gesture-handler';
 import React from 'react';
 import Routes from './routes';
-import { AuthContext, AuthProvider } from './context/AuthContext';
-import { CarrinhoProvider } from './context/CarrinhoContext';
+import {AuthProvider} from './context/AuthContext';
+import {CarrinhoProvider} from './context/CarrinhoContext';
 import CategoriaProvider from './context/CategoriaContext';
+import {FavoritoProvider} from './context/FavoritosContext';
 
 export default () => {
   return (
     <AuthProvider>
       <CarrinhoProvider>
-        <CategoriaProvider>
-          <Routes />
-        </CategoriaProvider>
+        <FavoritoProvider>
+          <CategoriaProvider>
+            <Routes />
+          </CategoriaProvider>
+        </FavoritoProvider>
       </CarrinhoProvider>
     </AuthProvider>
   );

@@ -17,7 +17,11 @@ ProdutoSchema.schema = {
   },
 };
 
-let realm_carrinho = new Realm({schema: [ProdutoSchema], schemaVersion: 1});
+let realm_carrinho = new Realm({
+  schema: [ProdutoSchema],
+  schemaVersion: 1,
+  path: 'Carrinho',
+});
 
 export function CarrinhoProvider({children}) {
   const [produtos, setProdutos] = useState([]);

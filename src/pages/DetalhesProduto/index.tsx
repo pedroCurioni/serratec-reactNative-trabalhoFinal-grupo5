@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {
   View,
   StyleSheet,
@@ -6,18 +6,33 @@ import {
   TouchableOpacity,
   Image,
 } from 'react-native';
-import { Text } from 'react-native-elements';
+import {Text} from 'react-native-elements';
 import IconMat from 'react-native-vector-icons/MaterialIcons';
 import CardsFavoritos from '../../components/CardProduto';
 import Icon from 'react-native-vector-icons/AntDesign';
 import ButtonVoltarHome from '../../components/buttonVoltarHome';
-import { CarrinhoContext } from '../../context/CarrinhoContext';
+import {CarrinhoContext} from '../../context/CarrinhoContext';
 import Produtos from '../Produtos';
+import {FavoritoContext} from '../../context/FavoritosContext';
 
-const DetalhesProduto = ({ route, navigation }) => {
-  const { res, pagOrigem } = route.params;
+const DetalhesProduto = ({route, navigation}) => {
+  const {res, pagOrigem} = route.params;
   const [isFavorito, setFavorito] = useState(false);
-  const { adicionarProduto, setProdutos, listarProdutos } = useContext(CarrinhoContext);
+  const {adicionarProduto, setProdutos, listarProdutos} =
+    useContext(CarrinhoContext);
+  const {adicionarFavorito, setFavoritos, listarFavoritos, favoritos} =
+    useContext(FavoritoContext);
+
+  useEffect(() => {
+    const contem = favoritos.forEach(
+      item => item.nome_produto === res.nomeProduto,
+    );
+    if (contem != null) {
+      setFavorito(false);
+    } else {
+      setFavorito(true);
+    }
+  }, [res]);
 
   const navigate = () => {
     navigation.navigate(pagOrigem);
@@ -46,7 +61,7 @@ const DetalhesProduto = ({ route, navigation }) => {
         <View style={styles.boxConteudo}>
           <View style={styles.boxImagem}>
             <Image
-              style={{ width: 175, height: 175 }}
+              style={{width: 175, height: 175}}
               source={{
                 uri: res.imagemProduto,
               }}
@@ -56,12 +71,24 @@ const DetalhesProduto = ({ route, navigation }) => {
             <View style={styles.boxInfoCima}>
               <View style={styles.boxDescicao}>
                 <Text style={styles.nomeProduto}>{res.nomeProduto}</Text>
-                <Text style={styles.descricaoProduto}>{res.descricaoProduto}</Text>
+                <Text style={styles.descricaoProduto}>
+                  {res.descricaoProduto}
+                </Text>
               </View>
               <Text style={styles.precoProduto}>R$ {res.precoProduto}</Text>
             </View>
             <View style={styles.boxInfoBaixo}>
-              <TouchableOpacity onPress={() => setFavorito(e => !isFavorito)}>
+              <TouchableOpacity
+                onPress={() => {
+                  adicionarFavorito(
+                    res.sku,
+                    res.nomeProduto,
+                    res.descricaoProduto,
+                    res.precoProduto,
+                    res.imagemProduto,
+                  );
+                  setFavoritos(listarFavoritos);
+                }}>
                 {isFavorito ? (
                   <Image
                     source={require('../../assets/coracaoCheio.png')}
