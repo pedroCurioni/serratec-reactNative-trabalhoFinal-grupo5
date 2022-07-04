@@ -48,9 +48,7 @@ const Carrinho = ({navigation}) => {
       <FlatList
         style={styles.flatListStyle}
         ListHeaderComponent={
-          <Text style={styles.subtitulo}>
-            {contarQuantidadeProdutos()} Items
-          </Text>
+          <Text style={styles.subtitulo}>{quantidade} Items</Text>
         }
         ListFooterComponent={
           <ValorCarrinho navigation={navigation} valorTotal={valorTotal} />
