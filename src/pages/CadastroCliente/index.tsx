@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { View, StyleSheet, TouchableOpacity, Keyboard, TouchableWithoutFeedback, Modal } from 'react-native';
 import { Text, Input, Button, normalize } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/AntDesign'
+import { AxiosInstance } from '../../api/AxiosInstance';
 
 const CadastroCliente = ({navigation}:any) => {
 
@@ -13,27 +14,48 @@ const CadastroCliente = ({navigation}:any) => {
   const [confirmSenha, setConfirmSenha] = useState('')
   const [isLoading, setLoading] = useState(false)
   const [isPopupError, setPopupError] = useState(false)
+  const [isPopupSucess, setPopupSucess] = useState(false)
   const [errorMessage, setErrorMessage] = useState()
 
   function nomeNumRegex(str:string) {
     return /[0-9]/.test(str)
   }
 
-  function load() {
+  function verificarCredenciais() {
     setTimeout(function() {
-      setLoading(false)
-      setPopupError(true)
       console.log(nome + '|' +  email + '|' + imagem + '|' + senha + '|' + confirmSenha)
       if(nome === ''  || email === '' || imagem === '' || senha === '' || confirmSenha === '') {
         setErrorMessage(e => 'Um de seus campos está vazio!')
+        setPopupError(true)
+        setLoading(false)
       } else if(nomeNumRegex(nome)) {
         setErrorMessage(e => 'Seu nome contém caracteres inválidos!')
+        setPopupError(true)
+        setLoading(false)
       } else if (senha.length < 5) {
         setErrorMessage(e => 'Sua senha é muito fraca!')
+        setPopupError(true)
+        setLoading(false)
       } else if(senha != confirmSenha) {
         setErrorMessage(e => 'Suas senhas não coincidem!')
+        setPopupError(true)
+        setLoading(false)
+      } else {
+        getDadosCategoria()
       }
     }, 1000)
+  }
+
+  const getDadosCategoria = async () => {
+    try {
+      const res = await AxiosInstance.post(
+        '/autenticacao/registro',{ nomeUsuario: nome, email: email, fotoPerfil: imagem, senha: senha})
+      console.log(res)
+      setPopupSucess(true)
+      setLoading(false)
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   return (
@@ -84,7 +106,7 @@ const CadastroCliente = ({navigation}:any) => {
         buttonStyle={styles.botaoConfirmar}
         titleStyle={styles.textoBotaoConfirmar}
         title="Cadastrar"
-        onPress={() => {setLoading(true); load()}}
+        onPress={() => {setLoading(true); verificarCredenciais()}}
       />}
       </View>
       <Modal
@@ -104,8 +126,30 @@ const CadastroCliente = ({navigation}:any) => {
             />
           </View>
         </View>
-        
       </Modal>
+      <Modal
+        animationType={'slide'}
+        transparent={true}
+        visible={isPopupSucess}
+        onRequestClose={() => setPopupSucess(false)}>
+        <View style={styles.boxModal}>
+          <View style={styles.modal}>
+            <Text style={styles.tituloPopup}>Sucesso ao se registrar</Text>
+            <Icon
+            name="check"
+            style={{paddingTop: 20}}
+            size={40}
+            color="#EE4249"/>
+            <Button
+              title='Voltar'
+              containerStyle={styles.boxBotaoPopup}
+              buttonStyle={styles.buttaoPopup}
+              onPress={() => navigation.navigate('Login')}
+            />
+          </View>
+        </View>
+      </Modal>
+
     </View>
   </HideKeyboard>
                
