@@ -2,7 +2,7 @@ import * as React from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign'
 
-const CardProduto = (props: any) => {
+const CardProduto = ({ produto }) => {
   return (
     <View style={styles.container}>
       <View style={styles.boxImagem}>
@@ -11,16 +11,16 @@ const CardProduto = (props: any) => {
         </TouchableOpacity>
         <Image style={{ width: '100%', height: '100%' }}
           source={{
-            uri: props.imagem,
+            uri: produto.imagemProduto,
           }} />
       </View>
       <View style={styles.boxTexto}>
         <View style={styles.boxCima}>
-          <Text style={styles.stylePreco}>R$ {parseFloat(props.preco).toFixed(2).replace('.', ',')}</Text>
-          <Text style={styles.styleNome}>{props.nome}</Text>
+          <Text style={styles.stylePreco}>R$ {parseFloat(produto.precoProduto).toFixed(2).replace('.', ',')}</Text>
+          <Text style={styles.styleNome}>{produto.nomeProduto}</Text>
         </View>
         <View style={styles.boxBaixo}>
-          <Text style={styles.styleDescricao}>{props.descricao}</Text>
+          <Text style={styles.styleDescricao}>{produto.descricaoProduto}</Text>
         </View>
       </View>
     </View>

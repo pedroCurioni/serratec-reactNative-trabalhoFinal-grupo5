@@ -18,7 +18,8 @@ export const styles = StyleSheet.create({
     backgroundColor: '#EE4249',
     padding: 10,
     height: 72,
-    width: '100%'
+    width: '100%',
+
   },
   buttonTitle: {
     fontSize: 20

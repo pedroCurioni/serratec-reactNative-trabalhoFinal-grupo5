@@ -1,9 +1,9 @@
-import React, {useContext} from 'react';
-import {Icon, withBadge} from 'react-native-elements';
+import React, { useContext } from 'react';
+import { Icon, withBadge } from 'react-native-elements';
 
-import {NavigationContainer} from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import Login from '../pages/Login';
 import Home from '../pages/Home';
@@ -17,11 +17,12 @@ import PedidoFinalizado from '../pages/PedidoFinalizado';
 import Categorias from '../pages/Categorias';
 import Categoria from '../pages/Categoria';
 import DetalhesProduto from '../pages/DetalhesProduto';
-import {CarrinhoContext} from '../context/CarrinhoContext';
+import { CarrinhoContext } from '../context/CarrinhoContext';
+import ListaProdutosFim from '../pages/ListaProdutosFim';
 
 const TabNavigation = createBottomTabNavigator();
 export const BottomTabNavigator = () => {
-  const {contarQuantidadeProdutos} = useContext(CarrinhoContext);
+  const { contarQuantidadeProdutos } = useContext(CarrinhoContext);
   const BadgeIcone = withBadge(contarQuantidadeProdutos())(Icon);
   return (
     <TabNavigation.Navigator
@@ -44,7 +45,7 @@ export const BottomTabNavigator = () => {
         component={Home}
         options={{
           tabBarLabel: 'Loja',
-          tabBarIcon: ({focused}) => (
+          tabBarIcon: ({ focused }) => (
             <Icon
               name="store"
               color={focused ? '#e05456' : '#bab8b8'}
@@ -60,7 +61,7 @@ export const BottomTabNavigator = () => {
         component={Carrinho}
         options={{
           tabBarLabel: 'Carrinho',
-          tabBarIcon: ({focused}) => (
+          tabBarIcon: ({ focused }) => (
             <BadgeIcone
               name="cart"
               color={focused ? '#e05456' : '#bab8b8'}
@@ -76,7 +77,7 @@ export const BottomTabNavigator = () => {
         component={Favoritos}
         options={{
           tabBarLabel: 'Favoritos',
-          tabBarIcon: ({focused}) => (
+          tabBarIcon: ({ focused }) => (
             <Icon
               name="heart"
               color={focused ? '#e05456' : '#bab8b8'}
@@ -93,7 +94,7 @@ export const BottomTabNavigator = () => {
         component={Perfil}
         options={{
           tabBarLabel: 'Perfil',
-          tabBarIcon: ({focused}) => (
+          tabBarIcon: ({ focused }) => (
             <Icon
               name="account-circle"
               color={focused ? '#e05456' : '#bab8b8'}
@@ -131,6 +132,10 @@ const Routes = () => {
         <StackNavigation.Screen
           name="PedidoFinalizado"
           component={PedidoFinalizado}
+        />
+        <StackNavigation.Screen
+          name="ListaProdutosFim"
+          component={ListaProdutosFim}
         />
         <StackNavigation.Screen
           name="DetalhesProduto"
