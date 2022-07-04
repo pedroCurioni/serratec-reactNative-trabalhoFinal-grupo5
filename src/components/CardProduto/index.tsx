@@ -1,22 +1,40 @@
-import * as React from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
-import Icon from 'react-native-vector-icons/AntDesign'
+import React, {useContext} from 'react';
+import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native';
+import Icon from 'react-native-vector-icons/AntDesign';
+import {CarrinhoContext} from '../../context/CarrinhoContext';
 
 const CardProduto = (props: any) => {
+  const {adicionarProduto, setProdutos, listarProdutos} =
+    useContext(CarrinhoContext);
   return (
     <View style={styles.container}>
       <View style={styles.boxImagem}>
-        <TouchableOpacity style={styles.botaoAdicionar}>
-          <Icon name='pluscircle' size={25} color='#EE4249' />
+        <TouchableOpacity
+          style={styles.botaoAdicionar}
+          onPress={() => {
+            adicionarProduto(
+              props.sku,
+              props.nome,
+              props.descricao,
+              props.preco,
+              props.imagem,
+            );
+            setProdutos(listarProdutos);
+          }}>
+          <Icon name="pluscircle" size={25} color="#EE4249" />
         </TouchableOpacity>
-        <Image style={{ width: '100%', height: '100%' }}
+        <Image
+          style={{width: '100%', height: '100%'}}
           source={{
             uri: props.imagem,
-          }} />
+          }}
+        />
       </View>
       <View style={styles.boxTexto}>
         <View style={styles.boxCima}>
-          <Text style={styles.stylePreco}>R$ {parseFloat(props.preco).toFixed(2).replace('.', ',')}</Text>
+          <Text style={styles.stylePreco}>
+            R$ {parseFloat(props.preco).toFixed(2).replace('.', ',')}
+          </Text>
           <Text style={styles.styleNome}>{props.nome}</Text>
         </View>
         <View style={styles.boxBaixo}>
@@ -24,8 +42,8 @@ const CardProduto = (props: any) => {
         </View>
       </View>
     </View>
-  )
-}
+  );
+};
 
 export const styles = StyleSheet.create({
   container: {
@@ -50,27 +68,25 @@ export const styles = StyleSheet.create({
     position: 'absolute',
     top: 115,
     left: 88,
-
   },
   boxCima: {
     width: '100%',
     height: '60%',
-    justifyContent: 'flex-start'
+    justifyContent: 'flex-start',
   },
   boxBaixo: {
     width: '100%',
     height: '40%',
-    justifyContent: 'flex-end'
+    justifyContent: 'flex-end',
   },
   stylePreco: {
     color: 'black',
-    fontWeight: '900'
+    fontWeight: '900',
   },
   styleNome: {
     color: 'black',
   },
-  styleDescricao: {
-  }
+  styleDescricao: {},
 });
 
 export default CardProduto;
