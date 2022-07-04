@@ -40,6 +40,9 @@ const Perfil = ({ navigation }) => {
         style={styles.image}
       />
       <View style={styles.textContainer}>
+        <Text style={styles.textStyle}>Id: {user.id}</Text>
+      </View>
+      <View style={styles.textContainer}>
         <Text style={styles.textStyle}>Nome: {user.name}</Text>
       </View>
       <View style={styles.textContainer}>
