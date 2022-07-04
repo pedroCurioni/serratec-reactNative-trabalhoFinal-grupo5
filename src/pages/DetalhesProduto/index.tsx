@@ -13,7 +13,8 @@ import Icon from 'react-native-vector-icons/AntDesign';
 import ButtonVoltarHome from '../../components/buttonVoltarHome';
 import {CarrinhoContext} from '../../context/CarrinhoContext';
 import Produtos from '../Produtos';
-import {FavoritoContext} from '../../context/FavoritosContext';
+import {FavoritosContext} from '../../context/FavoritosContext';
+import Favoritos from '../Favoritos';
 
 const DetalhesProduto = ({route, navigation}) => {
   const {res, pagOrigem} = route.params;
@@ -21,7 +22,7 @@ const DetalhesProduto = ({route, navigation}) => {
   const {adicionarProduto, setProdutos, listarProdutos} =
     useContext(CarrinhoContext);
   const {adicionarFavorito, setFavoritos, listarFavoritos, favoritos} =
-    useContext(FavoritoContext);
+    useContext(FavoritosContext);
 
   useEffect(() => {
     const contem = favoritos.forEach(
@@ -88,6 +89,7 @@ const DetalhesProduto = ({route, navigation}) => {
                     res.imagemProduto,
                   );
                   setFavoritos(listarFavoritos);
+                  console.log(favoritos);
                 }}>
                 {isFavorito ? (
                   <Image

@@ -4,17 +4,17 @@ import Routes from './routes';
 import {AuthProvider} from './context/AuthContext';
 import {CarrinhoProvider} from './context/CarrinhoContext';
 import CategoriaProvider from './context/CategoriaContext';
-import {FavoritoProvider} from './context/FavoritosContext';
+import {FavoritosProvider} from './context/FavoritosContext';
 
 export default () => {
   return (
     <AuthProvider>
       <CarrinhoProvider>
-        <FavoritoProvider>
+        <FavoritosProvider>
           <CategoriaProvider>
             <Routes />
           </CategoriaProvider>
-        </FavoritoProvider>
+        </FavoritosProvider>
       </CarrinhoProvider>
     </AuthProvider>
   );

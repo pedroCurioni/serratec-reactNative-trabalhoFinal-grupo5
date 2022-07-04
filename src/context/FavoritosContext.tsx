@@ -1,10 +1,10 @@
 import React, {createContext, useState} from 'react';
 import Realm from 'realm';
 
-export const FavoritoContext = createContext({});
+export const FavoritosContext = createContext({});
 
-class FavoritoSchema extends Realm.Object {}
-FavoritoSchema.schema = {
+class FavoritosSchema extends Realm.Object {}
+FavoritosSchema.schema = {
   name: 'Favorito',
   properties: {
     id_produto: {type: 'int', default: 0},
@@ -13,24 +13,21 @@ FavoritoSchema.schema = {
     descricao_produto: 'string',
     preco_produto: 'double',
     imagem_produto: 'string',
+    quantidade: {type: 'int', default: 1},
   },
 };
 
 let realm_favoritos = new Realm({
-  schema: [FavoritoSchema],
+  schema: [FavoritosSchema],
   schemaVersion: 1,
-  path: 'favoritos',
+  path: 'ListaFavoritos',
 });
 
-export function FavoritoProvider({children}) {
+export function FavoritosProvider({children}) {
   const [favoritos, setFavoritos] = useState([]);
 
   const listarFavoritos = () => {
     return realm_favoritos.objects('Favorito');
-  };
-
-  const contarQuantidadeFavoritos = () => {
-    return realm_favoritos.objects('Favorito').length;
   };
 
   const adicionarFavorito = (
@@ -40,12 +37,12 @@ export function FavoritoProvider({children}) {
     _preco: number,
     _imagem: string,
   ) => {
-    console.log(_sku, _nome, _descricao, _imagem, _preco)
     const ultimoProdutoCadastrado = realm_favoritos
       .objects('Favorito')
       .sorted('id_produto', true)[0];
     const ultimoIdCadastrado =
       ultimoProdutoCadastrado == null ? 0 : ultimoProdutoCadastrado.id_produto;
+    console.log("Ultimo produto: ", ultimoProdutoCadastrado)
     const proximoId =
       ultimoProdutoCadastrado == null ? 1 : ultimoIdCadastrado + 1;
     realm_favoritos.write(() => {
@@ -56,11 +53,12 @@ export function FavoritoProvider({children}) {
         descricao_produto: _descricao,
         preco_produto: _preco,
         imagem_produto: _imagem,
+        quantidade: 1,
       });
     });
   };
 
-  const removerItemFavorito = (_id: number) => {
+  const removerItemFavoritos = (_id: number) => {
     realm_favoritos.write(() => {
       realm_favoritos.delete(
         realm_favoritos
@@ -77,17 +75,16 @@ export function FavoritoProvider({children}) {
   };
 
   return (
-    <FavoritoContext.Provider
+    <FavoritosContext.Provider
       value={{
         listarFavoritos,
-        contarQuantidadeFavoritos,
         adicionarFavorito,
-        removerItemFavorito,
+        removerItemFavoritos,
         favoritos,
         setFavoritos,
         resetFavoritos,
       }}>
       {children}
-    </FavoritoContext.Provider>
+    </FavoritosContext.Provider>
   );
 }

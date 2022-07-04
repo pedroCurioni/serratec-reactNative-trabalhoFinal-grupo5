@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {
   View,
   StyleSheet,
@@ -9,18 +9,17 @@ import {
 import {Button, Text} from 'react-native-elements';
 import CardProduto from '../../components/CardProduto';
 import Icon from 'react-native-vector-icons/AntDesign';
-import {FavoritoContext} from '../../context/FavoritosContext';
+import {FavoritosContext} from '../../context/FavoritosContext';
+import CardFavorito from '../../components/CardFavorito';
 
 const Favoritos = ({navigation}) => {
-  const {
-    adicionarFavorito,
-    setFavoritos,
-    listarFavoritos,
-    favoritos,
-    resetFavoritos,
-  } = useContext(FavoritoContext);
+  const {setFavoritos, listarFavoritos, favoritos, resetFavoritos} =
+    useContext(FavoritosContext);
 
-  console.log(favoritos);
+  useEffect(() => {
+    setFavoritos(listarFavoritos());
+    console.log(favoritos);
+  }, []);
 
   const numColums = 3;
 
@@ -47,6 +46,7 @@ const Favoritos = ({navigation}) => {
       </View>
       <FlatList
         data={favoritos}
+        extraData={favoritos}
         contentContainerStyle={{paddingTop: 30, alignItems: 'center'}}
         numColumns={numColums}
         renderItem={({item}) => (
@@ -57,7 +57,7 @@ const Favoritos = ({navigation}) => {
                 pagOrigem: 'Produtos',
               })
             }>
-            <CardProduto produto={item} />
+            <CardFavorito produto={item} />
           </TouchableOpacity>
         )}
       />
@@ -65,7 +65,10 @@ const Favoritos = ({navigation}) => {
         buttonStyle={styles.button}
         title="Limpar Favoritos"
         titleStyle={styles.buttonTitle}
-        onPress={resetFavoritos()}
+        onPress={() => {
+          resetFavoritos();
+          setFavoritos(listarFavoritos);
+        }}
       />
     </View>
   );
