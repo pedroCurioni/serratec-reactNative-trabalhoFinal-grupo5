@@ -54,10 +54,10 @@ const Favoritos = ({navigation}) => {
             onPress={() =>
               navigation.navigate('DetalhesProduto', {
                 res: item,
-                pagOrigem: 'Produtos',
+                pagOrigem: 'Favoritos',
               })
             }>
-            <CardFavorito produto={item} />
+            <CardProduto produto={item} />
           </TouchableOpacity>
         )}
       />
