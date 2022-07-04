@@ -54,7 +54,7 @@ const Favoritos = ({navigation}) => {
             onPress={() =>
               navigation.navigate('DetalhesProduto', {
                 res: item,
-                pagOrigem: 'Favoritos',
+                pagOrigem: 'FavoritosTabScreen',
               })
             }>
             <CardProduto produto={item} />

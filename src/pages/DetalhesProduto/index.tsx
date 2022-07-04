@@ -56,7 +56,7 @@ const DetalhesProduto = ({route, navigation}) => {
 
   const handleAdicionarFavorito = () => {
     if (isFavorito) {
-      console.log('Remover');
+      navigation.navigate(pagOrigem);
       removerItemFavoritos(res.idProduto);
       setFavoritos(listarFavoritos);
       setIsFavorito(false);
