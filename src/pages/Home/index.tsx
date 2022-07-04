@@ -18,7 +18,7 @@ const Home = ({ navigation }) => {
     <ScrollView style={styles.container}>
       <View style={styles.boxTitulo}>
         <Text style={styles.titulo}>FiveMarket</Text>
-        <TouchableOpacity style={styles.logoff} onPress={() => console.log('Logoff')}>
+        <TouchableOpacity style={styles.logoff} onPress={() => navigation.navigate('Login')}>
           <Image source={require('../../assets/logout.png')} style={styles.imageLogoff} />
         </TouchableOpacity>
       </View>

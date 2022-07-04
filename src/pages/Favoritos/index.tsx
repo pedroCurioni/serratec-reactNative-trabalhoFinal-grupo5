@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import {
   View,
   StyleSheet,
@@ -6,19 +6,18 @@ import {
   TouchableOpacity,
   Image,
 } from 'react-native';
-import {Button, Text} from 'react-native-elements';
+import { Button, Text } from 'react-native-elements';
 import CardProduto from '../../components/CardProduto';
 import Icon from 'react-native-vector-icons/AntDesign';
-import {FavoritosContext} from '../../context/FavoritosContext';
+import { FavoritosContext } from '../../context/FavoritosContext';
 import CardFavorito from '../../components/CardFavorito';
 
-const Favoritos = ({navigation}) => {
-  const {setFavoritos, listarFavoritos, favoritos, resetFavoritos} =
+const Favoritos = ({ navigation }) => {
+  const { setFavoritos, listarFavoritos, favoritos, resetFavoritos } =
     useContext(FavoritosContext);
 
   useEffect(() => {
     setFavoritos(listarFavoritos());
-    console.log(favoritos);
   }, []);
 
   const numColums = 3;
@@ -37,7 +36,7 @@ const Favoritos = ({navigation}) => {
         <Text style={styles.tituloFavorito}>Favoritos</Text>
         <TouchableOpacity
           style={styles.logoff}
-          onPress={() => console.log('Logoff')}>
+          onPress={() => navigation.navigate('Login')}>
           <Image
             source={require('../../assets/logout.png')}
             style={styles.imageLogoff}
@@ -47,9 +46,9 @@ const Favoritos = ({navigation}) => {
       <FlatList
         data={favoritos}
         extraData={favoritos}
-        contentContainerStyle={{paddingTop: 30, alignItems: 'center'}}
+        contentContainerStyle={{ paddingTop: 30, alignItems: 'center' }}
         numColumns={numColums}
-        renderItem={({item}) => (
+        renderItem={({ item }) => (
           <TouchableOpacity
             onPress={() =>
               navigation.navigate('DetalhesProduto', {

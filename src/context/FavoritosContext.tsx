@@ -1,19 +1,19 @@
-import React, {createContext, useState} from 'react';
+import React, { createContext, useState } from 'react';
 import Realm from 'realm';
 
 export const FavoritosContext = createContext({});
 
-class FavoritosSchema extends Realm.Object {}
+class FavoritosSchema extends Realm.Object { }
 FavoritosSchema.schema = {
   name: 'Favorito',
   properties: {
-    idProduto: {type: 'int', default: 0},
+    idProduto: { type: 'int', default: 0 },
     sku: 'string',
     nomeProduto: 'string',
     descricaoProduto: 'string',
     precoProduto: 'double',
     imagemProduto: 'string',
-    quantidade: {type: 'int', default: 1},
+    quantidade: { type: 'int', default: 1 },
   },
 };
 
@@ -23,7 +23,7 @@ let realm_favoritos = new Realm({
   path: 'ListaFavoritos',
 });
 
-export function FavoritosProvider({children}) {
+export function FavoritosProvider({ children }) {
   const [favoritos, setFavoritos] = useState([]);
 
   const listarFavoritos = () => {
@@ -42,7 +42,6 @@ export function FavoritosProvider({children}) {
       .sorted('idProduto', true)[0];
     const ultimoIdCadastrado =
       ultimoProdutoCadastrado == null ? 0 : ultimoProdutoCadastrado.idProduto;
-    console.log("Ultimo produto: ", ultimoProdutoCadastrado)
     const proximoId =
       ultimoProdutoCadastrado == null ? 1 : ultimoIdCadastrado + 1;
     realm_favoritos.write(() => {
