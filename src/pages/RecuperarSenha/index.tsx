@@ -4,8 +4,10 @@ import {
   StyleSheet,
   View,
   TouchableOpacity,
+  Modal,
 } from 'react-native';
 import {Button, Input, Text} from 'react-native-elements';
+import {combineTransition} from 'react-native-reanimated';
 import Icon from 'react-native-vector-icons/AntDesign';
 import {AxiosInstance} from '../../api/AxiosInstance';
 
@@ -14,15 +16,53 @@ const RecuperarSenha = ({navigation}: any) => {
   const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
   const [senha, setSenha] = useState('');
-  const [confirmaSenha, setConfirmaSenha] = useState('');
+  const [confirmSenha, setConfirmSenha] = useState('');
   const [isLoading, setLoading] = useState(false);
+  const [isPopupError, setPopupError] = useState(false);
+  const [isPopupSucess, setPopupSucess] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+
+  function nomeNumRegex(str: string) {
+    return /[0-9]/.test(str);
+  }
+
+  function verificarCredenciais() {
+    setTimeout(function () {
+      console.log(nome + '|' + email + '|' + senha + '|' + confirmSenha);
+      if (
+        id === '' ||
+        nome === '' ||
+        email === '' ||
+        senha === '' ||
+        confirmSenha === ''
+      ) {
+        setErrorMessage('Um de seus campos está vazio!');
+        setPopupError(true);
+        setLoading(false);
+      } else if (nomeNumRegex(id)) {
+        setErrorMessage('Seu id deve conter somente numeros!');
+        setPopupError(true);
+        setLoading(false);
+      } else if (nomeNumRegex(nome)) {
+        setErrorMessage('Seu nome contém caracteres inválidos!');
+        setPopupError(true);
+        setLoading(false);
+      } else if (senha.length < 5) {
+        setErrorMessage('Sua senha é muito fraca!');
+        setPopupError(true);
+        setLoading(false);
+      } else if (senha != confirmSenha) {
+        setErrorMessage('Suas senhas não coincidem!');
+        setPopupError(true);
+        setLoading(false);
+      } else {
+        console.log('Senha alterada');
+        handleAlterarSenha();
+      }
+    }, 1000);
+  }
 
   const handleAlterarSenha = async () => {
-    console.log(id);
-    console.log(nome);
-    console.log(senha);
-    console.log(id);
-
     try {
       const respostaRecuperarSenha = await AxiosInstance.post(
         '/autenticacao/recuperar-senha',
@@ -34,8 +74,8 @@ const RecuperarSenha = ({navigation}: any) => {
         },
       );
       console.log(respostaRecuperarSenha);
-      // setPopupSucess(true);
-      // setLoading(false);
+      setPopupSucess(true);
+      setLoading(false);
     } catch (error) {
       console.log(error);
     }
@@ -89,26 +129,75 @@ const RecuperarSenha = ({navigation}: any) => {
       <Input
         secureTextEntry={true}
         placeholder="Confirmar nova senha"
-        onChangeText={setConfirmaSenha}
+        onChangeText={setConfirmSenha}
         inputContainerStyle={styles.inputContainer}
-        value={confirmaSenha}
+        value={confirmSenha}
         placeholderTextColor={'#a295a4'}
       />
       <View style={styles.containerButtons}>
-        {isLoading === false ? (
+        {isLoading ? (
           <Button
+            loading
             buttonStyle={styles.button}
-            title="Trocar senha"
             titleStyle={styles.buttonTitle}
-            onPress={() => {
-              handleAlterarSenha();
-              setLoading(true);
-            }}
+            title="Cadastrar"
           />
         ) : (
-          <ActivityIndicator size="large" color="#EE4249" />
+          <Button
+            buttonStyle={styles.button}
+            titleStyle={styles.buttonTitle}
+            title="Cadastrar"
+            onPress={() => {
+              setLoading(true);
+              verificarCredenciais();
+            }}
+          />
         )}
       </View>
+      <Modal
+        animationType={'slide'}
+        transparent={true}
+        visible={isPopupError}
+        onRequestClose={() => setPopupError(false)}>
+        <View style={styles.boxModal}>
+          <View style={styles.modal}>
+            <Text style={styles.tituloPopup}>Erro ao se registrar</Text>
+            <Text style={styles.subTitlePopup}>{errorMessage}</Text>
+            <Button
+              title="Voltar"
+              containerStyle={styles.boxBotaoPopup}
+              buttonStyle={styles.buttaoPopup}
+              onPress={() => {
+                setPopupError(false);
+                setErrorMessage(e => '');
+              }}
+            />
+          </View>
+        </View>
+      </Modal>
+      <Modal
+        animationType={'slide'}
+        transparent={true}
+        visible={isPopupSucess}
+        onRequestClose={() => setPopupSucess(false)}>
+        <View style={styles.boxModal}>
+          <View style={styles.modal}>
+            <Text style={styles.tituloPopup}>Sucesso ao se registrar</Text>
+            <Icon
+              name="check"
+              style={{paddingTop: 20}}
+              size={40}
+              color="#EE4249"
+            />
+            <Button
+              title="Voltar"
+              containerStyle={styles.boxBotaoPopup}
+              buttonStyle={styles.buttaoPopup}
+              onPress={() => navigation.navigate('Login')}
+            />
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 };
@@ -169,6 +258,44 @@ const styles = StyleSheet.create({
   buttonTitle: {
     fontSize: 20,
     fontWeight: 'bold',
+  },
+  boxModal: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.3)',
+  },
+  modal: {
+    marginTop: 290,
+    backgroundColor: 'white',
+    borderRadius: 20,
+    margin: 20,
+    padding: 35,
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  tituloPopup: {
+    fontSize: 18,
+    fontWeight: '700',
+  },
+  subTitlePopup: {
+    marginTop: 9,
+    fontSize: 15,
+    fontWeight: '500',
+  },
+  boxBotaoPopup: {
+    marginTop: 30,
+  },
+  buttaoPopup: {
+    backgroundColor: '#EE4249',
+    borderRadius: 10,
+    padding: 2,
+    width: 90,
   },
 });
 
