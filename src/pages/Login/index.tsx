@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { View, StyleSheet, Alert, ActivityIndicator } from 'react-native';
+import { View, StyleSheet, Alert, ActivityIndicator, Modal } from 'react-native';
 import { Text, Input, Button, Image } from 'react-native-elements';
 import { AuthContext } from '../../context/AuthContext';
 
@@ -8,6 +8,7 @@ const Login = ({ navigation }: any) => {
   const [senha, setSenha] = useState('');
   const { login } = useContext(AuthContext);
   const [isLoading, setLoading] = useState(false);
+  const [isPopupError, setPopupError] = useState(false)
 
   const handleLogin = async (email: string, senha: string) => {
     console.log(`Email: ${email} - Senha: ${senha}`)
@@ -15,14 +16,7 @@ const Login = ({ navigation }: any) => {
     const respostaLogin = await login(email, senha);
     setLoading(false);
     if (!respostaLogin) {
-      Alert.alert(
-        "Erro",
-        "",
-        [
-          { text: "OK" },
-          { text: "Não foi possivel realizar o login." },
-        ]
-      )
+      setPopupError(true)
     } else {
       navigation.navigate('Home');
       cleanInput();
@@ -91,6 +85,23 @@ const Login = ({ navigation }: any) => {
         titleStyle={styles.buttonTitle3}
         onPress={() => { handleSenha() }}
       />
+      <Modal
+        animationType={'slide'}
+        transparent={true}
+        visible={isPopupError}
+        onRequestClose={() => setPopupError(false)}>
+        <View style={styles.boxModal}>
+          <View style={styles.modal}>
+            <Text style={styles.tituloPopup}>Houve um erro ao tentar logar</Text>
+            <Button
+              title='Voltar'
+              containerStyle={styles.boxBotaoPopup}
+              buttonStyle={styles.buttaoPopup}
+              onPress={() => setPopupError(false)}
+            />
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 };
@@ -168,7 +179,45 @@ const styles = StyleSheet.create({
     fontSize: 17,
     color: '#EE4249',
     textDecorationLine: 'underline'
-  }
+  },
+  boxModal: {
+    flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.3)'
+  },
+  modal: {
+    marginTop: 290,
+    backgroundColor: "white",
+    borderRadius: 20,
+    margin: 20,
+    padding: 35,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5
+  },
+  tituloPopup: {
+    fontSize: 18,
+    fontWeight: '700',
+  },
+  subTitlePopup: {
+    marginTop: 9,
+    fontSize: 15,
+    fontWeight: '500',
+  },
+  boxBotaoPopup: {
+    marginTop: 30
+  },
+  buttaoPopup: {
+    backgroundColor: '#EE4249',
+    borderRadius: 10,
+    padding: 2,
+    width: 90,
+  },
 });
 
 export default Login;
