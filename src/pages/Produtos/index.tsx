@@ -1,66 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { View, StyleSheet, FlatList, TouchableOpacity, Image } from 'react-native';
 import { Text, Input, Icon, Button } from 'react-native-elements';
 import CardProduto from '../../components/CardProduto';
 import Icon2 from 'react-native-vector-icons/AntDesign'
 import ButtonVoltarHome from '../../components/buttonVoltarHome';
+import { AxiosInstance } from '../../api/AxiosInstance';
+import { AuthContext } from '../../context/AuthContext';
+import { ProdutoType } from '../../models/ProdutoType';
 
 const Produtos = ({ navigation }) => {
 
   const numColums = 3;
-
+  const [produto, setProduto] = useState<ProdutoType[]>([]);
   const [search, setSearch] = useState('');
-
-  const produtos = [
-    {
-      id: '0',
-      preco: 11.99,
-      nome: 'Sorvete',
-      descricao: 'Unidade 900ml',
-      imagem: 'https://i.imgur.com/mJL5hao.png',
-      sku: 'test',
-    },
-    {
-      id: '1',
-      preco: 25.99,
-      nome: 'Energético Monster',
-      descricao: 'Unidade 900ml',
-      imagem: 'https://i.imgur.com/SwWp69v.png',
-      sku: 'test',
-    },
-    {
-      id: '2',
-      preco: 20.99,
-      nome: 'Skol',
-      descricao: 'Unidade 900ml',
-      imagem: 'https://i.imgur.com/Z83tdHE.png',
-      sku: 'test',
-    },
-    {
-      id: '3',
-      preco: 20.99,
-      nome: 'Pizza Mussarela',
-      descricao: '1 unidade',
-      imagem: 'https://i.imgur.com/LEDrUlQ.png',
-      sku: 'test',
-    },
-    {
-      id: '4',
-      preco: 20.99,
-      nome: 'Pizza Mussarela',
-      descricao: '1 unidade',
-      imagem: 'https://i.imgur.com/LEDrUlQ.png',
-      sku: 'test',
-    },
-    {
-      id: '5',
-      preco: 20.99,
-      nome: 'Pizza Mussarela',
-      descricao: '1 unidade',
-      imagem: 'https://i.imgur.com/LEDrUlQ.png',
-      sku: 'test',
-    },
-  ]
+  const [isLoadingRecentes, setIsLoadingRecentes] = useState(true);
+  const { user } = useContext(AuthContext);
 
   const pesquisarCategoria = (search: string) => {
     if (search !== '') {
@@ -70,9 +24,26 @@ const Produtos = ({ navigation }) => {
     }
   }
 
+  const getDadosProduto = async () => {
+    AxiosInstance.get(
+      '/produto',
+      { headers: { "Authorization": `Bearer ${user.token}` } }
+    ).then(result => {
+      console.log('Dados dos produtos:' + JSON.stringify(result.data));
+      setProduto(result.data);
+      setIsLoadingRecentes(false);
+    }).catch((error) => {
+      console.log("Erro ao carregtar a lista de produtos - " + JSON.stringify(error))
+    })
+  }
+
   useEffect(() => {
     pesquisarCategoria(search);
   }, [search])
+
+  useEffect(() => {
+    getDadosProduto();
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -104,12 +75,11 @@ const Produtos = ({ navigation }) => {
         />
       </View>
       <FlatList
-        data={produtos}
+        data={produto}
         contentContainerStyle={{ alignItems: 'center' }}
-        keyExtractor={item => item.id}
         numColumns={numColums}
         renderItem={({ item }) => <TouchableOpacity onPress={() => navigation.navigate('DetalhesProduto', { res: item, pagOrigem: 'Produtos' })}>
-          <CardProduto imagem={item.imagem} preco={item.preco} descricao={item.descricao} nome={item.nome} />
+          <CardProduto imagem={item.imagemProduto} preco={item.precoProduto} descricao={item.descricaoProduto} nome={item.nomeProduto} />
         </TouchableOpacity>}
       />
       <ButtonVoltarHome navigation={navigation} />
