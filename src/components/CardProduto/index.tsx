@@ -1,5 +1,5 @@
 import React, {useContext, useEffect, useState} from 'react';
-import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native';
+import {View, Text, StyleSheet, Image, TouchableOpacity, Modal} from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
 import {CarrinhoContext} from '../../context/CarrinhoContext';
 
@@ -54,7 +54,7 @@ const CardProduto = ({produto}) => {
         <TouchableOpacity
           style={styles.botaoAdicionar}
           onPress={() => {
-            handleAdicionarCarrinho;
+            handleAdicionarCarrinho();
             loadPopup();
             setMessagePopup(e => 'Produto adicionado ao carrinho!');
           }}>
