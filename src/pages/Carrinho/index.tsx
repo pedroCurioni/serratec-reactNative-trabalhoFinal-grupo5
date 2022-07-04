@@ -18,7 +18,7 @@ const Carrinho = ({navigation}) => {
     produtos.forEach(res => {
       valor += res.preco_produto * res.quantidade;
     });
-    setValorTotal((valor + 9).toFixed(1));
+    setValorTotal((valor + 9).toFixed(2));
   }, [produtos]);
 
   return (
