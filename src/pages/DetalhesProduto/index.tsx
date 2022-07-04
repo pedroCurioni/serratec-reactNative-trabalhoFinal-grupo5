@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, { useContext, useState } from 'react';
 import {
   View,
   StyleSheet,
@@ -6,18 +6,18 @@ import {
   TouchableOpacity,
   Image,
 } from 'react-native';
-import {Text} from 'react-native-elements';
+import { Text } from 'react-native-elements';
 import IconMat from 'react-native-vector-icons/MaterialIcons';
 import CardsFavoritos from '../../components/CardProduto';
 import Icon from 'react-native-vector-icons/AntDesign';
 import ButtonVoltarHome from '../../components/buttonVoltarHome';
-import {CarrinhoContext} from '../../context/CarrinhoContext';
+import { CarrinhoContext } from '../../context/CarrinhoContext';
 import Produtos from '../Produtos';
 
-const DetalhesProduto = ({route, navigation}) => {
-  const {res, pagOrigem} = route.params;
+const DetalhesProduto = ({ route, navigation }) => {
+  const { res, pagOrigem } = route.params;
   const [isFavorito, setFavorito] = useState(false);
-  const {adicionarProduto, setProdutos, listarProdutos} = useContext(CarrinhoContext);
+  const { adicionarProduto, setProdutos, listarProdutos } = useContext(CarrinhoContext);
 
   const navigate = () => {
     navigation.navigate(pagOrigem);
@@ -46,19 +46,19 @@ const DetalhesProduto = ({route, navigation}) => {
         <View style={styles.boxConteudo}>
           <View style={styles.boxImagem}>
             <Image
-              style={{width: 175, height: 175}}
+              style={{ width: 175, height: 175 }}
               source={{
-                uri: res.imagem,
+                uri: res.imagemProduto,
               }}
             />
           </View>
           <View style={styles.boxInformacao}>
             <View style={styles.boxInfoCima}>
               <View style={styles.boxDescicao}>
-                <Text style={styles.nomeProduto}>{res.nome}</Text>
-                <Text style={styles.descricaoProduto}>{res.descricao}</Text>
+                <Text style={styles.nomeProduto}>{res.nomeProduto}</Text>
+                <Text style={styles.descricaoProduto}>{res.descricaoProduto}</Text>
               </View>
-              <Text style={styles.precoProduto}>R$ {res.preco}</Text>
+              <Text style={styles.precoProduto}>R$ {res.precoProduto}</Text>
             </View>
             <View style={styles.boxInfoBaixo}>
               <TouchableOpacity onPress={() => setFavorito(e => !isFavorito)}>
@@ -75,7 +75,7 @@ const DetalhesProduto = ({route, navigation}) => {
                 )}
               </TouchableOpacity>
               <TouchableOpacity
-                onPress={() =>{
+                onPress={() => {
                   adicionarProduto(
                     res.sku,
                     res.nome,
