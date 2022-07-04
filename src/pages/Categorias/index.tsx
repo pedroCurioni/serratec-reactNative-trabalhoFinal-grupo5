@@ -40,7 +40,7 @@ const Categorias = ({ route, navigation }) => {
           <Icon name="left" type="antdesign" size={25} color="#EE4249" />
         </TouchableOpacity>
         <Text style={styles.titulo}>Categorias</Text>
-        <TouchableOpacity style={styles.logoff} onPress={() => console.log('Logoff')}>
+        <TouchableOpacity style={styles.logoff} onPress={() => navigation.navigate('Login')}>
           <Image source={require('../../assets/logout.png')} style={styles.imageLogoff} />
         </TouchableOpacity>
       </View>

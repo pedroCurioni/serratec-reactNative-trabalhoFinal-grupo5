@@ -26,7 +26,7 @@ const Perfil = ({ navigation }) => {
           <Icon name='left' size={25} color='#EE4249' style={styles.botaoVoltar} />
         </TouchableOpacity>
         <Text style={styles.titulo}>Perfil</Text>
-        <TouchableOpacity style={styles.logoff} onPress={() => console.log('Logoff')}>
+        <TouchableOpacity style={styles.logoff} onPress={() => navigation.navigate('Login')}>
           <Image source={require('../../assets/logout.png')} style={styles.imageLogoff} />
         </TouchableOpacity>
       </View>

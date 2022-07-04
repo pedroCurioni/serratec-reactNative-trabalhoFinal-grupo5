@@ -1,4 +1,4 @@
-import React, {useState, useContext, useEffect} from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import {
   StyleSheet,
   FlatList,
@@ -7,29 +7,29 @@ import {
   Text,
   TouchableOpacity,
 } from 'react-native';
-import {ProdutoType} from '../../models/ProdutoType';
-import {AxiosInstance} from '../../api/AxiosInstance';
-import {AuthContext} from '../../context/AuthContext';
-import {CategoriaContext} from '../../context/CategoriaContext';
-import {Button} from 'react-native-elements/dist/buttons/Button';
+import { ProdutoType } from '../../models/ProdutoType';
+import { AxiosInstance } from '../../api/AxiosInstance';
+import { AuthContext } from '../../context/AuthContext';
+import { CategoriaContext } from '../../context/CategoriaContext';
+import { Button } from 'react-native-elements/dist/buttons/Button';
 import CardProduto from '../../components/CardProduto';
-import {Icon, Image} from 'react-native-elements';
+import { Icon, Image } from 'react-native-elements';
 import ButtonVoltarHome from '../../components/buttonVoltarHome';
 
-const Categoria = ({route, navigation}) => {
+const Categoria = ({ route, navigation }) => {
   const [produto, setProduto] = useState<ProdutoType[]>([]);
   const [listaProdutosCategoria, setListaProdutosCategoria] = useState<
     ProdutoType[]
   >([]);
-  const {user} = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
   const [isLoadingRecentes, setIsLoadingRecentes] = useState(true);
-  const {idCategoria, nomeCategoria, handleCategoria} =
+  const { idCategoria, nomeCategoria, handleCategoria } =
     useContext(CategoriaContext);
   const numColums = 3;
 
   const getDadosProduto = async () => {
     AxiosInstance.get('/produto', {
-      headers: {Authorization: `Bearer ${user.token}`},
+      headers: { Authorization: `Bearer ${user.token}` },
     })
       .then(result => {
         console.log('Dados dos produtos:' + JSON.stringify(result.data));
@@ -69,7 +69,7 @@ const Categoria = ({route, navigation}) => {
         <Text style={styles.titulo}>{nomeCategoria}</Text>
         <TouchableOpacity
           style={styles.logoff}
-          onPress={() => console.log('Logoff')}>
+          onPress={() => navigation.navigate('Login')}>
           <Image
             source={require('../../assets/logout.png')}
             style={styles.imageLogoff}
@@ -82,9 +82,9 @@ const Categoria = ({route, navigation}) => {
       ) : (
         <FlatList
           data={listaProdutosCategoria}
-          contentContainerStyle={{paddingTop: 30, alignItems: 'center'}}
+          contentContainerStyle={{ paddingTop: 30, alignItems: 'center' }}
           numColumns={numColums}
-          renderItem={({item}) => (
+          renderItem={({ item }) => (
             <TouchableOpacity
               onPress={() =>
                 navigation.navigate('DetalhesProduto', {

@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import {
   View,
   StyleSheet,
@@ -6,21 +6,21 @@ import {
   TouchableOpacity,
   Image,
 } from 'react-native';
-import {Text} from 'react-native-elements';
+import { Text } from 'react-native-elements';
 import IconMat from 'react-native-vector-icons/MaterialIcons';
 import CardsFavoritos from '../../components/CardProduto';
 import Icon from 'react-native-vector-icons/AntDesign';
 import ButtonVoltarHome from '../../components/buttonVoltarHome';
-import {CarrinhoContext} from '../../context/CarrinhoContext';
+import { CarrinhoContext } from '../../context/CarrinhoContext';
 import Produtos from '../Produtos';
-import {FavoritosContext} from '../../context/FavoritosContext';
+import { FavoritosContext } from '../../context/FavoritosContext';
 import Favoritos from '../Favoritos';
 
-const DetalhesProduto = ({route, navigation}) => {
-  const {res, pagOrigem} = route.params;
+const DetalhesProduto = ({ route, navigation }) => {
+  const { res, pagOrigem } = route.params;
   const [favoritoImage, setFavoritoImage] = useState(<></>);
   const [isFavorito, setIsFavorito] = useState(false);
-  const {adicionarProduto, setProdutos, listarProdutos} =
+  const { adicionarProduto, setProdutos, listarProdutos } =
     useContext(CarrinhoContext);
   const {
     adicionarFavorito,
@@ -101,7 +101,7 @@ const DetalhesProduto = ({route, navigation}) => {
           />
         </TouchableOpacity>
         <Text style={styles.tituloFavorito}>Detalhes do produto</Text>
-        <TouchableOpacity onPress={() => console.log('Logoff')}>
+        <TouchableOpacity onPress={() => navigation.navigate('Login')}>
           <Image
             source={require('../../assets/logout.png')}
             style={styles.imageLogoff}
@@ -112,7 +112,7 @@ const DetalhesProduto = ({route, navigation}) => {
         <View style={styles.boxConteudo}>
           <View style={styles.boxImagem}>
             <Image
-              style={{width: 175, height: 175}}
+              style={{ width: 175, height: 175 }}
               source={{
                 uri: res.imagemProduto,
               }}
