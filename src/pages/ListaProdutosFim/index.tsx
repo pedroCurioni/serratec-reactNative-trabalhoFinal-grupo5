@@ -22,9 +22,9 @@ const ListaProdutosFim = ({ navigation }) => {
       </Text>
       <Button
         buttonStyle={styles.button}
-        title="Voltar para Produtos"
+        title="Voltar para Home"
         titleStyle={styles.buttonTitle}
-        onPress={() => navigation.navigate('Produtos')}
+        onPress={() => { navigation.navigate('Home') }}
       />
       <Button
         buttonStyle={styles.button}

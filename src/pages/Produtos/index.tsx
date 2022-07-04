@@ -70,6 +70,7 @@ const Produtos = ({ navigation }) => {
 
   useEffect(() => {
     if (fimLista) {
+      setPagina(0);
       navigation.navigate('ListaProdutosFim');
     }
   }, [fimLista]);
