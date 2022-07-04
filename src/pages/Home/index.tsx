@@ -1,8 +1,18 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { View, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import { Text, Image } from 'react-native-elements';
+import { CategoriaContext } from '../../context/CategoriaContext';
 
 const Home = ({ navigation }) => {
+
+  const [categoria, setCategoria] = useState(undefined)
+
+  const { handleCategoria } = useContext(CategoriaContext);
+
+  const handlePress = (categoria: any) => {
+    handleCategoria(categoria)
+    navigation.navigate('Categoria')
+  }
 
   return (
     <ScrollView style={styles.container}>
@@ -15,13 +25,13 @@ const Home = ({ navigation }) => {
       <Text style={styles.description}>Encontre o que você procura...</Text>
       <View>
         <View style={styles.linha}>
-          <TouchableOpacity style={styles.buttonNavigate}>
+          <TouchableOpacity style={styles.buttonNavigate} onPress={() => handlePress({ idCategoria: 4, nomeCategoria: 'Congelados' })}>
             <View style={styles.buttonContainer}>
               <Image source={require('../../assets/congelados.png')} style={styles.imageButton}></Image>
               <Text style={styles.legenda}>Congelados</Text>
             </View>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.buttonNavigate}>
+          <TouchableOpacity style={styles.buttonNavigate} onPress={() => handlePress({ idCategoria: 3, nomeCategoria: 'Bebidas' })}>
             <View style={styles.buttonContainer}>
               <Image source={require('../../assets/bebidas.png')} style={styles.imageButton} ></Image>
               <Text style={styles.legenda}>Bebidas</Text>

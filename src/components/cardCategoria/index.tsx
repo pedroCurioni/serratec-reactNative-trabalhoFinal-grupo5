@@ -4,6 +4,7 @@ import { Image, Text } from 'react-native-elements';
 import { CategoriaContext } from '../../context/CategoriaContext';
 
 const CardCategoria = (props: any) => {
+
   const [nomeImagem, setNomeImagem] = useState(props.categoria.nomeImagem)
   const { handleCategoria } = useContext(CategoriaContext);
 
