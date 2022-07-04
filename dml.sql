@@ -1,23 +1,21 @@
-INSERT INTO categoria (NOME_CATEGORIA,IMAGEM) VALUES
-	 ('Mineiro','https://cptstatic.s3.amazonaws.com/imagens/enviadas/materias/materia27698/culinaria-mineira-cpt.jpg'),
-	 ('Japonês','https://www.saudeemdia.com.br/media/_versions/shutterstock_1021367641_2_widexl.jpg'),
-	 ('Baiano','https://diariodonordeste.verdesmares.com.br/image/contentid/policy:1.2218166:1589929719/prato-do-restaurante-mistura-baiana.jpg?f=16x9&h=720&q=0.8&w=1280&$p$f$h$q$w=9c7700c'),
-	 ('Sobremesa','https://receitaculinaria.com.br/wp-content/uploads/2020/11/sobremesa-gelada-sensacao-mega-f.jpg'),
-	 ('Fast Food','https://img.jakpost.net/c/2016/09/29/2016_09_29_12990_1475116504._large.jpg'),
-	 ('Massas', 'https://img.imageboss.me/kitchenaid/cdn/animation:true/wp-content/uploads/2016/06/massas-e-molhos-espaguete-e-linguini.jpg'),
-	 ('Salgados', 'https://diaonline.ig.com.br/wp-content/uploads/2020/07/salgados-em-rio-verde-opcoes-para-comprar-na-hora-ou-encomendar-1024x576.png'),
-	 ('Pizzas', 'http://rossopizza.com.br/salao/wp-content/uploads/2019/09/istock-181175167-900x600.jpg');
-	
-INSERT INTO estoque (ID_PRODUTO,QUANTIDADE) VALUES
-	 (1,10),
-	 (3,30);
-	
+INSERT INTO perfil (NOME_PERFIL) VALUES
+     ('ROLE_USER');
+
+INSERT INTO usuario (NOME_USUARIO,EMAIL,SENHA) VALUES
+     ('usuario','usuario@mail.com','$2a$12$3COb/LHNYO/JeLWy1ExGFe6U2iyFczP70/kBUEHbf9miQ4Vp64A42');
+
+INSERT INTO usuario_rel_perfil (ID_USUARIO,ID_PERFIL) VALUES
+     (1,1);
+
 INSERT INTO fornecedor (TIPO,RAZAO_SOCIAL,CNPJ,UF,TELEFONE,EMAIL,NOME_FANTASIA,STATUS_SITUACAO,BAIRRO,LOGRADOURO,NUMERO,COMPLEMENTO,CEP,MUNICIPIO,DATA_ABERTURA) VALUES
-	 ('Matriz','Primeiro Fornecedor','01111222000100','RJ','2125874125','email@mail.com','Nome Fantasia','Ativo','Centro','Rua Principal',10,'','25600000','Petrópolis','2022-05-27 09:23:36.461');
-	
-INSERT into perfil (NOME_PERFIL) VALUES
-	 ('ROLE_USER');
-	
+     ('Matriz','Primeiro Fornecedor','01111222000100','RJ','2125874125','email@mail.com','Serrafood Distribuidora','Ativo','Centro','Rua Principal',10,'','25600000','Petrópolis','2022-05-27 09:23:36.461');
+
+INSERT INTO categoria (NOME_CATEGORIA,IMAGEM) VALUES
+     ('Alimentos Básicos','https://i.imgur.com/gT1V6M4.png'),
+     ('Material de Limpeza','https://i.imgur.com/vgjxP4u.png'),
+     ('Bebidas','https://i.imgur.com/ROKkdVV.png'),
+     ('Congelados','https://i.imgur.com/Gc8xiXR.png');
+
 INSERT INTO produto (SKU,NOME_PRODUTO,ID_FORNECEDOR,ID_CATEGORIA,IMAGEM_PRODUTO,PRECO_PRODUTO,DESCRICAO_PRODUTO) VALUES
 ('AU11', 'Açúcar União', '1', '1', 'https://i.imgur.com/ZZPwyUR.png', 4.89, 'Unidade 1 kg'),
 ('AZC11', 'Adoçante Zero Cal', '1', '1', 'https://i.imgur.com/04bQeqJ.png', 13.98, 'Unidade 100mL'),
@@ -98,9 +96,7 @@ INSERT INTO produto (SKU,NOME_PRODUTO,ID_FORNECEDOR,ID_CATEGORIA,IMAGEM_PRODUTO,
 ('SLA14', 'Sorvete Lacta', '1', '4', 'https://i.imgur.com/G21lJm4.png', 23.94, 'Unidade 1,5L'),
 ('SOP14', 'Sorvete Nestlé Prestígio', '1', '4', 'https://i.imgur.com/mJL5hao.png', 27.84, 'Unidade 1,5L');
 
-INSERT INTO usuario (NOME_USUARIO,EMAIL,SENHA) VALUES
-	 ('usuario','usuario@mail.com','$2a$12$3COb/LHNYO/JeLWy1ExGFe6U2iyFczP70/kBUEHbf9miQ4Vp64A42'),
-	 ('usuario2','admin','$2a$12$3COb/LHNYO/JeLWy1ExGFe6U2iyFczP70/kBUEHbf9miQ4Vp64A42');
-	
-INSERT INTO usuario_rel_perfil  (ID_USUARIO,ID_PERFIL) VALUES
-	 (1,1);
+
+INSERT INTO estoque (ID_PRODUTO,QUANTIDADE) VALUES
+(1,10),
+(3,30);

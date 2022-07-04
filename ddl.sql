@@ -1,9 +1,7 @@
-select * from categoria c ;
-
 CREATE TABLE public.categoria (
 	id_categoria serial4 NOT NULL,
 	nome_categoria varchar(255) NULL,
-	imagem varchar NULL,
+	imagem varchar(100) NULL,
 	CONSTRAINT categoria_pkey PRIMARY KEY (id_categoria)
 );
 
@@ -43,12 +41,10 @@ CREATE TABLE public.perfil (
 CREATE TABLE public.usuario (
 	id_usuario serial4 NOT NULL,
 	nome_usuario varchar(100) NULL,
-  foto_perfil varchar NULL,
 	email varchar(100) NULL,
 	senha varchar(255) NULL,
 	CONSTRAINT usuario_pkey PRIMARY KEY (id_usuario)
 );
-
 
 CREATE TABLE public.produto (
 	id_produto serial4 NOT NULL,
@@ -56,15 +52,11 @@ CREATE TABLE public.produto (
 	nome_produto varchar(255) NULL,
 	id_fornecedor int8 NOT NULL,
 	id_categoria int8 NOT NULL,
-	imagem_produto varchar NULL,
-	descricao_produto varchar(255) not null,
-	preco_produto numeric(21,2) not null,
-	estrelas_produto int8 not null,
+	imagem_produto varchar(255) NULL,
 	CONSTRAINT produto_pkey PRIMARY KEY (id_produto),
 	CONSTRAINT produto_id_categoria_fkey FOREIGN KEY (id_categoria) REFERENCES public.categoria(id_categoria),
 	CONSTRAINT produto_id_fornecedor_fkey FOREIGN KEY (id_fornecedor) REFERENCES public.fornecedor(id_fornecedor)
 );
-
 
 CREATE TABLE public.usuario_rel_perfil (
 	id_usuario int8 NULL,
@@ -72,3 +64,7 @@ CREATE TABLE public.usuario_rel_perfil (
 	CONSTRAINT usuario_rel_perfil_id_perfil_fkey FOREIGN KEY (id_perfil) REFERENCES public.perfil(id_perfil),
 	CONSTRAINT usuario_rel_perfil_id_usuario_fkey FOREIGN KEY (id_usuario) REFERENCES public.usuario(id_usuario)
 );
+
+ALTER TABLE produto ADD COLUMN preco_produto numeric(21,2);
+ALTER TABLE produto ADD COLUMN descricao_produto varchar(255);
+ALTER TABLE usuario ADD COLUMN foto_perfil varchar(255) NULL;
