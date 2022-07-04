@@ -59,7 +59,6 @@ CREATE TABLE public.produto (
 	imagem_produto varchar NULL,
 	descricao_produto varchar(255) not null,
 	preco_produto numeric(21,2) not null,
-	estrelas_produto int8 not null,
 	CONSTRAINT produto_pkey PRIMARY KEY (id_produto),
 	CONSTRAINT produto_id_categoria_fkey FOREIGN KEY (id_categoria) REFERENCES public.categoria(id_categoria),
 	CONSTRAINT produto_id_fornecedor_fkey FOREIGN KEY (id_fornecedor) REFERENCES public.fornecedor(id_fornecedor)
