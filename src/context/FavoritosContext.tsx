@@ -40,6 +40,7 @@ export function FavoritoProvider({children}) {
     _preco: number,
     _imagem: string,
   ) => {
+    console.log(_sku, _nome, _descricao, _imagem, _preco)
     const ultimoProdutoCadastrado = realm_favoritos
       .objects('Favorito')
       .sorted('id_produto', true)[0];

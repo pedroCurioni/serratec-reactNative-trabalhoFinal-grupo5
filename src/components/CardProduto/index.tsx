@@ -13,11 +13,11 @@ const CardProduto = ({ produto }) => {
           style={styles.botaoAdicionar}
           onPress={() => {
             adicionarProduto(
-              props.sku,
-              props.nome,
-              props.descricao,
-              props.preco,
-              props.imagem,
+              produto.sku,
+              produto.nomeProduto,
+              produto.descricaoProduto,
+              produto.precoProduto,
+              produto.imagemProduto,
             );
             setProdutos(listarProdutos);
           }}>

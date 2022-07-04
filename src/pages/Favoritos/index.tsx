@@ -20,6 +20,8 @@ const Favoritos = ({navigation}) => {
     resetFavoritos,
   } = useContext(FavoritoContext);
 
+  console.log(favoritos);
+
   const numColums = 3;
 
   return (
@@ -44,7 +46,7 @@ const Favoritos = ({navigation}) => {
         </TouchableOpacity>
       </View>
       <FlatList
-        data={produtos}
+        data={favoritos}
         contentContainerStyle={{paddingTop: 30, alignItems: 'center'}}
         numColumns={numColums}
         renderItem={({item}) => (
