@@ -5,6 +5,7 @@ import {
   FlatList,
   TouchableOpacity,
   Image,
+  Modal
 } from 'react-native';
 import { Text } from 'react-native-elements';
 import IconMat from 'react-native-vector-icons/MaterialIcons';
@@ -17,9 +18,11 @@ import { FavoritosContext } from '../../context/FavoritosContext';
 import Favoritos from '../Favoritos';
 
 const DetalhesProduto = ({ route, navigation }) => {
+  const [isPopup, setPopup] = useState(false)
   const { res, pagOrigem } = route.params;
   const [favoritoImage, setFavoritoImage] = useState(<></>);
   const [isFavorito, setIsFavorito] = useState(false);
+  const [messagePopup, setMessagePopup] = useState('')
   const { adicionarProduto, setProdutos, listarProdutos } =
     useContext(CarrinhoContext);
   const {
@@ -85,6 +88,13 @@ const DetalhesProduto = ({ route, navigation }) => {
     }
   };
 
+  function loadPopup() {
+    setPopup(true)
+    setTimeout(function() {
+      setPopup(false)
+    },1500)
+  }
+
   const navigate = () => {
     navigation.navigate(pagOrigem);
   };
@@ -129,7 +139,7 @@ const DetalhesProduto = ({ route, navigation }) => {
               <Text style={styles.precoProduto}>R$ {res.precoProduto}</Text>
             </View>
             <View style={styles.boxInfoBaixo}>
-              <TouchableOpacity onPress={() => handleAdicionarFavorito()}>
+              <TouchableOpacity onPress={() => {handleAdicionarFavorito(); loadPopup(); isFavorito ? setMessagePopup(e => 'Favorito retirado com sucesso') : setMessagePopup(e => 'Favorito adicionado com sucesso')}}>
                 {favoritoImage}
               </TouchableOpacity>
               <TouchableOpacity
@@ -153,6 +163,15 @@ const DetalhesProduto = ({ route, navigation }) => {
         </View>
       </View>
       <ButtonVoltarHome navigation={navigation} />
+      <Modal
+        animationType={'slide'}
+        transparent={true}
+        visible={isPopup}
+        onRequestClose={() => setPopup(false)}>
+        <View style={styles.modal}>
+          <Text>{messagePopup}</Text>
+        </View>
+      </Modal>
     </View>
   );
 };
@@ -239,6 +258,25 @@ export const styles = StyleSheet.create({
     fontSize: 21,
     fontWeight: '700',
     color: '#EE4249',
+  },
+  modal: {
+    marginTop: 500,
+    backgroundColor: "white",
+    borderRadius: 20,
+    marginHorizontal: 40,
+    paddingVertical: 7,
+    padding: 35,
+    borderWidth: 1,
+    borderColor: '#EE4249',
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5
   },
 });
 
