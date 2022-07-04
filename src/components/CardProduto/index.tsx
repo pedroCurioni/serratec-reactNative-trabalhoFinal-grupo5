@@ -48,7 +48,7 @@ export const styles = StyleSheet.create({
   botaoAdicionar: {
     zIndex: 2,
     position: 'absolute',
-    top: 80,
+    top: 115,
     left: 88,
 
   },
