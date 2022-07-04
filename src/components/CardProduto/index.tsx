@@ -16,7 +16,7 @@ const CardProduto = (props: any) => {
       </View>
       <View style={styles.boxTexto}>
         <View style={styles.boxCima}>
-          <Text style={styles.stylePreco}>R$ {props.preco}</Text>
+          <Text style={styles.stylePreco}>R$ {parseFloat(props.preco).toFixed(2).replace('.', ',')}</Text>
           <Text style={styles.styleNome}>{props.nome}</Text>
         </View>
         <View style={styles.boxBaixo}>

@@ -1,10 +1,10 @@
-import React, {useContext} from 'react';
-import {StyleSheet, Text, View} from 'react-native';
-import {Button} from 'react-native-elements';
-import {CarrinhoContext} from '../../context/CarrinhoContext';
+import React, { useContext } from 'react';
+import { StyleSheet, Text, View } from 'react-native';
+import { Button } from 'react-native-elements';
+import { CarrinhoContext } from '../../context/CarrinhoContext';
 
-const ValorCarrinho = ({navigation, valorTotal}) => {
-  const {resetCarrinho, listarProdutos, setProdutos} =
+const ValorCarrinho = ({ navigation, valorTotal }) => {
+  const { resetCarrinho, listarProdutos, setProdutos } =
     useContext(CarrinhoContext);
 
   return (
@@ -14,11 +14,11 @@ const ValorCarrinho = ({navigation, valorTotal}) => {
         <Text></Text>
         <View style={styles.freteContainer}>
           <Text style={styles.freteText}>Taxa de entrega</Text>
-          <Text style={styles.freteValor}>R$ 9.00</Text>
+          <Text style={styles.freteValor}>R$ 9,00</Text>
         </View>
         <View style={styles.totalContainer}>
           <Text style={styles.totalText}>Total</Text>
-          <Text style={styles.totalValor}>R$ {valorTotal}</Text>
+          <Text style={styles.totalValor}>R$ {valorTotal} </Text>
         </View>
       </View>
 
