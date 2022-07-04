@@ -1,21 +1,21 @@
-import React, {useContext, useEffect, useState} from 'react';
-import {ActivityIndicator, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import {Icon, Image} from 'react-native-elements';
-import {FlatList} from 'react-native-gesture-handler';
+import React, { useContext, useEffect, useState } from 'react';
+import { ActivityIndicator, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Icon, Image } from 'react-native-elements';
+import { FlatList } from 'react-native-gesture-handler';
 import CardCategoria from '../../components/cardCategoria';
 import ButtonVoltarHome from '../../components/buttonVoltarHome';
-import {AxiosInstance} from '../../api/AxiosInstance';
-import {AuthContext} from '../../context/AuthContext';
-import {CategoriaType} from '../../models/CategoriaType';
+import { AxiosInstance } from '../../api/AxiosInstance';
+import { AuthContext } from '../../context/AuthContext';
+import { CategoriaType } from '../../models/CategoriaType';
 
-const Categorias = ({route, navigation}) => {
+const Categorias = ({ route, navigation }) => {
   const [categoria, setCategoria] = useState<CategoriaType[]>([]);
-  const {user} = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
   const [isLoadingCategorias, setIsLoadingCategorias] = useState(true);
 
   const getDadosCategoria = async () => {
     AxiosInstance.get('/categoria', {
-      headers: {Authorization: `Bearer ${user.token}`},
+      headers: { Authorization: `Bearer ${user.token}` },
     })
       .then(result => {
         setCategoria(result.data);
@@ -51,7 +51,7 @@ const Categorias = ({route, navigation}) => {
         </TouchableOpacity>
       </View>
       {isLoadingCategorias ? (
-        <ActivityIndicator size="large" color="#000" />
+        <ActivityIndicator size="large" color="#000" style={{ flex: 1 }} />
       ) : (
         <FlatList
           style={styles.flatListStyle}
