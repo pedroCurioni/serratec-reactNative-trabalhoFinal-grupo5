@@ -44,10 +44,8 @@ const Favoritos = ({navigation}) => {
         </TouchableOpacity>
       </View>
       <FlatList
-        data={listarFavoritos}
-        extraData={favoritos}
+        data={produtos}
         contentContainerStyle={{paddingTop: 30, alignItems: 'center'}}
-        keyExtractor={item => item.id}
         numColumns={numColums}
         renderItem={({item}) => (
           <TouchableOpacity
@@ -57,12 +55,7 @@ const Favoritos = ({navigation}) => {
                 pagOrigem: 'Produtos',
               })
             }>
-            <CardProduto
-              imagem={item.imagem}
-              preco={item.preco}
-              descricao={item.descricao}
-              nome={item.nome}
-            />
+            <CardProduto produto={item} />
           </TouchableOpacity>
         )}
       />
