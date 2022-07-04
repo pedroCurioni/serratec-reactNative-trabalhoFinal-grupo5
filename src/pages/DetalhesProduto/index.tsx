@@ -139,7 +139,7 @@ const DetalhesProduto = ({ route, navigation }) => {
               <Text style={styles.precoProduto}>R$ {res.precoProduto}</Text>
             </View>
             <View style={styles.boxInfoBaixo}>
-              <TouchableOpacity onPress={() => {handleAdicionarFavorito(); loadPopup(); isFavorito ? setMessagePopup(e => 'Favorito retirado com sucesso') : setMessagePopup(e => 'Favorito adicionado com sucesso')}}>
+              <TouchableOpacity onPress={() => {handleAdicionarFavorito(); loadPopup(); setMessagePopup(e => 'Item adicionado aos favoritos!')}}>
                 {favoritoImage}
               </TouchableOpacity>
               <TouchableOpacity
