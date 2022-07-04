@@ -14,6 +14,8 @@ const Perfil = ({ navigation }) => {
   const { user } = useContext(AuthContext);
   const [isLoading, setLoading] = useState(false);
 
+  console.log("Imagem: " + user.imagem)
+
   return (
     <View style={styles.container}>
       <View style={styles.boxTitulo}>
@@ -36,7 +38,7 @@ const Perfil = ({ navigation }) => {
         </TouchableOpacity>
       </View>
       <Image
-        source={{ uri: `${user.imagem}` }}
+        source={user.imagem === '' || user.imagem === undefined ? require('../../assets/imagem_perfil.png') : {uri: `${user.imagem}`}}
         style={styles.image}
       />
       <View style={styles.textContainer}>
