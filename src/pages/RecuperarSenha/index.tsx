@@ -1,14 +1,14 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
   ActivityIndicator,
   StyleSheet,
   View,
   TouchableOpacity
 } from 'react-native';
-import {Button, Input, Text} from 'react-native-elements';
+import { Button, Input, Text } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/AntDesign';
 
-const RecuperarSenha = ({navigation}: any) => {
+const RecuperarSenha = ({ navigation }: any) => {
   const [id, setId] = useState('');
   const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');

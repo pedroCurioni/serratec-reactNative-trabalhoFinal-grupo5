@@ -19,7 +19,6 @@ const Categorias = ({ route, navigation }) => {
       '/categoria',
       { headers: { "Authorization": `Bearer ${user.token}` } }
     ).then(result => {
-      console.log('Dados das categorias:' + JSON.stringify(result.data));
       setCategoria(result.data);
       setIsLoadingCategorias(false);
     }).catch((error) => {

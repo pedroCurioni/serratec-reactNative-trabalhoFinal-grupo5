@@ -18,7 +18,6 @@ const Favoritos = ({ navigation }) => {
 
   useEffect(() => {
     setFavoritos(listarFavoritos());
-    console.log(favoritos);
   }, []);
 
   const numColums = 3;

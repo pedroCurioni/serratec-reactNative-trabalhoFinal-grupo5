@@ -32,7 +32,6 @@ const Categoria = ({ route, navigation }) => {
       headers: { Authorization: `Bearer ${user.token}` },
     })
       .then(result => {
-        console.log('Dados dos produtos:' + JSON.stringify(result.data));
         setProduto(result.data);
         setIsLoadingRecentes(false);
       })

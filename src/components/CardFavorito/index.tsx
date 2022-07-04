@@ -1,13 +1,12 @@
-import React, {useContext} from 'react';
-import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native';
+import React, { useContext } from 'react';
+import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
-import {CarrinhoContext} from '../../context/CarrinhoContext';
+import { CarrinhoContext } from '../../context/CarrinhoContext';
 
-const CardFavorito = ({produto}) => {
-  const {adicionarProduto, setProdutos, listarProdutos} =
+const CardFavorito = ({ produto }) => {
+  const { adicionarProduto, setProdutos, listarProdutos } =
     useContext(CarrinhoContext);
 
-  console.log(produto);
   return (
     <View style={styles.container}>
       <View style={styles.boxImagem}>
@@ -26,7 +25,7 @@ const CardFavorito = ({produto}) => {
           <Icon name="pluscircle" size={25} color="#EE4249" />
         </TouchableOpacity>
         <Image
-          style={{width: '100%', height: '100%'}}
+          style={{ width: '100%', height: '100%' }}
           source={{
             uri: produto.imagem_produto,
           }}
