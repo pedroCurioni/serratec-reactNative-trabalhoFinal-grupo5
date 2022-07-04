@@ -1,11 +1,21 @@
-import React, {useContext} from 'react';
-import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native';
+import React, {useContext, useState} from 'react';
+import {View, Text, StyleSheet, Image, TouchableOpacity, Modal} from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
 import {CarrinhoContext} from '../../context/CarrinhoContext';
 
 const CardProduto = ({ produto }) => {
+  const [isPopup, setPopup] = useState(false)
+  const [messagePopup, setMessagePopup] = useState('')
   const {adicionarProduto, setProdutos, listarProdutos} =
   useContext(CarrinhoContext);
+
+  function loadPopup() {
+    setPopup(true)
+    setTimeout(function() {
+      setPopup(false)
+    },1500)
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.boxImagem}>
@@ -20,6 +30,8 @@ const CardProduto = ({ produto }) => {
               produto.imagemProduto,
             );
             setProdutos(listarProdutos);
+            loadPopup();
+            setMessagePopup(e => 'Produto adicionado ao carrinho!')
           }}>
           <Icon name="pluscircle" size={25} color="#EE4249" />
         </TouchableOpacity>
@@ -38,6 +50,15 @@ const CardProduto = ({ produto }) => {
           <Text style={styles.styleDescricao}>{produto.descricaoProduto}</Text>
         </View>
       </View>
+      <Modal
+        animationType={'slide'}
+        transparent={true}
+        visible={isPopup}
+        onRequestClose={() => setPopup(false)}>
+        <View style={styles.modal}>
+          <Text>{messagePopup}</Text>
+        </View>
+      </Modal>
     </View>
   );
 };
@@ -84,6 +105,25 @@ export const styles = StyleSheet.create({
     color: 'black',
   },
   styleDescricao: {},
+  modal: {
+    marginTop: 550,
+    backgroundColor: "white",
+    borderRadius: 20,
+    marginHorizontal: 40,
+    paddingVertical: 7,
+    padding: 35,
+    borderWidth: 1,
+    borderColor: '#EE4249',
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5
+  },
 });
 
 export default CardProduto;
