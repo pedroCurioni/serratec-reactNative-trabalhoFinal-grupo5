@@ -55,9 +55,8 @@ const Favoritos = ({ navigation }) => {
       <FlatList
         data={produtos}
         contentContainerStyle={{ paddingTop: 30, alignItems: 'center' }}
-        keyExtractor={item => item.id}
         numColumns={numColums}
-        renderItem={({ item }) => <TouchableOpacity onPress={() => navigation.navigate('DetalhesProduto', { res: item, pagOrigem: 'Produtos' })}><CardProduto imagem={item.imagem} preco={item.preco} descricao={item.descricao} nome={item.nome} /></TouchableOpacity>}
+        renderItem={({ item }) => <TouchableOpacity onPress={() => navigation.navigate('DetalhesProduto', { res: item, pagOrigem: 'Produtos' })}><CardProduto produto={item} /></TouchableOpacity>}
       />
       <Button
         buttonStyle={styles.button}

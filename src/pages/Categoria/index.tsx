@@ -65,7 +65,7 @@ const Categoria = ({ route, navigation }) => {
           data={listaProdutosCategoria}
           contentContainerStyle={{ paddingTop: 30, alignItems: 'center' }}
           numColumns={numColums}
-          renderItem={({ item }) => <TouchableOpacity onPress={() => navigation.navigate('DetalhesProduto', { res: item, pagOrigem: 'Produtos' })}><CardProduto imagem={item.imagemProduto} preco={item.precoProduto} descricao={item.descricaoProduto} nome={item.nomeProduto} /></TouchableOpacity>}
+          renderItem={({ item }) => <TouchableOpacity onPress={() => navigation.navigate('DetalhesProduto', { res: item, pagOrigem: 'Produtos' })}><CardProduto produto={item} /></TouchableOpacity>}
         />
       }
       <ButtonVoltarHome navigation={navigation} />
