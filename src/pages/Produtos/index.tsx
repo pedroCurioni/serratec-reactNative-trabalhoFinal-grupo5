@@ -12,21 +12,16 @@ const Produtos = ({ navigation }) => {
 
   const numColums = 3;
   const [produto, setProduto] = useState<ProdutoType[]>([]);
+  const [pagina, setPagina] = useState(1);
+  const quantidade = 12;
   const [search, setSearch] = useState('');
   const [isLoadingRecentes, setIsLoadingRecentes] = useState(true);
   const { user } = useContext(AuthContext);
 
-  const pesquisarCategoria = (search: string) => {
-    if (search !== '') {
-
-    } else {
-
-    }
-  }
-
   const getDadosProduto = async () => {
     AxiosInstance.get(
-      '/produto',
+      ///produto?pagina=1&qtdRegistros=12
+      `/produto`,
       { headers: { "Authorization": `Bearer ${user.token}` } }
     ).then(result => {
       console.log('Dados dos produtos:' + JSON.stringify(result.data));
@@ -37,8 +32,19 @@ const Produtos = ({ navigation }) => {
     })
   }
 
+  const pesquisarProduto = (search: string) => {
+    if (search !== '') {
+      setProduto(
+        produto.filter(res => res.nomeProduto.toLowerCase().includes(search.toLowerCase()) || res.descricaoProduto.toLowerCase().includes(search.toLowerCase())),
+      );
+    } else {
+      getDadosProduto();
+    }
+  }
+  
+
   useEffect(() => {
-    pesquisarCategoria(search);
+    pesquisarProduto(search);
   }, [search])
 
   useEffect(() => {

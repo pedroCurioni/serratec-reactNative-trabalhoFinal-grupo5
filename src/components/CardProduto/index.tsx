@@ -30,7 +30,7 @@ const CardProduto = (props: any) => {
 export const styles = StyleSheet.create({
   container: {
     width: 115,
-    height: 192,
+    height: 250,
     marginTop: 10,
     marginRight: 5,
     marginLeft: 5,
@@ -48,7 +48,7 @@ export const styles = StyleSheet.create({
   botaoAdicionar: {
     zIndex: 2,
     position: 'absolute',
-    top: 80,
+    top: 115,
     left: 88,
 
   },
