@@ -71,20 +71,20 @@ export function CarrinhoProvider({children}) {
     });
   };
 
-  const aumentarQuantidade = (_id: number) => {
+  const aumentarQuantidade = (_sku: string) => {
     realm_carrinho.write(() => {
       realm_carrinho
         .objects('Produto')
-        .filter(produto => produto.id_produto == _id)
+        .filter(produto => produto.sku == _sku)
         .forEach(res => (res.quantidade += 1));
     });
   };
 
-  const diminuirQuantidade = (_id: number) => {
+  const diminuirQuantidade = (_sku: string) => {
     realm_carrinho.write(() => {
       realm_carrinho
         .objects('Produto')
-        .filter(produto => produto.id_produto == _id)
+        .filter(produto => produto.sku == _sku)
         .forEach(res => (res.quantidade -= 1));
     });
   };

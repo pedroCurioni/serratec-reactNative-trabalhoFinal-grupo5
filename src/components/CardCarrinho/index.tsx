@@ -14,7 +14,7 @@ const CardCarrinho = ({produto}) => {
   } = useContext(CarrinhoContext);
 
   const handleAdicionarQuantidade = () => {
-    aumentarQuantidade(produto.id_produto);
+    aumentarQuantidade(produto.sku);
     setProdutos(listarProdutos);
   };
 
@@ -23,7 +23,7 @@ const CardCarrinho = ({produto}) => {
       removerItemCarrinho(produto.id_produto);
       setProdutos(listarProdutos);
     } else {
-      diminuirQuantidade(produto.id_produto);
+      diminuirQuantidade(produto.sku);
       setProdutos(listarProdutos);
     }
   };

@@ -1,30 +1,36 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {
   View,
   StyleSheet,
   FlatList,
   TouchableOpacity,
   Image,
-  Modal
+  Modal,
 } from 'react-native';
-import { Text } from 'react-native-elements';
+import {Text} from 'react-native-elements';
 import IconMat from 'react-native-vector-icons/MaterialIcons';
 import CardsFavoritos from '../../components/CardProduto';
 import Icon from 'react-native-vector-icons/AntDesign';
 import ButtonVoltarHome from '../../components/buttonVoltarHome';
-import { CarrinhoContext } from '../../context/CarrinhoContext';
+import {CarrinhoContext} from '../../context/CarrinhoContext';
 import Produtos from '../Produtos';
-import { FavoritosContext } from '../../context/FavoritosContext';
+import {FavoritosContext} from '../../context/FavoritosContext';
 import Favoritos from '../Favoritos';
 
-const DetalhesProduto = ({ route, navigation }) => {
-  const [isPopup, setPopup] = useState(false)
-  const { res, pagOrigem } = route.params;
+const DetalhesProduto = ({route, navigation}) => {
+  const [isPopup, setPopup] = useState(false);
+  const {res, pagOrigem} = route.params;
   const [favoritoImage, setFavoritoImage] = useState(<></>);
   const [isFavorito, setIsFavorito] = useState(false);
-  const [messagePopup, setMessagePopup] = useState('')
-  const { adicionarProduto, setProdutos, listarProdutos } =
-    useContext(CarrinhoContext);
+  const [isCarrinho, setIsCarrinho] = useState(false);
+  const [messagePopup, setMessagePopup] = useState('');
+  const {
+    adicionarProduto,
+    setProdutos,
+    listarProdutos,
+    produtos,
+    aumentarQuantidade,
+  } = useContext(CarrinhoContext);
   const {
     adicionarFavorito,
     setFavoritos,
@@ -34,11 +40,18 @@ const DetalhesProduto = ({ route, navigation }) => {
   } = useContext(FavoritosContext);
 
   useEffect(() => {
-    let contem = null;
+    let contemFavorito = null;
     favoritos.forEach(item =>
-      item.nomeProduto === res.nomeProduto ? (contem = item) : null,
+      item.sku === res.sku ? (contemFavorito = item) : null,
     );
-    if (contem === null) {
+    let contemCarrinho = null;
+    produtos.forEach(item =>
+      item.sku === res.sku ? (contemCarrinho = item) : null,
+    );
+    if (contemCarrinho !== null) {
+      setIsCarrinho(true);
+    }
+    if (contemFavorito === null) {
       setIsFavorito(false);
       setFavoritoImage(
         <Image
@@ -59,16 +72,28 @@ const DetalhesProduto = ({ route, navigation }) => {
 
   const handleAdicionarFavorito = () => {
     if (isFavorito) {
-      navigation.navigate(pagOrigem);
-      removerItemFavoritos(res.idProduto);
-      setFavoritos(listarFavoritos);
-      setIsFavorito(false);
-      setFavoritoImage(
-        <Image
-          source={require('../../assets/coracaoVazio.png')}
-          style={styles.imageLogoff}
-        />,
-      );
+      if (pagOrigem === 'FavoritosTabScreen') {
+        navigation.navigate(pagOrigem);
+        removerItemFavoritos(res.idProduto);
+        setFavoritos(listarFavoritos);
+        setIsFavorito(false);
+        setFavoritoImage(
+          <Image
+            source={require('../../assets/coracaoVazio.png')}
+            style={styles.imageLogoff}
+          />,
+        );
+      } else {
+        removerItemFavoritos(res.idProduto);
+        setFavoritos(listarFavoritos);
+        setIsFavorito(false);
+        setFavoritoImage(
+          <Image
+            source={require('../../assets/coracaoVazio.png')}
+            style={styles.imageLogoff}
+          />,
+        );
+      }
     } else {
       adicionarFavorito(
         res.sku,
@@ -88,11 +113,26 @@ const DetalhesProduto = ({ route, navigation }) => {
     }
   };
 
+  const handleAdicionarCarrinho = () => {
+    if (isCarrinho) {
+      aumentarQuantidade(res.sku);
+      setProdutos(listarProdutos);
+    } else {
+      adicionarProduto(
+        res.sku,
+        res.nomeProduto,
+        res.descricaoProduto,
+        res.precoProduto,
+        res.imagemProduto,
+      );
+      setProdutos(listarProdutos);
+    }
+  };
   function loadPopup() {
-    setPopup(true)
-    setTimeout(function() {
-      setPopup(false)
-    },1500)
+    setPopup(true);
+    setTimeout(function () {
+      setPopup(false);
+    }, 1500);
   }
 
   const navigate = () => {
@@ -122,7 +162,7 @@ const DetalhesProduto = ({ route, navigation }) => {
         <View style={styles.boxConteudo}>
           <View style={styles.boxImagem}>
             <Image
-              style={{ width: 175, height: 175 }}
+              style={{width: 175, height: 175}}
               source={{
                 uri: res.imagemProduto,
               }}
@@ -139,21 +179,26 @@ const DetalhesProduto = ({ route, navigation }) => {
               <Text style={styles.precoProduto}>R$ {res.precoProduto}</Text>
             </View>
             <View style={styles.boxInfoBaixo}>
-              <TouchableOpacity onPress={() => {handleAdicionarFavorito(); loadPopup(); isFavorito ? setMessagePopup(e => 'Favorito retirado com sucesso') : setMessagePopup(e => 'Favorito adicionado com sucesso')}}>
+              <TouchableOpacity
+                onPress={() => {
+                  handleAdicionarFavorito();
+                  loadPopup();
+                  isFavorito
+                    ? setMessagePopup(e => 'Favorito retirado com sucesso')
+                    : setMessagePopup(e => 'Favorito adicionado com sucesso');
+                }}>
                 {favoritoImage}
               </TouchableOpacity>
               <TouchableOpacity
                 onPress={() => {
-                  adicionarProduto(
-                    res.sku,
-                    res.nomeProduto,
-                    res.descricaoProduto,
-                    res.precoProduto,
-                    res.imagemProduto,
-                  );
-                  setProdutos(listarProdutos);
+                  handleAdicionarCarrinho();
                   loadPopup();
-                  setMessagePopup(e => 'Produto adicionado com sucesso')
+                  isCarrinho
+                    ? setMessagePopup(
+                        e => 'Adicionando mais uma unidade ao seu carrinho',
+                      )
+                    : setMessagePopup(e => 'Produto adicionado com sucesso');
+                  setIsCarrinho(true);
                 }}>
                 <Image
                   source={require('../../assets/botaoAdicionar.png')}
@@ -263,22 +308,22 @@ export const styles = StyleSheet.create({
   },
   modal: {
     marginTop: 500,
-    backgroundColor: "white",
+    backgroundColor: 'white',
     borderRadius: 20,
     marginHorizontal: 40,
     paddingVertical: 7,
     padding: 35,
     borderWidth: 1,
     borderColor: '#EE4249',
-    alignItems: "center",
-    shadowColor: "#000",
+    alignItems: 'center',
+    shadowColor: '#000',
     shadowOffset: {
       width: 0,
-      height: 2
+      height: 2,
     },
     shadowOpacity: 0.25,
     shadowRadius: 4,
-    elevation: 5
+    elevation: 5,
   },
 });
 
