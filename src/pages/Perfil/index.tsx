@@ -1,4 +1,4 @@
-import React, {useContext, useEffect, useState} from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import {
   ActivityIndicator,
   StyleSheet,
@@ -6,12 +6,12 @@ import {
   Image,
   TouchableOpacity,
 } from 'react-native';
-import {Button, Input, Text} from 'react-native-elements';
+import { Button, Input, Text } from 'react-native-elements';
 import Icon from 'react-native-vector-icons/AntDesign';
-import {AuthContext} from '../../context/AuthContext';
+import { AuthContext } from '../../context/AuthContext';
 
-const Perfil = ({navigation}) => {
-  const {user} = useContext(AuthContext);
+const Perfil = ({ navigation }) => {
+  const { user } = useContext(AuthContext);
   const [isLoading, setLoading] = useState(false);
 
   return (
@@ -98,15 +98,13 @@ const styles = StyleSheet.create({
   textContainer: {
     padding: 6,
     backgroundColor: '#fff',
-    borderWidth: 1,
-    borderStyle: 'solid',
-    borderColor: '#cfcfcf',
     borderRadius: 10,
     width: '80%',
     margin: 10,
   },
   textStyle: {
     fontSize: 20,
+    textAlign: 'center'
   },
   containerButtons: {
     alignItems: 'center',
