@@ -185,7 +185,7 @@ const DetalhesProduto = ({route, navigation}) => {
                   loadPopup();
                   isFavorito
                     ? setMessagePopup(e => 'Favorito retirado com sucesso')
-                    : setMessagePopup(e => 'Favorito adicionado com sucesso');
+                    : setMessagePopup(e => 'Item adicionado aos favoritos!');
                 }}>
                 {favoritoImage}
               </TouchableOpacity>

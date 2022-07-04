@@ -5,6 +5,7 @@ import {
   FlatList,
   TouchableOpacity,
   Image,
+  Modal
 } from 'react-native';
 import { Button, Text } from 'react-native-elements';
 import CardProduto from '../../components/CardProduto';
@@ -13,9 +14,17 @@ import { FavoritosContext } from '../../context/FavoritosContext';
 import CardFavorito from '../../components/CardFavorito';
 
 const Favoritos = ({ navigation }) => {
+  const [isPopup, setPopup] = useState(false)
+  const [messagePopup, setMessagePopup] = useState('')
   const { setFavoritos, listarFavoritos, favoritos, resetFavoritos } =
     useContext(FavoritosContext);
 
+  function loadPopup() {
+    setPopup(true)
+    setTimeout(function() {
+      setPopup(false)
+    },1500)
+  }
   useEffect(() => {
     setFavoritos(listarFavoritos());
   }, []);
@@ -67,8 +76,19 @@ const Favoritos = ({ navigation }) => {
         onPress={() => {
           resetFavoritos();
           setFavoritos(listarFavoritos);
+          loadPopup();
+          setMessagePopup(e => 'Lista de favoritos reiniciada!')
         }}
       />
+      <Modal
+        animationType={'slide'}
+        transparent={true}
+        visible={isPopup}
+        onRequestClose={() => setPopup(false)}>
+        <View style={styles.modal}>
+          <Text>{messagePopup}</Text>
+        </View>
+      </Modal>
     </View>
   );
 };
@@ -107,6 +127,25 @@ export const styles = StyleSheet.create({
   buttonTitle: {
     fontSize: 20,
     fontWeight: 'bold',
+  },
+  modal: {
+    marginTop: 500,
+    backgroundColor: "white",
+    borderRadius: 20,
+    marginHorizontal: 40,
+    paddingVertical: 7,
+    padding: 35,
+    borderWidth: 1,
+    borderColor: '#EE4249',
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5
   },
 });
 
