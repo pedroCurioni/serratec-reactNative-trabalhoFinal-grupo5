@@ -1,14 +1,15 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
 import {
   ActivityIndicator,
   StyleSheet,
   View,
-  TouchableOpacity
+  TouchableOpacity,
 } from 'react-native';
-import { Button, Input, Text } from 'react-native-elements';
+import {Button, Input, Text} from 'react-native-elements';
 import Icon from 'react-native-vector-icons/AntDesign';
+import {AxiosInstance} from '../../api/AxiosInstance';
 
-const RecuperarSenha = ({ navigation }: any) => {
+const RecuperarSenha = ({navigation}: any) => {
   const [id, setId] = useState('');
   const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
@@ -16,11 +17,29 @@ const RecuperarSenha = ({ navigation }: any) => {
   const [confirmaSenha, setConfirmaSenha] = useState('');
   const [isLoading, setLoading] = useState(false);
 
-  const handleAlterarSenha = () => {
+  const handleAlterarSenha = async () => {
     console.log(id);
     console.log(nome);
     console.log(senha);
     console.log(id);
+
+    try {
+      const respostaRecuperarSenha = await AxiosInstance.post(
+        '/autenticacao/recuperar-senha',
+        {
+          idUsuario: id,
+          nomeUsuario: nome,
+          email: email,
+          senha: senha,
+        },
+      );
+      console.log(respostaRecuperarSenha);
+      // setPopupSucess(true);
+      // setLoading(false);
+    } catch (error) {
+      console.log(error);
+    }
+    setLoading(false);
   };
 
   return (

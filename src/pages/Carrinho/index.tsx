@@ -9,6 +9,7 @@ const Carrinho = ({navigation}) => {
   const [valorTotal, setValorTotal] = useState('');
   const {listarProdutos, produtos, setProdutos, contarQuantidadeProdutos} =
     useContext(CarrinhoContext);
+  const [quantidade, setQuantidade] = useState(0);
 
   useEffect(() => {
     setProdutos(listarProdutos);
@@ -20,6 +21,7 @@ const Carrinho = ({navigation}) => {
       valor += res.preco_produto * res.quantidade;
     });
     setValorTotal((valor + 9).toFixed(2).replace('.', ','));
+    setQuantidade(contarQuantidadeProdutos());
   }, [produtos]);
 
   return (
@@ -46,9 +48,7 @@ const Carrinho = ({navigation}) => {
       <FlatList
         style={styles.flatListStyle}
         ListHeaderComponent={
-          <Text style={styles.subtitulo}>
-            {contarQuantidadeProdutos()} Items
-          </Text>
+          <Text style={styles.subtitulo}>{quantidade} Items</Text>
         }
         ListFooterComponent={
           <ValorCarrinho navigation={navigation} valorTotal={valorTotal} />
