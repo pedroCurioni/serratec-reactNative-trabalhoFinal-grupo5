@@ -18,22 +18,72 @@ import Favoritos from '../Favoritos';
 
 const DetalhesProduto = ({route, navigation}) => {
   const {res, pagOrigem} = route.params;
-  const [isFavorito, setFavorito] = useState(false);
+  const [favoritoImage, setFavoritoImage] = useState(<></>);
+  const [isFavorito, setIsFavorito] = useState(false);
   const {adicionarProduto, setProdutos, listarProdutos} =
     useContext(CarrinhoContext);
-  const {adicionarFavorito, setFavoritos, listarFavoritos, favoritos} =
-    useContext(FavoritosContext);
+  const {
+    adicionarFavorito,
+    setFavoritos,
+    listarFavoritos,
+    favoritos,
+    removerItemFavoritos,
+  } = useContext(FavoritosContext);
 
   useEffect(() => {
-    const contem = favoritos.forEach(
-      item => item.nome_produto === res.nomeProduto,
+    let contem = null;
+    favoritos.forEach(item =>
+      item.nomeProduto === res.nomeProduto ? (contem = item) : null,
     );
-    if (contem != null) {
-      setFavorito(false);
+    if (contem === null) {
+      setIsFavorito(false);
+      setFavoritoImage(
+        <Image
+          source={require('../../assets/coracaoVazio.png')}
+          style={styles.imageLogoff}
+        />,
+      );
     } else {
-      setFavorito(true);
+      setIsFavorito(true);
+      setFavoritoImage(
+        <Image
+          source={require('../../assets/coracaoCheio.png')}
+          style={styles.imageLogoff}
+        />,
+      );
     }
   }, [res]);
+
+  const handleAdicionarFavorito = () => {
+    if (isFavorito) {
+      console.log('Remover');
+      removerItemFavoritos(res.idProduto);
+      setFavoritos(listarFavoritos);
+      setIsFavorito(false);
+      setFavoritoImage(
+        <Image
+          source={require('../../assets/coracaoVazio.png')}
+          style={styles.imageLogoff}
+        />,
+      );
+    } else {
+      adicionarFavorito(
+        res.sku,
+        res.nomeProduto,
+        res.descricaoProduto,
+        res.precoProduto,
+        res.imagemProduto,
+      );
+      setFavoritos(listarFavoritos);
+      setIsFavorito(true);
+      setFavoritoImage(
+        <Image
+          source={require('../../assets/coracaoCheio.png')}
+          style={styles.imageLogoff}
+        />,
+      );
+    }
+  };
 
   const navigate = () => {
     navigation.navigate(pagOrigem);
@@ -79,29 +129,8 @@ const DetalhesProduto = ({route, navigation}) => {
               <Text style={styles.precoProduto}>R$ {res.precoProduto}</Text>
             </View>
             <View style={styles.boxInfoBaixo}>
-              <TouchableOpacity
-                onPress={() => {
-                  adicionarFavorito(
-                    res.sku,
-                    res.nomeProduto,
-                    res.descricaoProduto,
-                    res.precoProduto,
-                    res.imagemProduto,
-                  );
-                  setFavoritos(listarFavoritos);
-                  console.log(favoritos);
-                }}>
-                {isFavorito ? (
-                  <Image
-                    source={require('../../assets/coracaoCheio.png')}
-                    style={styles.imageLogoff}
-                  />
-                ) : (
-                  <Image
-                    source={require('../../assets/coracaoVazio.png')}
-                    style={styles.imageLogoff}
-                  />
-                )}
+              <TouchableOpacity onPress={() => handleAdicionarFavorito()}>
+                {favoritoImage}
               </TouchableOpacity>
               <TouchableOpacity
                 onPress={() => {
