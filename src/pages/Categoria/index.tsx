@@ -77,7 +77,7 @@ const Categoria = ({ route, navigation }) => {
       </View>
 
       {isLoadingRecentes ? (
-        <ActivityIndicator size="large" color="#fff" />
+        <ActivityIndicator size="large" color="#000" />
       ) : (
         <FlatList
           data={listaProdutosCategoria}

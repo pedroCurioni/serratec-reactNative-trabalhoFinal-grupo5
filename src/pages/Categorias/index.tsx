@@ -1,30 +1,32 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { Icon, Image } from 'react-native-elements';
-import { FlatList } from 'react-native-gesture-handler';
+import React, {useContext, useEffect, useState} from 'react';
+import {ActivityIndicator, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {Icon, Image} from 'react-native-elements';
+import {FlatList} from 'react-native-gesture-handler';
 import CardCategoria from '../../components/cardCategoria';
 import ButtonVoltarHome from '../../components/buttonVoltarHome';
-import { AxiosInstance } from '../../api/AxiosInstance';
-import { AuthContext } from '../../context/AuthContext';
-import { CategoriaType } from '../../models/CategoriaType';
+import {AxiosInstance} from '../../api/AxiosInstance';
+import {AuthContext} from '../../context/AuthContext';
+import {CategoriaType} from '../../models/CategoriaType';
 
-const Categorias = ({ route, navigation }) => {
-
+const Categorias = ({route, navigation}) => {
   const [categoria, setCategoria] = useState<CategoriaType[]>([]);
-  const { user } = useContext(AuthContext);
+  const {user} = useContext(AuthContext);
   const [isLoadingCategorias, setIsLoadingCategorias] = useState(true);
 
   const getDadosCategoria = async () => {
-    AxiosInstance.get(
-      '/categoria',
-      { headers: { "Authorization": `Bearer ${user.token}` } }
-    ).then(result => {
-      setCategoria(result.data);
-      setIsLoadingCategorias(false);
-    }).catch((error) => {
-      console.log("Erro ao carregtar a lista de categorias - " + JSON.stringify(error))
+    AxiosInstance.get('/categoria', {
+      headers: {Authorization: `Bearer ${user.token}`},
     })
-  }
+      .then(result => {
+        setCategoria(result.data);
+        setIsLoadingCategorias(false);
+      })
+      .catch(error => {
+        console.log(
+          'Erro ao carregtar a lista de categorias - ' + JSON.stringify(error),
+        );
+      });
+  };
 
   useEffect(() => {
     getDadosCategoria();
@@ -39,17 +41,27 @@ const Categorias = ({ route, navigation }) => {
           <Icon name="left" type="antdesign" size={25} color="#EE4249" />
         </TouchableOpacity>
         <Text style={styles.titulo}>Categorias</Text>
-        <TouchableOpacity style={styles.logoff} onPress={() => navigation.navigate('Login')}>
-          <Image source={require('../../assets/logout.png')} style={styles.imageLogoff} />
+        <TouchableOpacity
+          style={styles.logoff}
+          onPress={() => navigation.navigate('Login')}>
+          <Image
+            source={require('../../assets/logout.png')}
+            style={styles.imageLogoff}
+          />
         </TouchableOpacity>
       </View>
-      <FlatList
-        style={styles.flatListStyle}
-        data={categoria}
-        renderItem={res => (
-          <CardCategoria navigation={navigation} categoria={res.item} />
-        )}
-      />
+      {isLoadingCategorias ? (
+        <ActivityIndicator size="large" color="#000" />
+      ) : (
+        <FlatList
+          style={styles.flatListStyle}
+          data={categoria}
+          renderItem={res => (
+            <CardCategoria navigation={navigation} categoria={res.item} />
+          )}
+        />
+      )}
+
       <ButtonVoltarHome navigation={navigation} />
     </View>
   );
@@ -83,14 +95,12 @@ const styles = StyleSheet.create({
   flatListStyle: {
     padding: 20,
   },
-  logoff: {
-
-  },
+  logoff: {},
   imageLogoff: {
     width: 40,
     height: 40,
-    marginRight: 10
-  }
+    marginRight: 10,
+  },
 });
 
 export default Categorias;
