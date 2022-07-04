@@ -152,6 +152,8 @@ const DetalhesProduto = ({ route, navigation }) => {
                     res.imagemProduto,
                   );
                   setProdutos(listarProdutos);
+                  loadPopup();
+                  setMessagePopup(e => 'Produto adicionado com sucesso')
                 }}>
                 <Image
                   source={require('../../assets/botaoAdicionar.png')}
