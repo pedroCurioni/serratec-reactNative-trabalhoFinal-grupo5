@@ -49,7 +49,7 @@ const Carrinho = ({navigation}) => {
         style={styles.flatListStyle}
         ListHeaderComponent={
           <View>
-            {quantidade == 1 ? (
+            {quantidade <= 1 ? (
               <Text style={styles.subtitulo}>{quantidade} Item </Text>
             ) : (
               <Text style={styles.subtitulo}>{quantidade} Items </Text>
