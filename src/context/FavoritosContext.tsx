@@ -81,7 +81,11 @@ export function FavoritosProvider({children}) {
 
   const resetFavoritos = () => {
     realm_favoritos.write(() => {
-      realm_favoritos.deleteAll();
+      realm_favoritos.delete(
+        realm_favoritos
+          .objects('Favorito')
+          .filter(produto => produto.idUsuario == user.id),
+      );
     });
   };
 
