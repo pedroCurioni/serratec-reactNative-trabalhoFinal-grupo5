@@ -36,7 +36,6 @@ const ValorCarrinho = ({ navigation, valorTotal }) => {
           onPress={() => {
             resetCarrinho();
             navigation.navigate('PedidoFinalizado');
-            setProdutos(listarProdutos);
           }}
         />
       </View>

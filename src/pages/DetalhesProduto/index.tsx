@@ -74,18 +74,9 @@ const DetalhesProduto = ({route, navigation}) => {
     if (isFavorito) {
       if (pagOrigem === 'FavoritosTabScreen') {
         navigation.navigate(pagOrigem);
-        removerItemFavoritos(res.idProduto);
-        setFavoritos(listarFavoritos);
-        setIsFavorito(false);
-        setFavoritoImage(
-          <Image
-            source={require('../../assets/coracaoVazio.png')}
-            style={styles.imageLogoff}
-          />,
-        );
+        removerItemFavoritos(res.sku);
       } else {
-        removerItemFavoritos(res.idProduto);
-        setFavoritos(listarFavoritos);
+        removerItemFavoritos(res.sku);
         setIsFavorito(false);
         setFavoritoImage(
           <Image

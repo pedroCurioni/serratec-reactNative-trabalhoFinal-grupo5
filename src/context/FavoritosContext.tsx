@@ -67,13 +67,13 @@ export function FavoritosProvider({children}) {
     });
   };
 
-  const removerItemFavoritos = (_id: number) => {
+  const removerItemFavoritos = (_sku: string) => {
     realm_favoritos.write(() => {
       realm_favoritos.delete(
         realm_favoritos
           .objects('Favorito')
           .filter(
-            produto => produto.idProduto == _id && produto.idUsuario == user.id,
+            produto => produto.sku == _sku && produto.idUsuario == user.id,
           ),
       );
     });
