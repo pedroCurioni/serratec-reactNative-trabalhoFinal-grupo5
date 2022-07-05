@@ -1,5 +1,6 @@
-import React, {createContext, useState} from 'react';
+import React, {createContext, useContext, useState} from 'react';
 import Realm from 'realm';
+import { AuthContext } from './AuthContext';
 
 export const CarrinhoContext = createContext({});
 
@@ -8,6 +9,7 @@ ProdutoSchema.schema = {
   name: 'Produto',
   properties: {
     id_produto: {type: 'int', default: 0},
+    idUsuario: {type: 'int', default: 0},
     sku: 'string',
     nome_produto: 'string',
     descricao_produto: 'string',
@@ -25,13 +27,14 @@ let realm_carrinho = new Realm({
 
 export function CarrinhoProvider({children}) {
   const [produtos, setProdutos] = useState([]);
+  const {user} = useContext(AuthContext);
 
   const listarProdutos = () => {
-    return realm_carrinho.objects('Produto');
+    return realm_carrinho.objects('Produto').filter(produto => produto.idUsuario == user.id);
   };
 
   const contarQuantidadeProdutos = () => {
-    return realm_carrinho.objects('Produto').length;
+    return realm_carrinho.objects('Produto').filter(produto => produto.idUsuario == user.id).length;
   };
 
   const adicionarProduto = (
@@ -51,6 +54,7 @@ export function CarrinhoProvider({children}) {
     realm_carrinho.write(() => {
       const produto = realm_carrinho.create('Produto', {
         id_produto: proximoId,
+        idUsuario: user.id,
         sku: _sku,
         nome_produto: _nome,
         descricao_produto: _descricao,
@@ -66,7 +70,7 @@ export function CarrinhoProvider({children}) {
       realm_carrinho.delete(
         realm_carrinho
           .objects('Produto')
-          .filter(produto => produto.id_produto == _id),
+          .filter(produto => produto.id_produto == _id && produto.idUsuario == user.id,),
       );
     });
   };
@@ -75,7 +79,7 @@ export function CarrinhoProvider({children}) {
     realm_carrinho.write(() => {
       realm_carrinho
         .objects('Produto')
-        .filter(produto => produto.sku == _sku)
+        .filter(produto => produto.sku == _sku && produto.idUsuario == user.id,)
         .forEach(res => (res.quantidade += 1));
     });
   };
@@ -84,7 +88,7 @@ export function CarrinhoProvider({children}) {
     realm_carrinho.write(() => {
       realm_carrinho
         .objects('Produto')
-        .filter(produto => produto.sku == _sku)
+        .filter(produto => produto.sku == _sku && produto.idUsuario == user.id,)
         .forEach(res => (res.quantidade -= 1));
     });
   };

@@ -1,19 +1,20 @@
-import React, { createContext, useState } from 'react';
+import React, {createContext, useContext, useState} from 'react';
 import Realm from 'realm';
+import {AuthContext} from './AuthContext';
 
 export const FavoritosContext = createContext({});
 
-class FavoritosSchema extends Realm.Object { }
+class FavoritosSchema extends Realm.Object {}
 FavoritosSchema.schema = {
   name: 'Favorito',
   properties: {
-    idProduto: { type: 'int', default: 0 },
+    idProduto: {type: 'int', default: 0},
+    idUsuario: {type: 'int', default: 0},
     sku: 'string',
     nomeProduto: 'string',
     descricaoProduto: 'string',
     precoProduto: 'double',
     imagemProduto: 'string',
-    quantidade: { type: 'int', default: 1 },
   },
 };
 
@@ -23,11 +24,20 @@ let realm_favoritos = new Realm({
   path: 'ListaFavoritos',
 });
 
-export function FavoritosProvider({ children }) {
+export function FavoritosProvider({children}) {
   const [favoritos, setFavoritos] = useState([]);
+  const {user} = useContext(AuthContext);
 
   const listarFavoritos = () => {
-    return realm_favoritos.objects('Favorito');
+    return realm_favoritos
+      .objects('Favorito')
+      .filter(produto => produto.idUsuario == user.id);
+  };
+
+  const contarQuantidadeFavoritos = () => {
+    return realm_favoritos
+      .objects('Favorito')
+      .filter(produto => produto.idUsuario == user.id).length;
   };
 
   const adicionarFavorito = (
@@ -47,12 +57,12 @@ export function FavoritosProvider({ children }) {
     realm_favoritos.write(() => {
       const produto = realm_favoritos.create('Favorito', {
         idProduto: proximoId,
+        idUsuario: user.id,
         sku: _sku,
         nomeProduto: _nome,
         descricaoProduto: _descricao,
         precoProduto: _preco,
         imagemProduto: _imagem,
-        quantidade: 1,
       });
     });
   };
@@ -62,7 +72,9 @@ export function FavoritosProvider({ children }) {
       realm_favoritos.delete(
         realm_favoritos
           .objects('Favorito')
-          .filter(produto => produto.idProduto == _id),
+          .filter(
+            produto => produto.idProduto == _id && produto.idUsuario == user.id,
+          ),
       );
     });
   };
@@ -82,6 +94,7 @@ export function FavoritosProvider({ children }) {
         favoritos,
         setFavoritos,
         resetFavoritos,
+        contarQuantidadeFavoritos,
       }}>
       {children}
     </FavoritosContext.Provider>
