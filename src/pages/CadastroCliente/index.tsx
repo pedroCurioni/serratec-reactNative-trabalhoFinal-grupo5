@@ -21,10 +21,14 @@ const CadastroCliente = ({navigation}:any) => {
     return /[0-9]/.test(str)
   }
 
+  function emailRegex(str:string){
+      var re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      return re.test(email);
+  }
+
   function verificarCredenciais() {
     setTimeout(function() {
-      console.log(nome + '|' +  email + '|' + imagem + '|' + senha + '|' + confirmSenha)
-      if(nome === ''  || email === '' || imagem === '' || senha === '' || confirmSenha === '') {
+      if(nome === ''  || email === '' || senha === '' || confirmSenha === '') {
         setErrorMessage(e => 'Um de seus campos está vazio!')
         setPopupError(true)
         setLoading(false)
@@ -38,6 +42,14 @@ const CadastroCliente = ({navigation}:any) => {
         setLoading(false)
       } else if(senha != confirmSenha) {
         setErrorMessage(e => 'Suas senhas não coincidem!')
+        setPopupError(true)
+        setLoading(false)
+      } else if(emailRegex(email) === false) {
+        setErrorMessage(e => 'Seu email é inválido!')
+        setPopupError(true)
+        setLoading(false)
+      } else if(imagem.length != 0 && imagem.substring(0, 19) != 'https://i.imgur.com') {
+        setErrorMessage(e => 'Insira um link do Imgur ou deixe vazio!')
         setPopupError(true)
         setLoading(false)
       } else {
