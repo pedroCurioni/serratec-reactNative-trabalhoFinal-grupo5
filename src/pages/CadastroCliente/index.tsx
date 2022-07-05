@@ -49,7 +49,6 @@ const CadastroCliente = ({navigation}:any) => {
         setPopupError(true)
         setLoading(false)
       } else if(imagem.length != 0 && imagem.substring(0, 19) != 'https://i.imgur.com') {
-        console.log(imagem.substring(0, 19))
         setErrorMessage(e => 'Insira um link do Imgur ou deixe vazio!')
         setPopupError(true)
         setLoading(false)
