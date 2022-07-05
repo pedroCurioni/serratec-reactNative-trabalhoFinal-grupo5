@@ -63,8 +63,9 @@ export const BottomTabNavigator = () => {
         component={Carrinho}
         options={{
           tabBarLabel: 'Carrinho',
+          tabBarBadge: contarQuantidadeProdutos(),
           tabBarIcon: ({focused}) => (
-            <BadgeIcone
+            <Icon
               name="cart"
               color={focused ? '#e05456' : '#bab8b8'}
               type="material-community"
