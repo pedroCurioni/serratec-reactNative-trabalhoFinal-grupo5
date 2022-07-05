@@ -66,9 +66,11 @@ const Produtos = ({ navigation }) => {
   };
 
   const loadApi = async () => {
-    if (loading) return;
-    setLoading(true);
-    getDadosProduto();
+    if (search == '') {
+      if (loading) return;
+      setLoading(true);
+      getDadosProduto();
+    }
   };
 
   useEffect(() => {
