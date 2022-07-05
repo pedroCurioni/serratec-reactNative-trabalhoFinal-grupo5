@@ -45,27 +45,33 @@ const Carrinho = ({navigation}) => {
           />
         </TouchableOpacity>
       </View>
-      <FlatList
-        style={styles.flatListStyle}
-        ListHeaderComponent={
-          <View>
-            {quantidade <= 1 ? (
-              <Text style={styles.subtitulo}>{quantidade} Item </Text>
-            ) : (
-              <Text style={styles.subtitulo}>{quantidade} Items </Text>
-            )}
-          </View>
-        }
-        ListFooterComponent={
-          <ValorCarrinho navigation={navigation} valorTotal={valorTotal} />
-        }
-        data={produtos}
-        renderItem={({item}) => (
-          <CardCarrinho navigation={navigation} produto={item} />
-        )}
-        ItemSeparatorComponent={Divider}
-        extraData={produtos}
-      />
+      {quantidade == 0 ? (
+        <View>
+          <Text>Seu carrinho esta vazio</Text>
+        </View>
+      ) : (
+        <FlatList
+          style={styles.flatListStyle}
+          ListHeaderComponent={
+            <View>
+              {quantidade <= 1 ? (
+                <Text style={styles.subtitulo}>{quantidade} Item </Text>
+              ) : (
+                <Text style={styles.subtitulo}>{quantidade} Items </Text>
+              )}
+            </View>
+          }
+          ListFooterComponent={
+            <ValorCarrinho navigation={navigation} valorTotal={valorTotal} />
+          }
+          data={produtos}
+          renderItem={({item}) => (
+            <CardCarrinho navigation={navigation} produto={item} />
+          )}
+          ItemSeparatorComponent={Divider}
+          extraData={produtos}
+        />
+      )}
     </View>
   );
 };
