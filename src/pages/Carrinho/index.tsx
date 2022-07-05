@@ -1,3 +1,4 @@
+import {useFocusEffect} from '@react-navigation/native';
 import React, {useContext, useEffect, useState} from 'react';
 import {View, StyleSheet, TouchableOpacity, FlatList} from 'react-native';
 import {Divider, Image, Text} from 'react-native-elements';
@@ -11,9 +12,11 @@ const Carrinho = ({navigation}) => {
     useContext(CarrinhoContext);
   let [quantidade, setQuantidade] = useState(0);
 
-  useEffect(() => {
-    setProdutos(listarProdutos);
-  }, []);
+  useFocusEffect(
+    React.useCallback(() => {
+      setProdutos(listarProdutos);
+    }, []),
+  );
 
   useEffect(() => {
     let valor = 0;
@@ -22,6 +25,9 @@ const Carrinho = ({navigation}) => {
     });
     setValorTotal((valor + 9).toFixed(2).replace('.', ','));
     setQuantidade(contarQuantidadeProdutos());
+    if (contarQuantidadeProdutos() == 0) {
+      navigation.navigate('CarrinhoVazio');
+    }
   }, [produtos]);
 
   return (
@@ -46,9 +52,7 @@ const Carrinho = ({navigation}) => {
         </TouchableOpacity>
       </View>
       {quantidade == 0 ? (
-        <View>
-          <Text>Seu carrinho esta vazio</Text>
-        </View>
+        <View></View>
       ) : (
         <FlatList
           style={styles.flatListStyle}

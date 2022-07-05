@@ -12,6 +12,7 @@ import CardProduto from '../../components/CardProduto';
 import Icon from 'react-native-vector-icons/AntDesign';
 import {FavoritosContext} from '../../context/FavoritosContext';
 import CardFavorito from '../../components/CardFavorito';
+import { useFocusEffect } from '@react-navigation/native';
 
 const Favoritos = ({navigation}) => {
   const [isPopup, setPopup] = useState(false);
@@ -31,12 +32,18 @@ const Favoritos = ({navigation}) => {
       setPopup(false);
     }, 1500);
   }
-  useEffect(() => {
-    setFavoritos(listarFavoritos());
-  }, []);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      setFavoritos(listarFavoritos());
+    }, []),
+  );
 
   useEffect(() => {
     setQuantidade(contarQuantidadeFavoritos());
+    if(contarQuantidadeFavoritos() == 0){
+        navigation.navigate('FavoritosVazio');
+    }
   }, [favoritos]);
 
   const numColums = 3;
@@ -64,7 +71,6 @@ const Favoritos = ({navigation}) => {
       </View>
       {quantidade <= 0 ? (
         <View>
-          <Text>Não há items em seus favoritos</Text>
         </View>
       ) : (
         <View>
