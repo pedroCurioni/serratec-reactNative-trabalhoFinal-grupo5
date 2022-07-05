@@ -9,7 +9,7 @@ const Carrinho = ({navigation}) => {
   const [valorTotal, setValorTotal] = useState('');
   const {listarProdutos, produtos, setProdutos, contarQuantidadeProdutos} =
     useContext(CarrinhoContext);
-  const [quantidade, setQuantidade] = useState(0);
+  let [quantidade, setQuantidade] = useState(0);
 
   useEffect(() => {
     setProdutos(listarProdutos);
@@ -48,7 +48,13 @@ const Carrinho = ({navigation}) => {
       <FlatList
         style={styles.flatListStyle}
         ListHeaderComponent={
-          <Text style={styles.subtitulo}>{quantidade} Items</Text>
+          <View>
+            {quantidade == 1 ? (
+              <Text style={styles.subtitulo}>{quantidade} Item </Text>
+            ) : (
+              <Text style={styles.subtitulo}>{quantidade} Items </Text>
+            )}
+          </View>
         }
         ListFooterComponent={
           <ValorCarrinho navigation={navigation} valorTotal={valorTotal} />
