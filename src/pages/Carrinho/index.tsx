@@ -1,3 +1,4 @@
+import {useFocusEffect} from '@react-navigation/native';
 import React, {useContext, useEffect, useState} from 'react';
 import {View, StyleSheet, TouchableOpacity, FlatList} from 'react-native';
 import {Divider, Image, Text} from 'react-native-elements';
@@ -9,11 +10,13 @@ const Carrinho = ({navigation}) => {
   const [valorTotal, setValorTotal] = useState('');
   const {listarProdutos, produtos, setProdutos, contarQuantidadeProdutos} =
     useContext(CarrinhoContext);
-  const [quantidade, setQuantidade] = useState(0);
+  let [quantidade, setQuantidade] = useState(0);
 
-  useEffect(() => {
-    setProdutos(listarProdutos);
-  }, []);
+  useFocusEffect(
+    React.useCallback(() => {
+      setProdutos(listarProdutos);
+    }, []),
+  );
 
   useEffect(() => {
     let valor = 0;
@@ -22,6 +25,9 @@ const Carrinho = ({navigation}) => {
     });
     setValorTotal((valor + 9).toFixed(2).replace('.', ','));
     setQuantidade(contarQuantidadeProdutos());
+    if (contarQuantidadeProdutos() == 0) {
+      navigation.navigate('CarrinhoVazio');
+    }
   }, [produtos]);
 
   return (
@@ -45,21 +51,31 @@ const Carrinho = ({navigation}) => {
           />
         </TouchableOpacity>
       </View>
-      <FlatList
-        style={styles.flatListStyle}
-        ListHeaderComponent={
-          <Text style={styles.subtitulo}>{quantidade} Items</Text>
-        }
-        ListFooterComponent={
-          <ValorCarrinho navigation={navigation} valorTotal={valorTotal} />
-        }
-        data={produtos}
-        renderItem={({item}) => (
-          <CardCarrinho navigation={navigation} produto={item} />
-        )}
-        ItemSeparatorComponent={Divider}
-        extraData={produtos}
-      />
+      {quantidade == 0 ? (
+        <View></View>
+      ) : (
+        <FlatList
+          style={styles.flatListStyle}
+          ListHeaderComponent={
+            <View>
+              {quantidade <= 1 ? (
+                <Text style={styles.subtitulo}>{quantidade} Item </Text>
+              ) : (
+                <Text style={styles.subtitulo}>{quantidade} Items </Text>
+              )}
+            </View>
+          }
+          ListFooterComponent={
+            <ValorCarrinho navigation={navigation} valorTotal={valorTotal} />
+          }
+          data={produtos}
+          renderItem={({item}) => (
+            <CardCarrinho navigation={navigation} produto={item} />
+          )}
+          ItemSeparatorComponent={Divider}
+          extraData={produtos}
+        />
+      )}
     </View>
   );
 };

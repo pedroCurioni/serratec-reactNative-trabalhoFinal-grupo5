@@ -1,33 +1,50 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {
   View,
   StyleSheet,
   FlatList,
   TouchableOpacity,
   Image,
-  Modal
+  Modal,
 } from 'react-native';
-import { Button, Text } from 'react-native-elements';
+import {Button, Text} from 'react-native-elements';
 import CardProduto from '../../components/CardProduto';
 import Icon from 'react-native-vector-icons/AntDesign';
-import { FavoritosContext } from '../../context/FavoritosContext';
+import {FavoritosContext} from '../../context/FavoritosContext';
 import CardFavorito from '../../components/CardFavorito';
+import { useFocusEffect } from '@react-navigation/native';
 
-const Favoritos = ({ navigation }) => {
-  const [isPopup, setPopup] = useState(false)
-  const [messagePopup, setMessagePopup] = useState('')
-  const { setFavoritos, listarFavoritos, favoritos, resetFavoritos } =
-    useContext(FavoritosContext);
+const Favoritos = ({navigation}) => {
+  const [isPopup, setPopup] = useState(false);
+  const [messagePopup, setMessagePopup] = useState('');
+  const {
+    setFavoritos,
+    listarFavoritos,
+    favoritos,
+    resetFavoritos,
+    contarQuantidadeFavoritos,
+  } = useContext(FavoritosContext);
+  let [quantidade, setQuantidade] = useState(0);
 
   function loadPopup() {
-    setPopup(true)
-    setTimeout(function() {
-      setPopup(false)
-    },1500)
+    setPopup(true);
+    setTimeout(function () {
+      setPopup(false);
+    }, 1500);
   }
+
+  useFocusEffect(
+    React.useCallback(() => {
+      setFavoritos(listarFavoritos());
+    }, []),
+  );
+
   useEffect(() => {
-    setFavoritos(listarFavoritos());
-  }, []);
+    setQuantidade(contarQuantidadeFavoritos());
+    if(contarQuantidadeFavoritos() == 0){
+        navigation.navigate('FavoritosVazio');
+    }
+  }, [favoritos]);
 
   const numColums = 3;
 
@@ -52,34 +69,42 @@ const Favoritos = ({ navigation }) => {
           />
         </TouchableOpacity>
       </View>
-      <FlatList
-        data={favoritos}
-        extraData={favoritos}
-        contentContainerStyle={{ paddingTop: 30, alignItems: 'center' }}
-        numColumns={numColums}
-        renderItem={({ item }) => (
-          <TouchableOpacity
-            onPress={() =>
-              navigation.navigate('DetalhesProduto', {
-                res: item,
-                pagOrigem: 'FavoritosTabScreen',
-              })
-            }>
-            <CardProduto produto={item} />
-          </TouchableOpacity>
-        )}
-      />
-      <Button
-        buttonStyle={styles.button}
-        title="Limpar Favoritos"
-        titleStyle={styles.buttonTitle}
-        onPress={() => {
-          resetFavoritos();
-          setFavoritos(listarFavoritos);
-          loadPopup();
-          setMessagePopup(e => 'Lista de favoritos reiniciada!')
-        }}
-      />
+      {quantidade <= 0 ? (
+        <View>
+        </View>
+      ) : (
+        <View>
+          <FlatList
+            data={favoritos}
+            extraData={favoritos}
+            contentContainerStyle={{paddingTop: 30, alignItems: 'center'}}
+            numColumns={numColums}
+            renderItem={({item}) => (
+              <TouchableOpacity
+                onPress={() =>
+                  navigation.navigate('DetalhesProduto', {
+                    res: item,
+                    pagOrigem: 'FavoritosTabScreen',
+                  })
+                }>
+                <CardProduto produto={item} />
+              </TouchableOpacity>
+            )}
+          />
+          <Button
+            buttonStyle={styles.button}
+            title="Limpar Favoritos"
+            titleStyle={styles.buttonTitle}
+            onPress={() => {
+              resetFavoritos();
+              setFavoritos(listarFavoritos);
+              loadPopup();
+              setMessagePopup(e => 'Lista de favoritos reiniciada!');
+            }}
+          />
+        </View>
+      )}
+
       <Modal
         animationType={'slide'}
         transparent={true}
@@ -130,22 +155,22 @@ export const styles = StyleSheet.create({
   },
   modal: {
     marginTop: 500,
-    backgroundColor: "white",
+    backgroundColor: 'white',
     borderRadius: 20,
     marginHorizontal: 40,
     paddingVertical: 7,
     padding: 35,
     borderWidth: 1,
     borderColor: '#EE4249',
-    alignItems: "center",
-    shadowColor: "#000",
+    alignItems: 'center',
+    shadowColor: '#000',
     shadowOffset: {
       width: 0,
-      height: 2
+      height: 2,
     },
     shadowOpacity: 0.25,
     shadowRadius: 4,
-    elevation: 5
+    elevation: 5,
   },
 });
 
