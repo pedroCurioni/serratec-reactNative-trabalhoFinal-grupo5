@@ -4,15 +4,16 @@ import {Icon, Text} from 'react-native-elements';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import {CarrinhoContext} from '../../context/CarrinhoContext';
 
-const CardCarrinho = ({produto}) => {
-  const [isPopup, setPopup] = useState(false)
-  const [messagePopup, setMessagePopup] = useState('')
+const CardCarrinho = ({produto, navigation}) => {
+  const [isPopup, setPopup] = useState(false);
+  const [messagePopup, setMessagePopup] = useState('');
   const {
     removerItemCarrinho,
     listarProdutos,
     aumentarQuantidade,
     diminuirQuantidade,
     setProdutos,
+    contarQuantidadeProdutos,
   } = useContext(CarrinhoContext);
 
   const handleAdicionarQuantidade = () => {
@@ -24,6 +25,9 @@ const CardCarrinho = ({produto}) => {
     if (produto.quantidade == 1) {
       removerItemCarrinho(produto.id_produto);
       setProdutos(listarProdutos);
+      if (contarQuantidadeProdutos() == 0) {
+        navigation.navigate('CarrinhoVazio');
+      }
     } else {
       diminuirQuantidade(produto.sku);
       setProdutos(listarProdutos);
@@ -31,10 +35,10 @@ const CardCarrinho = ({produto}) => {
   };
 
   function loadPopup() {
-    setPopup(true)
-    setTimeout(function() {
-      setPopup(false)
-    },1500)
+    setPopup(true);
+    setTimeout(function () {
+      setPopup(false);
+    }, 1500);
   }
 
   return (
@@ -68,9 +72,10 @@ const CardCarrinho = ({produto}) => {
               name="delete"
               size={22}
               color="#EE4249"
-              onPress={() => {handleDiminuirQuantidade();
-              loadPopup();
-              setMessagePopup(e => 'Item removido!')
+              onPress={() => {
+                handleDiminuirQuantidade();
+                loadPopup();
+                setMessagePopup(e => 'Item removido!');
               }}
             />
           )}
@@ -140,22 +145,22 @@ export const styles = StyleSheet.create({
   },
   modal: {
     marginTop: 550,
-    backgroundColor: "white",
+    backgroundColor: 'white',
     borderRadius: 20,
     marginHorizontal: 40,
     paddingVertical: 7,
     padding: 35,
     borderWidth: 1,
     borderColor: '#EE4249',
-    alignItems: "center",
-    shadowColor: "#000",
+    alignItems: 'center',
+    shadowColor: '#000',
     shadowOffset: {
       width: 0,
-      height: 2
+      height: 2,
     },
     shadowOpacity: 0.25,
     shadowRadius: 4,
-    elevation: 5
+    elevation: 5,
   },
 });
 
