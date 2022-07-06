@@ -15,6 +15,10 @@ const Carrinho = ({navigation}) => {
   useFocusEffect(
     React.useCallback(() => {
       setProdutos(listarProdutos);
+      setQuantidade(contarQuantidadeProdutos());
+      if (contarQuantidadeProdutos() == 0) {
+        navigation.navigate('CarrinhoVazio');
+      }
     }, []),
   );
 
@@ -25,9 +29,6 @@ const Carrinho = ({navigation}) => {
     });
     setValorTotal((valor + 9).toFixed(2).replace('.', ','));
     setQuantidade(contarQuantidadeProdutos());
-    if (contarQuantidadeProdutos() == 0) {
-      navigation.navigate('CarrinhoVazio');
-    }
   }, [produtos]);
 
   return (

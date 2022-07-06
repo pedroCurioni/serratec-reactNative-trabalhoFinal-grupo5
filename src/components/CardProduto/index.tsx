@@ -1,5 +1,13 @@
+import {useFocusEffect} from '@react-navigation/native';
 import React, {useContext, useEffect, useState} from 'react';
-import {View, Text, StyleSheet, Image, TouchableOpacity, Modal} from 'react-native';
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  TouchableOpacity,
+  Modal,
+} from 'react-native';
 import Icon from 'react-native-vector-icons/AntDesign';
 import {CarrinhoContext} from '../../context/CarrinhoContext';
 
@@ -14,6 +22,20 @@ const CardProduto = ({produto}) => {
   const [isCarrinho, setIsCarrinho] = useState(false);
   const [isPopup, setPopup] = useState(false);
   const [messagePopup, setMessagePopup] = useState('');
+
+  useFocusEffect(
+    React.useCallback(() => {
+      if (listarProdutos !== 0) {
+        let contemCarrinho = null;
+        produtos.forEach(item =>
+          item.sku === produto.sku ? (contemCarrinho = item) : null,
+        );
+        if (contemCarrinho !== null) {
+          setIsCarrinho(true);
+        }
+      }
+    }, []),
+  );
 
   const handleAdicionarCarrinho = () => {
     if (isCarrinho) {

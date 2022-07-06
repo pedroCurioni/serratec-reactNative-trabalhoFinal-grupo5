@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, {useState, useEffect, useContext} from 'react';
 import {
   View,
   StyleSheet,
@@ -7,27 +7,36 @@ import {
   Image,
   ActivityIndicator,
 } from 'react-native';
-import { Text, Input, Icon, Button } from 'react-native-elements';
+import {Text, Input, Icon, Button} from 'react-native-elements';
 import CardProduto from '../../components/CardProduto';
 import Icon2 from 'react-native-vector-icons/AntDesign';
 import ButtonVoltarHome from '../../components/buttonVoltarHome';
-import { AxiosInstance } from '../../api/AxiosInstance';
-import { AuthContext } from '../../context/AuthContext';
-import { ProdutoType } from '../../models/ProdutoType';
+import {AxiosInstance} from '../../api/AxiosInstance';
+import {AuthContext} from '../../context/AuthContext';
+import {ProdutoType} from '../../models/ProdutoType';
+import {useFocusEffect} from '@react-navigation/native';
+import {CarrinhoContext} from '../../context/CarrinhoContext';
 
-const Produtos = ({ navigation }) => {
+const Produtos = ({navigation}) => {
   const numColums = 3;
   const [produto, setProduto] = useState<ProdutoType[]>([]);
   const [pagina, setPagina] = useState(0);
   const quantidade = 9;
   const [search, setSearch] = useState('');
-  const { user } = useContext(AuthContext);
+  const {user} = useContext(AuthContext);
   const [loading, setLoading] = useState(false);
   const [fimLista, setFimLista] = useState(false);
+  const {setProdutos, listarProdutos} = useContext(CarrinhoContext);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      setProdutos(listarProdutos());
+    }, []),
+  );
 
   const getDadosProduto = async () => {
     AxiosInstance.get(`/produto?pagina=${pagina}&qtdRegistros=${quantidade}`, {
-      headers: { Authorization: `Bearer ${user.token}` },
+      headers: {Authorization: `Bearer ${user.token}`},
     })
       .then(result => {
         setProduto(result.data);
@@ -45,7 +54,7 @@ const Produtos = ({ navigation }) => {
 
   const getDadosProdutoBusca = async () => {
     AxiosInstance.get(`/produto/busca?keyword=${search}`, {
-      headers: { Authorization: `Bearer ${user.token}` },
+      headers: {Authorization: `Bearer ${user.token}`},
     })
       .then(result => {
         setProduto(result.data);
@@ -128,13 +137,13 @@ const Produtos = ({ navigation }) => {
         />
       </View>
       {loading && !fimLista ? (
-        <ActivityIndicator size="large" color="#000" style={{ flex: 1 }} />
+        <ActivityIndicator size="large" color="#000" style={{flex: 1}} />
       ) : (
         <FlatList
           data={produto}
-          contentContainerStyle={{ alignItems: 'center', paddingBottom: 150 }}
+          contentContainerStyle={{alignItems: 'center', paddingBottom: 150}}
           numColumns={numColums}
-          renderItem={({ item }) => (
+          renderItem={({item}) => (
             <TouchableOpacity
               onPress={() =>
                 navigation.navigate('DetalhesProduto', {
