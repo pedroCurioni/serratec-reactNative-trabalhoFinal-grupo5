@@ -5,8 +5,10 @@ import {AuthProvider} from './context/AuthContext';
 import {CarrinhoProvider} from './context/CarrinhoContext';
 import CategoriaProvider from './context/CategoriaContext';
 import {FavoritosProvider} from './context/FavoritosContext';
+import { LogBox } from 'react-native';
 
 export default () => {
+  LogBox.ignoreAllLogs();
   return (
     <AuthProvider>
       <CarrinhoProvider>
