@@ -15,16 +15,6 @@ const CardProduto = ({produto}) => {
   const [isPopup, setPopup] = useState(false);
   const [messagePopup, setMessagePopup] = useState('');
 
-  useEffect(() => {
-    let contemCarrinho = null;
-    produtos.forEach(item =>
-      item.sku === produto.sku ? (contemCarrinho = item) : null,
-    );
-    if (contemCarrinho !== null) {
-      setIsCarrinho(true);
-    }
-  }, [produto]);
-
   const handleAdicionarCarrinho = () => {
     if (isCarrinho) {
       aumentarQuantidade(produto.sku);

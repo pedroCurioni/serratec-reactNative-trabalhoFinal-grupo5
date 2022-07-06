@@ -39,7 +39,7 @@ const RecuperarSenha = ({navigation}: any) => {
         setErrorMessage('Um de seus campos está vazio!');
         setPopupError(true);
         setLoading(false);
-      } else if (nomeNumRegex(id)) {
+      } else if (!nomeNumRegex(id)) {
         setErrorMessage('Seu id deve conter somente numeros!');
         setPopupError(true);
         setLoading(false);
@@ -161,7 +161,7 @@ const RecuperarSenha = ({navigation}: any) => {
         onRequestClose={() => setPopupError(false)}>
         <View style={styles.boxModal}>
           <View style={styles.modal}>
-            <Text style={styles.tituloPopup}>Erro ao se registrar</Text>
+            <Text style={styles.tituloPopup}>Erro ao se alterar senha</Text>
             <Text style={styles.subTitlePopup}>{errorMessage}</Text>
             <Button
               title="Voltar"
@@ -182,7 +182,7 @@ const RecuperarSenha = ({navigation}: any) => {
         onRequestClose={() => setPopupSucess(false)}>
         <View style={styles.boxModal}>
           <View style={styles.modal}>
-            <Text style={styles.tituloPopup}>Sucesso ao se registrar</Text>
+            <Text style={styles.tituloPopup}>Sucesso ao alterar senha</Text>
             <Icon
               name="check"
               style={{paddingTop: 20}}
