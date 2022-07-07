@@ -16,6 +16,7 @@ import {AuthContext} from '../../context/AuthContext';
 import {ProdutoType} from '../../models/ProdutoType';
 import {useFocusEffect} from '@react-navigation/native';
 import {CarrinhoContext} from '../../context/CarrinhoContext';
+import { FavoritosContext } from '../../context/FavoritosContext';
 
 const Produtos = ({navigation}) => {
   const numColums = 3;
@@ -27,10 +28,12 @@ const Produtos = ({navigation}) => {
   const [loading, setLoading] = useState(false);
   const [fimLista, setFimLista] = useState(false);
   const {setProdutos, listarProdutos} = useContext(CarrinhoContext);
+  const {setFavoritos, listarFavoritos} = useContext(FavoritosContext);
 
   useFocusEffect(
     React.useCallback(() => {
       setProdutos(listarProdutos());
+      setFavoritos(listarFavoritos());
     }, []),
   );
 
