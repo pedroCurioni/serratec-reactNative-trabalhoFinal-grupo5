@@ -7,7 +7,7 @@ const ListaProdutosFim = ({ navigation }) => {
     <View style={styles.container}>
       <View style={styles.circleContainer}>
         <Icon
-          name="alert"
+          name="audio-input-xlr"
           color="#e05456"
           type="material-community"
           size={100}

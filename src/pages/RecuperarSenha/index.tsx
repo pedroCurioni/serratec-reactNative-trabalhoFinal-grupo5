@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import {
   ActivityIndicator,
   StyleSheet,
@@ -6,12 +6,12 @@ import {
   TouchableOpacity,
   Modal,
 } from 'react-native';
-import {Button, Input, Text} from 'react-native-elements';
-import {combineTransition} from 'react-native-reanimated';
+import { Button, Input, Text } from 'react-native-elements';
+import { combineTransition } from 'react-native-reanimated';
 import Icon from 'react-native-vector-icons/AntDesign';
-import {AxiosInstance} from '../../api/AxiosInstance';
+import { AxiosInstance } from '../../api/AxiosInstance';
 
-const RecuperarSenha = ({navigation}: any) => {
+const RecuperarSenha = ({ navigation }: any) => {
   const [id, setId] = useState('');
   const [nome, setNome] = useState('');
   const [email, setEmail] = useState('');
@@ -140,13 +140,13 @@ const RecuperarSenha = ({navigation}: any) => {
             loading
             buttonStyle={styles.button}
             titleStyle={styles.buttonTitle}
-            title="Cadastrar"
+            title="Alterar Senha"
           />
         ) : (
           <Button
             buttonStyle={styles.button}
             titleStyle={styles.buttonTitle}
-            title="Cadastrar"
+            title="Alterar Senha"
             onPress={() => {
               setLoading(true);
               verificarCredenciais();
@@ -185,7 +185,7 @@ const RecuperarSenha = ({navigation}: any) => {
             <Text style={styles.tituloPopup}>Sucesso ao alterar senha</Text>
             <Icon
               name="check"
-              style={{paddingTop: 20}}
+              style={{ paddingTop: 20 }}
               size={40}
               color="#EE4249"
             />
