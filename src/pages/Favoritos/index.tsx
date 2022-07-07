@@ -12,7 +12,8 @@ import CardProduto from '../../components/CardProduto';
 import Icon from 'react-native-vector-icons/AntDesign';
 import {FavoritosContext} from '../../context/FavoritosContext';
 import CardFavorito from '../../components/CardFavorito';
-import { useFocusEffect } from '@react-navigation/native';
+import {useFocusEffect} from '@react-navigation/native';
+import {CarrinhoContext} from '../../context/CarrinhoContext';
 
 const Favoritos = ({navigation}) => {
   const [isPopup, setPopup] = useState(false);
@@ -24,6 +25,7 @@ const Favoritos = ({navigation}) => {
     resetFavoritos,
     contarQuantidadeFavoritos,
   } = useContext(FavoritosContext);
+  const {listarProdutos, setProdutos} = useContext(CarrinhoContext);
   let [quantidade, setQuantidade] = useState(0);
 
   function loadPopup() {
@@ -35,16 +37,14 @@ const Favoritos = ({navigation}) => {
 
   useFocusEffect(
     React.useCallback(() => {
+      setProdutos(listarProdutos());
       setFavoritos(listarFavoritos());
+      setQuantidade(contarQuantidadeFavoritos());
+      if (contarQuantidadeFavoritos() == 0) {
+        navigation.navigate('FavoritosVazio');
+      }
     }, []),
   );
-
-  useEffect(() => {
-    setQuantidade(contarQuantidadeFavoritos());
-    if(contarQuantidadeFavoritos() == 0){
-        navigation.navigate('FavoritosVazio');
-    }
-  }, [favoritos]);
 
   const numColums = 3;
 
@@ -70,8 +70,7 @@ const Favoritos = ({navigation}) => {
         </TouchableOpacity>
       </View>
       {quantidade <= 0 ? (
-        <View>
-        </View>
+        <View></View>
       ) : (
         <View>
           <FlatList
@@ -97,6 +96,9 @@ const Favoritos = ({navigation}) => {
             titleStyle={styles.buttonTitle}
             onPress={() => {
               resetFavoritos();
+              if (contarQuantidadeFavoritos() == 0) {
+                navigation.navigate('FavoritosVazio');
+              }
               setFavoritos(listarFavoritos);
               loadPopup();
               setMessagePopup(e => 'Lista de favoritos reiniciada!');

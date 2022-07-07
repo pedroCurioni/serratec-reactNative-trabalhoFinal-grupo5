@@ -25,7 +25,7 @@ const CardProduto = ({produto}) => {
 
   useFocusEffect(
     React.useCallback(() => {
-      if (listarProdutos !== 0) {
+      if (listarProdutos() !== 0) {
         let contemCarrinho = null;
         produtos.forEach(item =>
           item.sku === produto.sku ? (contemCarrinho = item) : null,

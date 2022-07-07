@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, {useContext, useEffect, useState} from 'react';
 import {
   View,
   StyleSheet,
@@ -7,19 +7,20 @@ import {
   Image,
   Modal,
 } from 'react-native';
-import { Text } from 'react-native-elements';
+import {Text} from 'react-native-elements';
 import IconMat from 'react-native-vector-icons/MaterialIcons';
 import CardsFavoritos from '../../components/CardProduto';
 import Icon from 'react-native-vector-icons/AntDesign';
 import ButtonVoltarHome from '../../components/buttonVoltarHome';
-import { CarrinhoContext } from '../../context/CarrinhoContext';
+import {CarrinhoContext} from '../../context/CarrinhoContext';
 import Produtos from '../Produtos';
-import { FavoritosContext } from '../../context/FavoritosContext';
+import {FavoritosContext} from '../../context/FavoritosContext';
 import Favoritos from '../Favoritos';
+import { useFocusEffect } from '@react-navigation/native';
 
-const DetalhesProduto = ({ route, navigation }) => {
+const DetalhesProduto = ({route, navigation}) => {
   const [isPopup, setPopup] = useState(false);
-  const { res, pagOrigem } = route.params;
+  const {res, pagOrigem} = route.params;
   const [favoritoImage, setFavoritoImage] = useState(<></>);
   const [isFavorito, setIsFavorito] = useState(false);
   const [isCarrinho, setIsCarrinho] = useState(false);
@@ -38,6 +39,12 @@ const DetalhesProduto = ({ route, navigation }) => {
     favoritos,
     removerItemFavoritos,
   } = useContext(FavoritosContext);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      setFavoritos(listarFavoritos());
+    }, []),
+  );
 
   useEffect(() => {
     let contemFavorito = null;
@@ -75,6 +82,7 @@ const DetalhesProduto = ({ route, navigation }) => {
       if (pagOrigem === 'FavoritosTabScreen') {
         navigation.navigate(pagOrigem);
         removerItemFavoritos(res.sku);
+        setFavoritos(listarFavoritos());
       } else {
         removerItemFavoritos(res.sku);
         setIsFavorito(false);
@@ -153,7 +161,7 @@ const DetalhesProduto = ({ route, navigation }) => {
         <View style={styles.boxConteudo}>
           <View style={styles.boxImagem}>
             <Image
-              style={{ width: 175, height: 175 }}
+              style={{width: 175, height: 175}}
               source={{
                 uri: res.imagemProduto,
               }}
@@ -167,7 +175,9 @@ const DetalhesProduto = ({ route, navigation }) => {
                   {res.descricaoProduto}
                 </Text>
               </View>
-              <Text style={styles.precoProduto}>R$ {parseFloat(res.precoProduto).toFixed(2).replace('.', ',')}</Text>
+              <Text style={styles.precoProduto}>
+                R$ {parseFloat(res.precoProduto).toFixed(2).replace('.', ',')}
+              </Text>
             </View>
             <View style={styles.boxInfoBaixo}>
               <TouchableOpacity
@@ -186,8 +196,8 @@ const DetalhesProduto = ({ route, navigation }) => {
                   loadPopup();
                   isCarrinho
                     ? setMessagePopup(
-                      e => 'Adicionando mais uma unidade ao seu carrinho',
-                    )
+                        e => 'Adicionando mais uma unidade ao seu carrinho',
+                      )
                     : setMessagePopup(e => 'Produto adicionado com sucesso');
                   setIsCarrinho(true);
                 }}>
